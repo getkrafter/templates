@@ -1,0 +1,84 @@
+# Pull-request gate (fact-24): every template folder a PR touches must pass
+# `krafter-template check` — the validator plus the publishable rules
+# (`preview-missing`, `preview-stale`, `license-missing`, `partial-unused`).
+#
+# Read-only on purpose. catalog.json's `commit` field is written after merge, by
+# .github/workflows/catalog.yml, which is the only job with write permissions.
+name: check
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  templates:
+    runs-on: ubuntu-latest
+    env:
+      # `check` only *reads* preview.png — it never launches a browser — so the
+      # CLI's Chromium download (D13) is dead weight here.
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      # Until @getkrafter/template-cli is on npm (W6, step 21), point this at a
+      # tarball by setting the KRAFTER_CLI_SPEC repository variable — see
+      # README.md › "Running the CLI before it is published".
+      CLI: ${{ vars.KRAFTER_CLI_SPEC || '@getkrafter/template-cli@^0.1' }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The changed-file diff needs the base branch's history.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Detect changed templates
+        id: changed
+        env:
+          BASE: ${{ github.base_ref }}
+        run: |
+          set -euo pipefail
+          git rev-parse --verify "origin/$BASE" >/dev/null 2>&1 \
+            || git fetch --no-tags --quiet origin "$BASE:refs/remotes/origin/$BASE"
+          changed="$(git diff --name-only "origin/$BASE...HEAD" -- templates/ | cut -d/ -f2 | sort -u)"
+          ids=""
+          for id in $changed; do
+            # Only real, still-present packages: ignore templates/.gitkeep and
+            # folders a PR deleted. The id pattern also keeps anything odd in a
+            # path name out of the shell below.
+            printf '%s' "$id" | grep -Eq '^[a-z][a-z0-9-]{1,63}$' || continue
+            [ -f "templates/$id/template.json" ] || continue
+            ids="$ids $id"
+          done
+          ids="${ids# }"
+          echo "ids=$ids" >> "$GITHUB_OUTPUT"
+          if [ -z "$ids" ]; then echo "changed templates: (none)"; else echo "changed templates: $ids"; fi
+
+      - name: krafter-template check
+        env:
+          IDS: ${{ steps.changed.outputs.ids }}
+        run: |
+          set -uo pipefail
+          if [ -z "$IDS" ]; then
+            echo "No template package changed — nothing to check."
+            exit 0
+          fi
+          status=0
+          for id in $IDS; do
+            echo "::group::krafter-template check templates/$id"
+            npx --yes "$CLI" check "templates/$id" || status=1
+            echo "::endgroup::"
+          done
+          exit $status
+
+      - name: catalog.json matches the manifests
+        # `commit` and `previewUrl` are CI's on merge; everything else in an
+        # existing entry has to agree with templates/<id>/template.json.
+        run: node scripts/update-catalog.mjs --check

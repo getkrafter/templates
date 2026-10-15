@@ -1,0 +1,60 @@
+# On merge: recompute catalog.json and commit it back (fact-25).
+#
+# `commit` — the last commit that touched templates/<id>/ — can only be known
+# once the merge commit exists, so it is written here rather than by the author.
+# This is the only workflow with write permissions; the pull-request gate
+# (check.yml) is read-only.
+name: catalog
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "templates/**"
+      - "official.json"
+      - "scripts/update-catalog.mjs"
+      - "schema/catalog.schema.json"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: catalog-main
+  cancel-in-progress: false
+
+jobs:
+  update:
+    # Belt and braces against a loop: the commit below is tagged [skip ci], a
+    # push made with GITHUB_TOKEN does not trigger workflows, and this skips
+    # anything the bot pushed anyway.
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # `git log -1 -- templates/<id>` needs the history of every folder.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Write catalog.json
+        run: node scripts/update-catalog.mjs
+
+      - name: Validate against the schema
+        run: npx --yes "ajv-cli@^5" validate -s schema/catalog.schema.json -d catalog.json
+
+      - name: Commit it back
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- catalog.json; then
+            echo "catalog.json already up to date."
+            exit 0
+          fi
+          git config user.name "krafter-bot"
+          git config user.email "bot@getkrafter.dev"
+          git add catalog.json
+          git commit -m "chore(catalog): update commits [skip ci]"
+          git push

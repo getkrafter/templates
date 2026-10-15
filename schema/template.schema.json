@@ -1,0 +1,2120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://getkrafter.dev/schema/template.schema.json",
+  "title": "Krafter Template Manifest",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,63}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "contract": {
+      "type": "string",
+      "const": "1"
+    },
+    "description": {
+      "type": "string"
+    },
+    "author": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1
+    },
+    "layout": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "const": "flow"
+            }
+          },
+          "required": [
+            "mode"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "const": "grid"
+            },
+            "regions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "header",
+                  "main",
+                  "aside",
+                  "footer"
+                ]
+              },
+              "minItems": 1
+            },
+            "widths": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 100
+              },
+              "minItems": 1
+            },
+            "gap": {
+              "type": "number",
+              "minimum": 0
+            },
+            "defaultPlacement": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "header",
+                  "main",
+                  "aside",
+                  "footer"
+                ]
+              },
+              "propertyNames": {
+                "enum": [
+                  "history",
+                  "tags",
+                  "languages",
+                  "references",
+                  "custom"
+                ]
+              }
+            }
+          },
+          "required": [
+            "mode",
+            "regions",
+            "widths",
+            "gap"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "defaults": {
+          "type": "object",
+          "properties": {
+            "typography": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "baseFontSize": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "scale": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "lineHeight": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "pageHeading": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "fontFamily": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "fontSize": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "fontWeight": {
+                              "anyOf": [
+                                {
+                                  "type": "number",
+                                  "enum": [
+                                    400,
+                                    500,
+                                    600,
+                                    700,
+                                    800,
+                                    900
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "letterSpacing": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "textTransform": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "uppercase",
+                                    "lowercase",
+                                    "capitalize",
+                                    "none"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "fontStyle": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "normal",
+                                    "italic"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "color": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "currentColor",
+                                    "text-1",
+                                    "text-2",
+                                    "text-3",
+                                    "text-4",
+                                    "text-5",
+                                    "text-6",
+                                    "text-7",
+                                    "text-8",
+                                    "text-9",
+                                    "text-10",
+                                    "accent-1",
+                                    "accent-2",
+                                    "accent-3",
+                                    "accent-4",
+                                    "accent-5",
+                                    "accent-6",
+                                    "accent-7",
+                                    "accent-8",
+                                    "accent-9",
+                                    "accent-10"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "pageSubheading": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "fontFamily": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "fontSize": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "fontWeight": {
+                              "anyOf": [
+                                {
+                                  "type": "number",
+                                  "enum": [
+                                    400,
+                                    500,
+                                    600,
+                                    700,
+                                    800,
+                                    900
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "letterSpacing": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "textTransform": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "uppercase",
+                                    "lowercase",
+                                    "capitalize",
+                                    "none"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "fontStyle": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "normal",
+                                    "italic"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "color": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "currentColor",
+                                    "text-1",
+                                    "text-2",
+                                    "text-3",
+                                    "text-4",
+                                    "text-5",
+                                    "text-6",
+                                    "text-7",
+                                    "text-8",
+                                    "text-9",
+                                    "text-10",
+                                    "accent-1",
+                                    "accent-2",
+                                    "accent-3",
+                                    "accent-4",
+                                    "accent-5",
+                                    "accent-6",
+                                    "accent-7",
+                                    "accent-8",
+                                    "accent-9",
+                                    "accent-10"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "sectionHeading": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "fontFamily": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "fontSize": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "fontWeight": {
+                              "anyOf": [
+                                {
+                                  "type": "number",
+                                  "enum": [
+                                    400,
+                                    500,
+                                    600,
+                                    700,
+                                    800,
+                                    900
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "letterSpacing": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "textTransform": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "uppercase",
+                                    "lowercase",
+                                    "capitalize",
+                                    "none"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "fontVariant": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "normal",
+                                    "small-caps"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "fontStyle": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "normal",
+                                    "italic"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "color": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "currentColor",
+                                    "text-1",
+                                    "text-2",
+                                    "text-3",
+                                    "text-4",
+                                    "text-5",
+                                    "text-6",
+                                    "text-7",
+                                    "text-8",
+                                    "text-9",
+                                    "text-10",
+                                    "accent-1",
+                                    "accent-2",
+                                    "accent-3",
+                                    "accent-4",
+                                    "accent-5",
+                                    "accent-6",
+                                    "accent-7",
+                                    "accent-8",
+                                    "accent-9",
+                                    "accent-10"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "prefix": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "none",
+                                    "numeric",
+                                    "roman",
+                                    "icon"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "decoration": {
+                              "anyOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": [
+                                        "boolean",
+                                        "null"
+                                      ]
+                                    },
+                                    "sides": {
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "top": {
+                                              "type": [
+                                                "boolean",
+                                                "null"
+                                              ]
+                                            },
+                                            "right": {
+                                              "type": [
+                                                "boolean",
+                                                "null"
+                                              ]
+                                            },
+                                            "bottom": {
+                                              "type": [
+                                                "boolean",
+                                                "null"
+                                              ]
+                                            },
+                                            "left": {
+                                              "type": [
+                                                "boolean",
+                                                "null"
+                                              ]
+                                            }
+                                          },
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "borderStyle": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string",
+                                          "enum": [
+                                            "solid",
+                                            "dashed",
+                                            "dotted",
+                                            "double"
+                                          ]
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "borderWidth": {
+                                      "type": [
+                                        "number",
+                                        "null"
+                                      ]
+                                    },
+                                    "borderColor": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string",
+                                          "enum": [
+                                            "currentColor",
+                                            "none",
+                                            "text-1",
+                                            "text-2",
+                                            "text-3",
+                                            "text-4",
+                                            "text-5",
+                                            "text-6",
+                                            "text-7",
+                                            "text-8",
+                                            "text-9",
+                                            "text-10",
+                                            "accent-1",
+                                            "accent-2",
+                                            "accent-3",
+                                            "accent-4",
+                                            "accent-5",
+                                            "accent-6",
+                                            "accent-7",
+                                            "accent-8",
+                                            "accent-9",
+                                            "accent-10"
+                                          ]
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "backgroundColor": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string",
+                                          "enum": [
+                                            "currentColor",
+                                            "none",
+                                            "text-1",
+                                            "text-2",
+                                            "text-3",
+                                            "text-4",
+                                            "text-5",
+                                            "text-6",
+                                            "text-7",
+                                            "text-8",
+                                            "text-9",
+                                            "text-10",
+                                            "accent-1",
+                                            "accent-2",
+                                            "accent-3",
+                                            "accent-4",
+                                            "accent-5",
+                                            "accent-6",
+                                            "accent-7",
+                                            "accent-8",
+                                            "accent-9",
+                                            "accent-10"
+                                          ]
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "padding": {
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "top": {
+                                              "type": [
+                                                "number",
+                                                "null"
+                                              ]
+                                            },
+                                            "right": {
+                                              "type": [
+                                                "number",
+                                                "null"
+                                              ]
+                                            },
+                                            "bottom": {
+                                              "type": [
+                                                "number",
+                                                "null"
+                                              ]
+                                            },
+                                            "left": {
+                                              "type": [
+                                                "number",
+                                                "null"
+                                              ]
+                                            }
+                                          },
+                                          "additionalProperties": false
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "borderRadius": {
+                                      "type": [
+                                        "number",
+                                        "null"
+                                      ]
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "itemHeading": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "fontFamily": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "fontSize": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "fontWeight": {
+                              "anyOf": [
+                                {
+                                  "type": "number",
+                                  "enum": [
+                                    400,
+                                    500,
+                                    600,
+                                    700,
+                                    800,
+                                    900
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "letterSpacing": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "textTransform": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "uppercase",
+                                    "lowercase",
+                                    "capitalize",
+                                    "none"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "fontStyle": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "normal",
+                                    "italic"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "color": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "currentColor",
+                                    "text-1",
+                                    "text-2",
+                                    "text-3",
+                                    "text-4",
+                                    "text-5",
+                                    "text-6",
+                                    "text-7",
+                                    "text-8",
+                                    "text-9",
+                                    "text-10",
+                                    "accent-1",
+                                    "accent-2",
+                                    "accent-3",
+                                    "accent-4",
+                                    "accent-5",
+                                    "accent-6",
+                                    "accent-7",
+                                    "accent-8",
+                                    "accent-9",
+                                    "accent-10"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "separator": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "bullet",
+                                    "pipe",
+                                    "dash",
+                                    "dot",
+                                    "slash",
+                                    "comma"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "itemSubheading": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "fontFamily": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "fontSize": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "fontWeight": {
+                              "anyOf": [
+                                {
+                                  "type": "number",
+                                  "enum": [
+                                    400,
+                                    500,
+                                    600,
+                                    700,
+                                    800,
+                                    900
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "letterSpacing": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "textTransform": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "uppercase",
+                                    "lowercase",
+                                    "capitalize",
+                                    "none"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "fontStyle": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "normal",
+                                    "italic"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "color": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "currentColor",
+                                    "text-1",
+                                    "text-2",
+                                    "text-3",
+                                    "text-4",
+                                    "text-5",
+                                    "text-6",
+                                    "text-7",
+                                    "text-8",
+                                    "text-9",
+                                    "text-10",
+                                    "accent-1",
+                                    "accent-2",
+                                    "accent-3",
+                                    "accent-4",
+                                    "accent-5",
+                                    "accent-6",
+                                    "accent-7",
+                                    "accent-8",
+                                    "accent-9",
+                                    "accent-10"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "body": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "fontFamily": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "fontSize": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "fontWeight": {
+                              "anyOf": [
+                                {
+                                  "type": "number",
+                                  "enum": [
+                                    400,
+                                    500,
+                                    600,
+                                    700,
+                                    800,
+                                    900
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "letterSpacing": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "textTransform": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "uppercase",
+                                    "lowercase",
+                                    "capitalize",
+                                    "none"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "fontStyle": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "normal",
+                                    "italic"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "color": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "currentColor",
+                                    "text-1",
+                                    "text-2",
+                                    "text-3",
+                                    "text-4",
+                                    "text-5",
+                                    "text-6",
+                                    "text-7",
+                                    "text-8",
+                                    "text-9"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "date": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "fontFamily": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "fontSize": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "fontWeight": {
+                              "anyOf": [
+                                {
+                                  "type": "number",
+                                  "enum": [
+                                    400,
+                                    500,
+                                    600,
+                                    700,
+                                    800,
+                                    900
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "letterSpacing": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "textTransform": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "uppercase",
+                                    "lowercase",
+                                    "capitalize",
+                                    "none"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "fontStyle": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "normal",
+                                    "italic"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "color": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "currentColor",
+                                    "text-1",
+                                    "text-2",
+                                    "text-3",
+                                    "text-4",
+                                    "text-5",
+                                    "text-6",
+                                    "text-7",
+                                    "text-8",
+                                    "text-9",
+                                    "text-10",
+                                    "accent-1",
+                                    "accent-2",
+                                    "accent-3",
+                                    "accent-4",
+                                    "accent-5",
+                                    "accent-6",
+                                    "accent-7",
+                                    "accent-8",
+                                    "accent-9",
+                                    "accent-10"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "contact": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "fontFamily": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "fontSize": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "fontWeight": {
+                              "anyOf": [
+                                {
+                                  "type": "number",
+                                  "enum": [
+                                    400,
+                                    500,
+                                    600,
+                                    700,
+                                    800,
+                                    900
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "letterSpacing": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "textTransform": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "uppercase",
+                                    "lowercase",
+                                    "capitalize",
+                                    "none"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "fontStyle": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "normal",
+                                    "italic"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "color": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "currentColor",
+                                    "text-1",
+                                    "text-2",
+                                    "text-3",
+                                    "text-4",
+                                    "text-5",
+                                    "text-6",
+                                    "text-7",
+                                    "text-8",
+                                    "text-9",
+                                    "text-10",
+                                    "accent-1",
+                                    "accent-2",
+                                    "accent-3",
+                                    "accent-4",
+                                    "accent-5",
+                                    "accent-6",
+                                    "accent-7",
+                                    "accent-8",
+                                    "accent-9",
+                                    "accent-10"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "bullet": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "character": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "fontSize": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "indent": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "gap": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "fontStyle": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "normal",
+                                    "italic"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "color": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "currentColor",
+                                    "text-1",
+                                    "text-2",
+                                    "text-3",
+                                    "text-4",
+                                    "text-5",
+                                    "text-6",
+                                    "text-7",
+                                    "text-8",
+                                    "text-9",
+                                    "text-10",
+                                    "accent-1",
+                                    "accent-2",
+                                    "accent-3",
+                                    "accent-4",
+                                    "accent-5",
+                                    "accent-6",
+                                    "accent-7",
+                                    "accent-8",
+                                    "accent-9",
+                                    "accent-10"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "link": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "fontStyle": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "normal",
+                                    "italic"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "color": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "currentColor",
+                                    "text-1",
+                                    "text-2",
+                                    "text-3",
+                                    "text-4",
+                                    "text-5",
+                                    "text-6",
+                                    "text-7",
+                                    "text-8",
+                                    "text-9",
+                                    "text-10",
+                                    "accent-1",
+                                    "accent-2",
+                                    "accent-3",
+                                    "accent-4",
+                                    "accent-5",
+                                    "accent-6",
+                                    "accent-7",
+                                    "accent-8",
+                                    "accent-9",
+                                    "accent-10"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "decoration": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "underline",
+                                    "none",
+                                    "border"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "spacing": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "top": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "right": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "bottom": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "left": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "section": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "gap": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "afterHeading": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "item": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "gap": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "afterHeading": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "header": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "after": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            },
+                            "nameGap": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "paragraph": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "listItem": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "density": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "compact",
+                            "normal",
+                            "spacious",
+                            "custom"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "color": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "accent": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "paper": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^#[0-9a-fA-F]{6}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "header": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "align": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "left",
+                            "center",
+                            "right"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "separator": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "icons": {
+                      "type": [
+                        "boolean",
+                        "null"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "layout": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "placement": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "string",
+                            "enum": [
+                              "header",
+                              "main",
+                              "aside",
+                              "footer"
+                            ]
+                          }
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "widths": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "maximum": 100
+                      }
+                    },
+                    "gap": {
+                      "anyOf": [
+                        {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "renderDefaults": {
+              "type": "object",
+              "properties": {
+                "showDates": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "showDescription": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "linkDisplay": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "icon",
+                        "header"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "dateFormat": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "itemHeadingFormat": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "datePosition": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "right",
+                        "inline"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "dateRangeSeparator": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "endash",
+                        "emdash",
+                        "to",
+                        "arrow"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "description": "Separator between start and end dates in ranges"
+                },
+                "presentLabel": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Label shown for ongoing roles (e.g., 'Present', 'Current')"
+                },
+                "showSummaryHeading": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ],
+                  "description": "Whether the summary block renders its own 'Summary' heading"
+                },
+                "tagStyle": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "inline",
+                        "chips",
+                        "list"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "description": "Layout the standard {{> tags}} partial renders: 'inline' (today's '; '-separated spans), 'chips' or 'list'"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false,
+          "default": {}
+        },
+        "locked": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "color.accent",
+              "color.paper",
+              "header.align",
+              "header.icons",
+              "header.separator",
+              "layout.gap",
+              "layout.placement",
+              "layout.widths",
+              "spacing.density",
+              "spacing.header.after",
+              "spacing.header.nameGap",
+              "spacing.item.afterHeading",
+              "spacing.item.gap",
+              "spacing.listItem",
+              "spacing.page.bottom",
+              "spacing.page.left",
+              "spacing.page.right",
+              "spacing.page.top",
+              "spacing.paragraph",
+              "spacing.section.afterHeading",
+              "spacing.section.gap",
+              "typography.baseFontSize",
+              "typography.body.color",
+              "typography.body.fontFamily",
+              "typography.body.fontSize",
+              "typography.body.fontStyle",
+              "typography.body.fontWeight",
+              "typography.body.letterSpacing",
+              "typography.body.textTransform",
+              "typography.bullet.character",
+              "typography.bullet.color",
+              "typography.bullet.fontSize",
+              "typography.bullet.fontStyle",
+              "typography.bullet.gap",
+              "typography.bullet.indent",
+              "typography.contact.color",
+              "typography.contact.fontFamily",
+              "typography.contact.fontSize",
+              "typography.contact.fontStyle",
+              "typography.contact.fontWeight",
+              "typography.contact.letterSpacing",
+              "typography.contact.textTransform",
+              "typography.date.color",
+              "typography.date.fontFamily",
+              "typography.date.fontSize",
+              "typography.date.fontStyle",
+              "typography.date.fontWeight",
+              "typography.date.letterSpacing",
+              "typography.date.textTransform",
+              "typography.itemHeading.color",
+              "typography.itemHeading.fontFamily",
+              "typography.itemHeading.fontSize",
+              "typography.itemHeading.fontStyle",
+              "typography.itemHeading.fontWeight",
+              "typography.itemHeading.letterSpacing",
+              "typography.itemHeading.separator",
+              "typography.itemHeading.textTransform",
+              "typography.itemSubheading.color",
+              "typography.itemSubheading.fontFamily",
+              "typography.itemSubheading.fontSize",
+              "typography.itemSubheading.fontStyle",
+              "typography.itemSubheading.fontWeight",
+              "typography.itemSubheading.letterSpacing",
+              "typography.itemSubheading.textTransform",
+              "typography.lineHeight",
+              "typography.link.color",
+              "typography.link.decoration",
+              "typography.link.fontStyle",
+              "typography.pageHeading.color",
+              "typography.pageHeading.fontFamily",
+              "typography.pageHeading.fontSize",
+              "typography.pageHeading.fontStyle",
+              "typography.pageHeading.fontWeight",
+              "typography.pageHeading.letterSpacing",
+              "typography.pageHeading.textTransform",
+              "typography.pageSubheading.color",
+              "typography.pageSubheading.fontFamily",
+              "typography.pageSubheading.fontSize",
+              "typography.pageSubheading.fontStyle",
+              "typography.pageSubheading.fontWeight",
+              "typography.pageSubheading.letterSpacing",
+              "typography.pageSubheading.textTransform",
+              "typography.scale",
+              "typography.sectionHeading.color",
+              "typography.sectionHeading.decoration.backgroundColor",
+              "typography.sectionHeading.decoration.borderColor",
+              "typography.sectionHeading.decoration.borderRadius",
+              "typography.sectionHeading.decoration.borderStyle",
+              "typography.sectionHeading.decoration.borderWidth",
+              "typography.sectionHeading.decoration.enabled",
+              "typography.sectionHeading.decoration.padding.bottom",
+              "typography.sectionHeading.decoration.padding.left",
+              "typography.sectionHeading.decoration.padding.right",
+              "typography.sectionHeading.decoration.padding.top",
+              "typography.sectionHeading.decoration.sides.bottom",
+              "typography.sectionHeading.decoration.sides.left",
+              "typography.sectionHeading.decoration.sides.right",
+              "typography.sectionHeading.decoration.sides.top",
+              "typography.sectionHeading.fontFamily",
+              "typography.sectionHeading.fontSize",
+              "typography.sectionHeading.fontStyle",
+              "typography.sectionHeading.fontVariant",
+              "typography.sectionHeading.fontWeight",
+              "typography.sectionHeading.letterSpacing",
+              "typography.sectionHeading.prefix",
+              "typography.sectionHeading.textTransform"
+            ]
+          },
+          "default": []
+        },
+        "controls": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "toggle"
+                  },
+                  "key": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9-]*$"
+                  },
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "default": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "type",
+                  "key",
+                  "label",
+                  "default"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "select"
+                  },
+                  "key": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9-]*$"
+                  },
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "options": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "label": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "label"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 1
+                  },
+                  "default": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "key",
+                  "label",
+                  "options",
+                  "default"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "slider"
+                  },
+                  "key": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9-]*$"
+                  },
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "min": {
+                    "type": "number"
+                  },
+                  "max": {
+                    "type": "number"
+                  },
+                  "step": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "unit": {
+                    "type": "string"
+                  },
+                  "default": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "type",
+                  "key",
+                  "label",
+                  "min",
+                  "max",
+                  "default"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "color"
+                  },
+                  "key": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9-]*$"
+                  },
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "default": {
+                    "type": "string",
+                    "pattern": "^#[0-9a-fA-F]{6}$"
+                  }
+                },
+                "required": [
+                  "type",
+                  "key",
+                  "label",
+                  "default"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "default": []
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "defaults": {},
+        "locked": [],
+        "controls": []
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "version",
+    "contract",
+    "author",
+    "license",
+    "layout"
+  ],
+  "additionalProperties": false
+}

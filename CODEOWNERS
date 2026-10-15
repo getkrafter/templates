@@ -1,0 +1,14 @@
+# Who reviews what (fact-24).
+#
+# The default owner reviews the catalog machinery — schema, workflows, scripts,
+# docs — and every new template's first pull request.
+* @getkrafter/core
+
+# One line per template, so an update to someone's template goes to them:
+#
+#   /templates/<id>/ @<github-user>
+#
+# Official templates stay with the core team; a community template names its
+# author. The id is the folder name, which is also the manifest id.
+#
+# (Step 12 adds the six official templates here as @getkrafter/core.)

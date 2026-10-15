@@ -1,0 +1,19 @@
+{
+  "name": "krafter-templates",
+  "private": true,
+  "version": "0.0.0",
+  "description": "The Krafter template catalog: one folder per template, catalog.json at the root.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getkrafter/templates"
+  },
+  "type": "module",
+  "scripts": {
+    "check": "npx --yes \"@getkrafter/template-cli@^0.1\" check",
+    "catalog": "node scripts/update-catalog.mjs",
+    "catalog:check": "node scripts/update-catalog.mjs --check",
+    "render-set": "npx --yes \"@getkrafter/template-cli@^0.1\" render-set",
+    "diff": "npx --yes \"@getkrafter/template-cli@^0.1\" diff"
+  }
+}
