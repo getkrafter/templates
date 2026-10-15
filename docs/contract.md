@@ -720,15 +720,20 @@ meaningful to say without a manifest.
 | `css-scope` | error | error | `template.css` | every style rule — including inside `@media` — starts with `.resume[data-template="<id>"]` |
 | `css-external-url` | error | error | `template.css` | no `@import`, no external `url()`; only `data:` URIs resolve |
 | `css-font-face` | error | error | `template.css` | no `@font-face` — fonts come from the engine's pipeline |
+| `css-position` | error | error | `template.css` | no `position: fixed` / `sticky` (they resolve against the viewport and can paint over the app) and no `position` whose value cannot be resolved (`var()`); allowed inside `@media print`, which never applies to the preview |
 | `hbs-script` | error | error | `*.hbs` | no `<script>` |
 | `hbs-event-handler` | error | error | `*.hbs` | no `on*=` attributes |
 | `hbs-javascript-url` | error | error | `*.hbs` | no `javascript:` in `href` / `src` |
+| `hbs-element` | error | error | `*.hbs` | none of `iframe`, `frame`, `frameset`, `object`, `embed`, `applet`, `portal`, `form`, `input`, `button`, `select`, `textarea`, `meta`, `base`, `link`, `style`, `video`, `audio`, `source`, `track`, `template`, `slot`, `noscript` — anything that embeds a document, submits data, redirects the page, loads media or declares styles outside `template.css` |
+| `hbs-url-attr` | error | error | `*.hbs` | `src`, `srcset`, `poster`, `background`, `action`, `formaction`, `ping`, `data`, `xlink:href` — and `href` on anything but `<a>` — is a `data:` URL, a `#` fragment, or a single plain field (`{{basics.image}}`); no literal URLs, no helpers (a helper can build a URL out of résumé fields) |
+| `hbs-link-href` | error | error | `*.hbs` | an `<a href>` is a single plain field, `mailto:`/`tel:`/`sms:` over one field, or fully static — never a literal mixed with a mustache (`https://x/?e={{basics.email}}`) |
+| `hbs-style-attr` | error | error | `*.hbs` | an inline `style` attribute contains none of `url(`, `@import`, `expression(`, `behavior`, `position`, `-moz-binding`; `style="--tpl-x: {{options.x}}"` is fine |
 | `hbs-raw-output` | error | error | `*.hbs` | `{{{ }}}` / `{{& }}` only on `summary`, `descriptionBlocks`, and `this` inside `{{#each descriptionBlocks}}` |
-| `hbs-partials` | error | error | `*.hbs` | every `{{> … }}` names one of your partials (bare or namespaced) or an engine partial |
+| `hbs-partials` | error | error | `*.hbs` | every `{{> … }}` is an engine partial (`contact-row`, `tags`) or one of yours **namespaced** as `{{> <id>/<name>}}` — the bare form of your own partial is an error (it would resolve to the engine at render time) |
 | `locked-paths` | error | error | `template.json` | every `settings.locked` entry is a real settings leaf |
 | `defaults-paths` | error | error | `template.json` | every `settings.defaults` key is a real settings leaf (read from the raw JSON, so a typo Zod would strip is still caught) |
 | `controls` | error | error | `template.json` | per-control shape and cross-field rules; duplicate keys |
-| `partial-name` | error | error | `partials/*` | a `partials/` entry is a lowercase-slug `.hbs`, so it can be registered |
+| `partial-name` | error / warning | error / warning | `partials/*` | a `partials/` entry is a lowercase-slug `.hbs`, so it can be registered (error); a partial named like an engine one (`tags`, `contact-row`) that the package also references bare resolves to the engine's, not yours (warning) |
 | `render-fixtures` | error | error | every file | the package renders **every** fixture (all eight profiles in the CLI) — the Handlebars line is in the message |
 | `render-leftover` | error | error | `template.hbs` | no unresolved `{{` survives into the output |
 | `partial-unused` | warning | **error** | `*.hbs` | every partial you ship is referenced |

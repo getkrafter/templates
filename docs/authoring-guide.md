@@ -412,6 +412,30 @@ string that must stay escaped, and a triple-stache anywhere else is a
 `hbs-raw-output` error. `<script>`, `on*=` attributes and `javascript:` URLs
 are errors too.
 
+### A template renders a résumé; it talks to no one
+
+Your markup is rendered with the user's whole résumé in scope, as live HTML in
+their editor and in the files they export — so the validator refuses anything
+that could carry that data off the page or embed a document in it:
+
+- **No embedding, form, media, directive or style elements** — `iframe`,
+  `object`, `embed`, `form`, `input`, `button`, `meta`, `base`, `link`,
+  `style`, `video`, `audio`, … (`hbs-element`). Icons are inline `<svg>`,
+  which is allowed; CSS goes in `template.css`.
+- **No network loads.** `src`, `srcset`, `poster`, `action`, `data`,
+  `xlink:href` and `href` on anything but `<a>` must be a `data:` URL, a `#`
+  fragment, or a single plain field such as `{{basics.image}}` — never a
+  literal URL and never a helper call, because a helper can build a URL out of
+  résumé fields (`hbs-url-attr`).
+- **Links are a field or a constant.** `<a href="{{item.url}}">`,
+  `href="mailto:{{basics.email}}"` and a fully static `href` are fine;
+  `href="https://x/?e={{basics.email}}"` is an error (`hbs-link-href`).
+- **Inline `style` carries no `url(`, `position` or `@import`**
+  (`hbs-style-attr`); `style="--tpl-x: {{options.x}}"` is fine.
+- **No `position: fixed` or `sticky` in `template.css`** outside
+  `@media print` (`css-position`) — they resolve against the viewport and
+  would paint over the editor. Use `absolute` inside a `relative` ancestor.
+
 ### Partials
 
 Two partials come from the engine and are always available:
@@ -718,7 +742,7 @@ ever sees there.
 |---|---|---|
 | package will not load at all | `contract`, `manifest` | contract must be `"1"`; unknown manifest keys are rejected |
 | a selector is rejected | `css-scope` | prefix it with `.resume[data-template="<id>"]` |
-| a font or image will not load | `css-font-face`, `css-external-url` | packages ship no assets and render offline |
+| a font or image will not load | `css-font-face`, `css-external-url`, `hbs-url-attr` | packages ship no assets and render offline |
 | output contains a literal `{{…}}` | `render-leftover` | an escaped or malformed expression |
 | a fixture fails to render | `render-fixtures` | the Handlebars line is in the message |
 | a control does nothing | `control-unused` | use `--tpl-<key>` in CSS or `options.<key>` in markup |
