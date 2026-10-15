@@ -8,7 +8,7 @@
 {{#if jobTitle}}
   <p class="tk-subtitle">{{jobTitle}}</p>
 {{/if}}
-{{! ── Summary ── Deosai shows the body but not the heading: that is declared as data, settings.defaults.renderDefaults.showSummaryHeading false, not hidden with CSS (fact-7) ── }}
+{{! ── Summary ── Deosai shows the body but not the heading: that is declared as data, settings.defaults.renderDefaults.showSummaryHeading false, not hidden with CSS ── }}
 {{#if summary}}
 {{#if showSummaryHeading}}<div class="tk-section-heading" data-section-type="summary">Summary</div>{{/if}}
 <div class="tk-section-content tk-rich-text" data-section-type="summary">{{{summary}}}</div>

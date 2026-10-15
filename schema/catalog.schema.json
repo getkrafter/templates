@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://getkrafter.dev/schema/catalog.schema.json",
+  "$id": "https://raw.githubusercontent.com/getkrafter/templates/main/schema/catalog.schema.json",
   "title": "Krafter Template Catalog",
-  "description": "catalog.json at the root of getkrafter/templates: one entry per template package under templates/<id>/ (fact-24, fact-25). Written by scripts/update-catalog.mjs; `commit` and `previewUrl` are filled by CI on merge. Deliberately free of `format` keywords so `npx ajv-cli validate` needs no ajv-formats plugin: every constrained string carries an explicit `pattern` instead.",
+  "description": "catalog.json at the root of getkrafter/templates: one entry per template package under templates/<id>/. Written by scripts/update-catalog.mjs; `commit` and `previewUrl` are filled by CI on merge. Deliberately free of `format` keywords so `npx ajv-cli validate` needs no ajv-formats plugin: every constrained string carries an explicit `pattern` instead.",
   "type": "object",
   "properties": {
     "$schema": {
@@ -60,12 +60,12 @@
             "enum": ["flow", "grid"]
           },
           "source": {
-            "description": "gh:<owner>/<repo>/templates/<id> (D3). Derivable from the id, but stored so the app's catalog parser is uniform with the CLI dev server's catalog, which also carries `source`.",
+            "description": "gh:<owner>/<repo>/templates/<id>. Derivable from the id, but stored so the app's catalog parser is uniform with the CLI dev server's catalog, which also carries `source`.",
             "type": "string",
             "pattern": "^gh:[^/]+/[^/]+/templates/[a-z0-9-]+$"
           },
           "commit": {
-            "description": "The last commit that touched templates/<id>/ — what a resume pins (fact-25).",
+            "description": "The last commit that touched templates/<id>/ — what a resume pins.",
             "type": "string",
             "pattern": "^[0-9a-f]{40}$"
           },

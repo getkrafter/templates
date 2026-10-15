@@ -1,5 +1,5 @@
 /* Passu template — full-height accent spine */
-/* Every rule is scoped under the manifest id (fact-3) */
+/* Every rule is scoped under the manifest id. */
 
 /* ── Root ── */
 .resume[data-template="passu"] {
@@ -38,7 +38,7 @@
 
 /* Header spacing is `spacing.header.after` (24) / `spacing.header.nameGap`
    (the app default 2) — see this template's `defaults` and the engine's
-   utilities. Every header row reads `--header-align` (fact-20); the fallback
+   utilities. Every header row reads `--header-align`; the fallback
    is `left`, which is also what this template's `header.align` default sets,
    so the declared and rendered alignment agree. */
 .resume[data-template="passu"] .tk-resume-name {
@@ -84,7 +84,7 @@
 
 /* The summary heading used to be hidden here with `display: none`. That is a
    render decision, not a style one, so it is now
-   `renderDefaults.showSummaryHeading: false` in the manifest (fact-7): the
+   `renderDefaults.showSummaryHeading: false` in the manifest: the
    heading is never emitted instead of being emitted and painted over, and a
    user who wants it can turn it back on. */
 

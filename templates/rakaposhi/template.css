@@ -1,6 +1,6 @@
 /* Rakaposhi template — two-column sidebar layout */
 /* Structure: .tk-two-col contains .tk-sidebar + .tk-main */
-/* Every rule is scoped under the manifest id (fact-3) */
+/* Every rule is scoped under the manifest id. */
 
 /* `--layout-col-1` / `--layout-col-2` / `--layout-gap` are emitted from this
    manifest's grid layout (widths [35, 65], gap 0); `--tpl-sidebar-tint` from
@@ -18,7 +18,7 @@
      be a literal here *and* in the app's preview wrapper. It is now the
      `sidebar-tint` control (`--tpl-sidebar-tint`, default 22%), so the package
      carries its own background and the slider is the only place the mix is
-     written down (fact-6). */
+     written down. */
   --sidebar-bg: color-mix(in srgb, var(--color-accent, #000000) var(--tpl-sidebar-tint, 22%), #1a1a1a);
   /* Sidebar text follows the per-element colour tokens, but the dark sidebar
      would swallow any dark value — so we take the element colour and force
@@ -101,7 +101,7 @@
 /* The links row sits *above* `.tk-header`, so it does not inherit the
    `text-align: var(--header-align, left)` the engine puts on that element —
    it reads the token itself, so all four header rows follow `header.align`
-   (fact-20). The fallback is `left`, which is both this template's
+   . The fallback is `left`, which is both this template's
    `header.align` default and the alignment the row rendered at before. */
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-links {
   font-size: var(--size-body);
@@ -162,7 +162,7 @@
 }
 
 /* References default to `main`, but the user may move one into the aside
-   (fact-15) — these keep it legible there. */
+   — these keep it legible there. */
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-reference-name {
   color: #ffffff;
 }

@@ -1,6 +1,6 @@
 {
   "$schema": "./schema/catalog.schema.json",
-  "generatedAt": "2026-10-15T09:40:44Z",
+  "generatedAt": "2026-10-15T09:56:37Z",
   "templates": [
     {
       "id": "deosai",
@@ -8,7 +8,7 @@
       "description": "Timeline dots, accent headings",
       "author": {
         "name": "Krafter",
-        "url": "https://getkrafter.dev"
+        "url": "https://krafter.vercel.app"
       },
       "license": "MIT",
       "official": true,
@@ -24,7 +24,7 @@
       "description": "Classic single-column, ATS-optimised",
       "author": {
         "name": "Krafter",
-        "url": "https://getkrafter.dev"
+        "url": "https://krafter.vercel.app"
       },
       "license": "MIT",
       "official": true,
@@ -40,7 +40,7 @@
       "description": "Bold accent header band",
       "author": {
         "name": "Krafter",
-        "url": "https://getkrafter.dev"
+        "url": "https://krafter.vercel.app"
       },
       "license": "MIT",
       "official": true,
@@ -56,7 +56,7 @@
       "description": "Full-height accent spine",
       "author": {
         "name": "Krafter",
-        "url": "https://getkrafter.dev"
+        "url": "https://krafter.vercel.app"
       },
       "license": "MIT",
       "official": true,
@@ -72,7 +72,7 @@
       "description": "Two-column with dark sidebar",
       "author": {
         "name": "Krafter",
-        "url": "https://getkrafter.dev"
+        "url": "https://krafter.vercel.app"
       },
       "license": "MIT",
       "official": true,
@@ -88,7 +88,7 @@
       "description": "Minimalist, left-border timeline",
       "author": {
         "name": "Krafter",
-        "url": "https://getkrafter.dev"
+        "url": "https://krafter.vercel.app"
       },
       "license": "MIT",
       "official": true,

@@ -1,6 +1,6 @@
 /* Naltar template — bold accent-colour header band */
 /* All typographic sizes and content spacing use pt (1pt = 1/72in) */
-/* Every rule is scoped under the manifest id (fact-3) */
+/* Every rule is scoped under the manifest id. */
 
 /* ── Root ─────────────────────────────────────────────────────────── */
 
@@ -37,7 +37,7 @@
    surface, so the name's colour is a contrast decision the template owns, not
    a palette slot. `settings.locked` names
    `typography.pageHeading.color` / `typography.pageSubheading.color` so the
-   user is not offered a control this rule would silently win (fact-5 — this is
+   user is not offered a control this rule would silently win (this is
    what `capabilities.pageHeading.color: false` used to say in the app). */
 .resume[data-template="naltar"] .tk-resume-name {
   text-align: var(--header-align, center);

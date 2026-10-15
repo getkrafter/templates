@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Writes `catalog.json` from the template packages under `templates/` (fact-25).
+ * Writes `catalog.json` from the template packages under `templates/`.
  *
  *   node scripts/update-catalog.mjs            # regenerate catalog.json
  *   node scripts/update-catalog.mjs --check     # verify it, touch nothing
@@ -17,7 +17,7 @@
  * | license      | the manifest                                                 |
  * | official     | whether the id is listed in `official.json`                  |
  * | layout       | the manifest's `layout.mode`                                 |
- * | source       | `gh:getkrafter/templates/templates/<id>` (D3)                |
+ * | source       | `gh:getkrafter/templates/templates/<id>`                     |
  * | commit       | `git log -1 --format=%H -- templates/<id>`                    |
  * | version      | the manifest                                                 |
  * | previewUrl   | jsDelivr URL for `preview.png` at `commit`, if it exists     |
@@ -43,7 +43,7 @@ const CATALOG_FILE = path.join(ROOT, "catalog.json");
 const OFFICIAL_FILE = path.join(ROOT, "official.json");
 const TEMPLATES_DIR = path.join(ROOT, "templates");
 
-/** Keep in step with D3 and the `source` pattern in the schema. */
+/** Keep in step with the `source` pattern in the schema. */
 const REPO = "getkrafter/templates";
 const SCHEMA_REF = "./schema/catalog.schema.json";
 
@@ -186,7 +186,7 @@ function buildEntries({ withCommits }) {
       if (!commit) {
         fail(
           `templates/${id}: no commit to record — commit the repository before writing the catalog ` +
-            `(\`commit\` is the last commit that touched the folder, fact-25)`,
+            `(\`commit\` is the last commit that touched the folder)`,
         );
       }
       entry.commit = commit;
@@ -275,7 +275,7 @@ function validateCatalog(catalog) {
       if (seen.has(entry.id)) bad(`${at}: duplicate id "${entry.id}"`);
       seen.add(entry.id);
       if (entry.source !== `gh:${REPO}/templates/${entry.id}`) {
-        bad(`${at}.source must be "gh:${REPO}/templates/${entry.id}" (D3)`);
+        bad(`${at}.source must be "gh:${REPO}/templates/${entry.id}"`);
       }
     }
   });

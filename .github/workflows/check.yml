@@ -1,4 +1,4 @@
-# Pull-request gate (fact-24): every template folder a PR touches must pass
+# Pull-request gate: every template folder a PR touches must pass
 # `krafter-template check` — the validator plus the publishable rules
 # (`preview-missing`, `preview-stale`, `license-missing`, `partial-unused`).
 #
@@ -22,11 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # `check` only *reads* preview.png — it never launches a browser — so the
-      # CLI's Chromium download (D13) is dead weight here.
+      # CLI's Chromium download is dead weight here.
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
-      # Until @getkrafter/template-cli is on npm (W6, step 21), point this at a
-      # tarball by setting the KRAFTER_CLI_SPEC repository variable — see
-      # README.md › "Running the CLI before it is published".
+      # The KRAFTER_CLI_SPEC repository variable overrides the npm spec (e.g. a
+      # tarball URL to trial an unreleased build) — see docs/maintaining.md.
       CLI: ${{ vars.KRAFTER_CLI_SPEC || '@getkrafter/template-cli@^0.1' }}
 
     steps:

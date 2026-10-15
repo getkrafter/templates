@@ -784,12 +784,12 @@ The manifest schema is published with `@getkrafter/template-engine` and has the
 canonical id
 
 ```
-https://getkrafter.dev/schema/template.schema.json
+https://raw.githubusercontent.com/getkrafter/templates/main/schema/template.schema.json
 ```
 
 which is what `krafter-template init` writes into a new manifest's `$schema`.
 
-A copy lives in this repository so a `template.json` can point at a stable URL
+That URL is the copy kept in this repository, so a `template.json` can point at a stable URL
 here instead:
 
 ```json

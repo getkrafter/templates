@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "contract": "1",
   "description": "Bold accent header band",
-  "author": { "name": "Krafter", "url": "https://getkrafter.dev" },
+  "author": { "name": "Krafter", "url": "https://krafter.vercel.app" },
   "license": "MIT",
   "layout": { "mode": "flow" },
   "settings": {

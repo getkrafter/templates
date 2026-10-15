@@ -2,6 +2,12 @@
 
 How to build a template package, from `init` to a merged pull request.
 
+A Krafter resume is a [JSON Resume](https://jsonresume.org/schema/) v1.0.0
+document, and a template gets the whole of it as `resume` — the same shape every
+`jsonresume-theme` reads — next to the processed `sections`, `regions` and
+header fields Krafter adds. You can render from either; the data stays the
+user's, in an open format, whichever you choose.
+
 Everything here is normative for `contract: "1"`. The field-by-field reference
 — `TemplateData`, the token vocabulary, the `tk-*` classes, the helpers and the
 validation rules — lives in [`contract.md`](contract.md); this document is the
@@ -58,12 +64,6 @@ thing that marks a template official — the folder itself is identical either
 way. It is maintainers-only: do not add your id to it in your PR. CI reads it
 to set `official` on your catalog entry.
 
-> **Before the CLI is published.** `@getkrafter/template-cli` is not on npm
-> yet. Until it is, run it out of the monorepo
-> (`bun ../krafter-app/packages/template-cli/src/bin.ts check templates/<id>`)
-> or `npm pack` it once and install the tarball. See the repository
-> [`README.md`](../README.md#running-the-cli-before-it-is-published).
-
 ---
 
 ## Package anatomy
@@ -100,7 +100,7 @@ construction. Point `$schema` at it:
 
 ```json
 {
-  "$schema": "https://getkrafter.dev/schema/template.schema.json",
+  "$schema": "https://raw.githubusercontent.com/getkrafter/templates/main/schema/template.schema.json",
   "id": "ridge-serif",
   "name": "Ridge Serif",
   "version": "0.1.0",
@@ -721,7 +721,7 @@ Every diagnostic is one line, and it always names a file you can open:
 
 ```
 template.css:42: error [css-scope] Selector ".tk-item-title" is not scoped to this
-  template; every rule must start with .resume[data-template="ridge-serif"] (fact-3)
+  template; every rule must start with .resume[data-template="ridge-serif"]
 template.json:17: error [defaults-paths] Unknown setting path
   "typography.sectionHeadng.textTransform" in settings.defaults — …
 partials/tag-list.hbs: warning [partial-unused] Partial "tag-list" is never referenced

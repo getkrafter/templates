@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://getkrafter.dev/schema/template.schema.json",
+  "$id": "https://raw.githubusercontent.com/getkrafter/templates/main/schema/template.schema.json",
   "title": "Krafter Template Manifest",
   "type": "object",
   "properties": {
@@ -89,7 +89,8 @@
                 "exclusiveMinimum": 0,
                 "maximum": 100
               },
-              "minItems": 1
+              "minItems": 1,
+              "maxItems": 4
             },
             "gap": {
               "type": "number",

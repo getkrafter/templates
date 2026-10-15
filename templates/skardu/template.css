@@ -1,6 +1,6 @@
 /* Skardu template — minimalist modern */
 /* All typographic sizes and content spacing use pt (1pt = 1/72in) */
-/* Every rule is scoped under the manifest id (fact-3) */
+/* Every rule is scoped under the manifest id. */
 
 /* ── Root ─────────────────────────────────────────────────────────── */
 
@@ -45,7 +45,7 @@
   margin-bottom: 2pt;
 }
 
-/* fact-20: every header row — name, tagline, contact, links — follows
+/* Every header row — name, tagline, contact, links — follows
    `header.align`. Name, tagline and links are block boxes with inline
    children, so `text-align` moves them. `.tk-contact` is the one row utils.css
    lays out as a flex container (`display: flex; flex-wrap: wrap`), where
