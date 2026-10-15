@@ -451,19 +451,25 @@ Two partials come from the engine and are always available:
 `showIcons` is on. Separators between items are drawn by `utils.css`, not by
 markup, so the user's `header.separator` applies.
 
-`tags` renders a tag section in the style `tagStyle` selects:
+`tags` renders a skills or interests section in the style `tagStyle`
+selects. Each group reads "*Languages (Expert):* Go, C++" — an italic label
+(name, level, colon) and the keywords; a group without a name is just its
+keywords, and consecutive single skills (a name, no keywords) are joined with
+commas: "TypeScript, Go, Rust".
 
-| `tagStyle` | markup |
-|---|---|
-| `inline` (default) | `<span class="tk-tag-group">` per group, `; ` between |
-| `chips` | `<ul class="tk-tags tk-tags-chips"><li class="tk-tag">` |
-| `list` | `<ul class="tk-tags tk-tags-list"><li class="tk-tag">` |
+| `tagStyle` | looks like | markup |
+|---|---|---|
+| `inline` (default) | groups flow as a paragraph, a gap between them | `<span class="tk-tags-inline">` of `<span class="tk-tag-group">` |
+| `list` | one group per line, spaced like work items | `<ul class="tk-tags tk-tags-list">` of `<li class="tk-tag-group">` |
+| `chips` | a small label per group, one pill per keyword | `<div class="tk-tag-groups">` of `<div class="tk-tag-group">` |
 
 It reads `tagItems` from the current context (so you call it inside the
 `{{#each}}` over sections) and the style from a `tagStyle=` hash if you pass
-one, else `@root.tagStyle`, else `inline`. `inline` is byte-identical to the
-markup templates wrote by hand before the partial existed, so adopting it moves
-no pixels.
+one, else `@root.tagStyle`, else `inline`. Users pick the style in the
+drawer's **Skills display** control; set `renderDefaults.tagStyle` in your
+manifest to choose your template's default (Rakaposhi's sidebar uses `list`).
+Restyle the parts with `.tk-tag-group-name`, `.tk-tag-level` and `.tk-tag` —
+the full markup is in the contract reference.
 
 Your own partials live in `partials/<name>.hbs` and are referenced
 **namespaced**:

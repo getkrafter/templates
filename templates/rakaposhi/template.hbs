@@ -35,7 +35,7 @@
       {{#if tagItems}}
         <div class="tk-section-heading" data-section-type="{{type}}">{{name}}</div>
         <div class="tk-section-content" data-section-type="{{type}}">
-          {{#each tagItems}}<div class="tk-tag-group">{{display}}</div>{{/each}}
+          {{> tags tagItems=tagItems}}
         </div>
       {{else if languageItems}}
         <div class="tk-section-heading" data-section-type="{{type}}">{{name}}</div>

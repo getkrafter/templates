@@ -31,7 +31,7 @@ The root context of `template.hbs`. Every field is always present.
 | `resume` | `JsonResume` | the whole document, JSON Resume v1.0.0 |
 | `showIcons` | `boolean` | `meta.settings.header.icons === true` |
 | `showSummaryHeading` | `boolean` | render a "Summary" heading above the summary block |
-| `tagStyle` | `"inline" \| "chips" \| "list"` | which layout `{{> tags}}` renders |
+| `tagStyle` | `"inline" \| "list" \| "chips"` | which layout `{{> tags}}` renders |
 
 `summary` is `null` unless it carries HTML markup: plain text is treated as
 "the user has not written anything yet", so editor placeholder artefacts never
@@ -149,14 +149,26 @@ three conditions itself.
 ### `ProcessedTagItem`
 
 ```ts
-{ name: string; display: string }
+{ name: string; level: string | null; keywords: string[]; display: string }
 ```
 
-`display` is what to print. For a **skills** section it is
-`"Name: kw, kw (level)"` — group name, keywords, level — assembled from the
-parts the user filled in. For an **interests** section it is `"Name (kw, kw)"`.
-`name` is the bare group name, for a template that wants to style it
-separately.
+One entry of a **skills** or **interests** section, with the field names of
+the JSON Resume `skills[]` / `interests[]` entry it comes from (the raw entry
+is still at `resume.skills` / `resume.interests`). Every field is trimmed.
+
+| field | meaning |
+|---|---|
+| `name` | the group's name; `""` for a group that is just a list of keywords |
+| `level` | the group's level; `null` when absent, and always `null` for interests |
+| `keywords` | the group's keywords, empty strings removed |
+| `display` | a convenience string: `"Name (Level): kw, kw"`, dropping whichever parts are absent |
+
+An entry is kept when it has a name **or** at least one keyword. An entry with
+a name and no keywords is a single skill ("Leadership"), not a label.
+
+`display` exists for a template that prints one string per entry. It is
+derived from the other three; `{{> tags}}` does not use it, and a template
+that styles the parts separately should not either.
 
 ### `ProcessedLanguageItem`
 
@@ -508,10 +520,15 @@ specificity, because they carry `[data-template]` and these do not.
 
 | selector | purpose |
 |---|---|
-| `.tk-tag-group` | one group in the `inline` tag style (what `{{> tags}}` emits by default) |
-| `.tk-tags` | the `chips` / `list` container: list reset, `--size-body` |
+| `.tk-tag-group` | one group (or one run of single skills) in every `{{> tags}}` style |
+| `.tk-tag-group-name` | a group's label — name, level and colon; italic. Override to make it bold |
+| `.tk-tag-level` | the level inside a label or a single skill; muted in `chips` |
+| `.tk-tag` | a single skill in running text, or one pill in `chips` |
+| `.tk-tags-inline` | the `inline` container; widens the gap between groups to `0.75em` |
+| `.tk-tags` | the `list` / `chips` list container: list reset, `--size-body` |
+| `.tk-tags-list` | one group per line, `--space-item-gap` apart (the work/education item gap) |
+| `.tk-tag-groups` | the `chips` container; groups `--space-item-gap` apart |
 | `.tk-tags-chips` + `.tk-tag` | wrapping inline-flex of hairline-bordered pills |
-| `.tk-tags-list` + `.tk-tag` | one tag per line, `--space-list-item` apart |
 | `.tk-tag-list` | a wrapping flex container, for a template building its own tag layout |
 | `.tag-item` | `--size-body` (**no** `tk-` prefix — a legacy hook) |
 
@@ -588,14 +605,29 @@ Both read from the **current** context, so call them where `contactItems` /
 `tagItems` are in scope. `{{> tags}}` takes an optional `tagStyle=` hash;
 without it the style comes from `@root.tagStyle`, and failing that `inline`.
 
+The partial renders **runs**: each entry with keywords is its own run, and
+consecutive single skills (a name, no keywords) form one run joined by `, `.
+Inside a run:
+
+| entry | `inline` / `list` group content |
+|---|---|
+| named, with level | `<span class="tk-tag-group-name">Languages<span class="tk-tag-level"> (Expert)</span>:</span> Go, C++` |
+| named, no level | `<span class="tk-tag-group-name">Cloud:</span> AWS, GCP` |
+| unnamed | `React, Next.js` — no label, no colon |
+| single skills | `<span class="tk-tag">TypeScript</span>, <span class="tk-tag">Rust<span class="tk-tag-level"> (Advanced)</span></span>` |
+
 | `tagStyle` | markup |
 |---|---|
-| `inline` (default) | `<span class="tk-tag-group">{{display}}</span>`, `; ` between |
-| `chips` | `<ul class="tk-tags tk-tags-chips"><li class="tk-tag">{{display}}</li>…</ul>` |
-| `list` | `<ul class="tk-tags tk-tags-list"><li class="tk-tag">{{display}}</li>…</ul>` |
+| `inline` (default) | `<span class="tk-tags-inline"><span class="tk-tag-group">…</span> <span class="tk-tag-group">…</span></span>` — groups flow as text; a real space between them, widened by CSS, and no separator glyph |
+| `list` | `<ul class="tk-tags tk-tags-list"><li class="tk-tag-group">…</li>…</ul>` — one group per line |
+| `chips` | `<div class="tk-tag-groups"><div class="tk-tag-group"><div class="tk-tag-group-name">Languages<span class="tk-tag-level"> (Expert)</span></div><ul class="tk-tags tk-tags-chips"><li class="tk-tag">Go</li>…</ul></div>…</div>` — the label only when the group has a name or level; one pill per keyword, or per single skill |
 
-`inline` is character-for-character the markup templates wrote by hand before
-the partial existed, so adopting it moves no pixels.
+All text is escaped. No entries renders nothing. An unknown `tagStyle=` value
+falls back to `inline`.
+
+A template whose design wants one group per line by default — a sidebar, say —
+sets `"renderDefaults": { "tagStyle": "list" }` in `settings.defaults`; the
+user can still pick another style in the drawer's **Skills display** control.
 
 ### Your own
 
