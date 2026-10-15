@@ -109,6 +109,8 @@ but the same item shape as `history`.
   duration: string;             // "" when dates are off or unparseable
   subtitleParts: string[];      // the slots it did not, plus extras
   descriptionBlocks: string[];  // rich-text HTML, one block per concept
+  tags: string[];               // Education courses[] / Project keywords[]; [] otherwise
+  tagsLabel: string | null;     // "Coursework" | "Keywords"; null when tags is empty
   link: string | null;
   showLink: boolean;            // settings allow it AND there is a link
   linkDisplay: "icon" | "header";
@@ -118,6 +120,24 @@ but the same item shape as `history`.
   isFirst: boolean;             // index 0 in this section
 }
 ```
+
+`tags` is the item's short free-tag list — Education `courses[]`, Project
+`keywords[]` — trimmed, empties removed, **not** HTML-escaped (`{{join tags ", "}}`
+escapes on output). `tagsLabel` is `null` whenever `tags` is empty, so
+`{{#if tagsLabel}}` guards both. Project `roles[]` join `subtitleParts` as one
+comma-joined entry after `type`.
+
+Whenever `tags` is non-empty and the section's `showDescription` is on,
+`descriptionBlocks` gains one more block, **last**:
+
+```html
+<p class="tk-item-tags"><span class="tk-item-tags-label">Coursework:</span> Algorithms, Databases</p>
+```
+
+Values are escaped by the engine (description blocks are triple-stached). A
+template that renders only `descriptionBlocks` therefore shows coursework and
+project keywords with no change; a template that styles the tags itself reads
+`tags`/`tagsLabel` and skips the block whose class is `tk-item-tags`.
 
 Which fields land in `headingParts` depends on the user's
 `itemHeadingFormat`; whatever it does not consume falls through to
