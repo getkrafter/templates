@@ -521,7 +521,7 @@ specificity, because they carry `[data-template]` and these do not.
 | selector | purpose |
 |---|---|
 | `.tk-tag-group` | one group (or one run of single skills) in every `{{> tags}}` style |
-| `.tk-tag-group-name` | a group's label — name, level and colon; italic. Override to make it bold |
+| `.tk-tag-group-name` | a group's label — name, level and colon — in every style; bold. Override it to restyle the label (`font-weight: 400; font-style: italic`, a colour) |
 | `.tk-tag-level` | the level inside a label or a single skill; muted in `chips` |
 | `.tk-tag` | a single skill in running text, or one pill in `chips` |
 | `.tk-tags-inline` | the `inline` container; widens the gap between groups to `0.75em` |

@@ -452,7 +452,7 @@ Two partials come from the engine and are always available:
 markup, so the user's `header.separator` applies.
 
 `tags` renders a skills or interests section in the style `tagStyle`
-selects. Each group reads "*Languages (Expert):* Go, C++" — an italic label
+selects. Each group reads "**Languages (Expert):** Go, C++" — a bold label
 (name, level, colon) and the keywords; a group without a name is just its
 keywords, and consecutive single skills (a name, no keywords) are joined with
 commas: "TypeScript, Go, Rust".
@@ -468,8 +468,18 @@ It reads `tagItems` from the current context (so you call it inside the
 one, else `@root.tagStyle`, else `inline`. Users pick the style in the
 drawer's **Skills display** control; set `renderDefaults.tagStyle` in your
 manifest to choose your template's default (Rakaposhi's sidebar uses `list`).
-Restyle the parts with `.tk-tag-group-name`, `.tk-tag-level` and `.tk-tag` —
-the full markup is in the contract reference.
+Restyle the parts with `.tk-tag-group-name` (the label, in all three styles),
+`.tk-tag-level` and `.tk-tag` — for example, an italic label instead of a bold
+one:
+
+```css
+.resume[data-template="my-template"] .tk-tag-group-name {
+  font-weight: 400;
+  font-style: italic;
+}
+```
+
+The full markup is in the contract reference.
 
 Your own partials live in `partials/<name>.hbs` and are referenced
 **namespaced**:
