@@ -1,0 +1,84 @@
+{{! Rakaposhi — two-column sidebar layout }}
+{{! Single wrapper so page-breaking treats the whole layout as one unit }}
+{{! The engine decides which region each section lands in (fact-16); this
+    template only iterates `regions.aside.sections` / `regions.main.sections`
+    and never asks what category a section is. }}
+
+<div class="tk-two-col">
+  <div class="tk-sidebar">
+    {{! Header in sidebar }}
+    {{#if links}}
+      <div class="tk-links">{{#each links}}<span>{{#unless @first}}<span class="tk-separator"></span>{{/unless}}<a class="tk-link" href="{{href}}">{{title}}</a></span>{{/each}}</div>
+    {{/if}}
+    <div class="tk-header">
+      {{#if fullName}}
+        <div class="tk-resume-name">{{fullName}}</div>
+      {{/if}}
+      {{#if jobTitle}}
+        <p class="tk-subtitle">{{jobTitle}}</p>
+      {{/if}}
+      
+      {{#if contactItems}}
+      <div class="tk-contact">{{> contact-row contactItems=contactItems showIcons=showIcons}}</div>
+      {{/if}}
+    </div>
+
+    {{! Summary in sidebar. `summary` is a header field, not a section, so it
+        is placed by this markup rather than by a region. }}
+    {{#if summary}}
+    <div class="tk-section-content tk-rich-text" data-section-type="summary">{{{summary}}}</div>
+    {{/if}}
+
+    {{! Whatever the engine put in the aside — tags and languages by this
+        template's `defaultPlacement`, plus anything the user moved here. }}
+    {{#each regions.aside.sections}}
+      {{#if tagItems}}
+        <div class="tk-section-heading" data-section-type="{{type}}">{{name}}</div>
+        <div class="tk-section-content" data-section-type="{{type}}">
+          {{#each tagItems}}<div class="tk-tag-group">{{display}}</div>{{/each}}
+        </div>
+      {{else if languageItems}}
+        <div class="tk-section-heading" data-section-type="{{type}}">{{name}}</div>
+        <div class="tk-section-content" data-section-type="{{type}}">
+          {{join languageItems "display" ", "}}
+        </div>
+      {{/if}}
+    {{/each}}
+  </div>
+
+  <div class="tk-main">
+    {{! History and reference sections in user-defined order }}
+    {{#each regions.main.sections}}
+      {{#if historyItems}}
+        <div class="tk-section-heading" data-section-type="{{type}}">{{name}}</div>
+        {{#each historyItems}}
+          <div class="tk-history-item{{#unless @first}} tk-history-gap{{/unless}}">
+            {{#if hasHeader}}
+            <div class="tk-item-header">
+              {{#if heading}}<div class="tk-item-title">{{#if linkDisplayHeader}}<a href="{{link}}" target="_blank" rel="noopener noreferrer">{{join headingParts '<span class="tk-item-sep"></span>'}}</a>{{else}}{{join headingParts '<span class="tk-item-sep"></span>'}}{{#if linkDisplayIcon}}<a href="{{link}}" target="_blank" rel="noopener noreferrer" class="tk-item-link-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9L9 3M9 3H5M9 3v4"/></svg></a>{{/if}}{{/if}}</div>{{/if}}
+              {{#if duration}}<div class="tk-item-date">{{duration}}</div>{{/if}}
+            </div>
+            {{/if}}
+            {{#if subtitleParts}}
+            <div class="tk-item-subtitle">{{join subtitleParts ", "}}</div>
+            {{/if}}
+          </div>
+          {{#each descriptionBlocks}}
+            <div class="tk-item-body tk-rich-text">{{{this}}}</div>
+          {{/each}}
+        {{/each}}
+      {{else if referenceItems}}
+        <div class="tk-section-heading" data-section-type="{{type}}">{{name}}</div>
+        <div class="tk-section-content">
+          {{#each referenceItems}}
+            <div class="tk-reference">
+              <div class="tk-reference-name">{{name}}</div>
+              {{#if details}}<div class="tk-reference-detail">{{details}}</div>{{/if}}
+              {{#if contact}}<div class="tk-reference-contact">{{contact}}</div>{{/if}}
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
+    {{/each}}
+  </div>
+</div>

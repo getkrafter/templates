@@ -1,0 +1,81 @@
+{{! Skardu template — single-column, styled differently via CSS }}
+
+{{! ── Header ── }}
+<div class="tk-header">
+{{#if fullName}}
+  <div class="tk-resume-name">{{fullName}}</div>
+{{/if}}
+{{#if jobTitle}}
+  <p class="tk-subtitle">{{jobTitle}}</p>
+{{/if}}
+{{#if contactItems}}
+  <div class="tk-contact">{{> contact-row contactItems=contactItems showIcons=showIcons}}</div>
+{{/if}}
+{{#if links}}
+  <div class="tk-links">
+    {{#each links}}{{#unless @first}}<span class="tk-separator"></span>{{/unless}}<a class="tk-link" href="{{href}}">{{title}}</a>{{/each}}
+  </div>
+{{/if}}
+</div>
+
+{{! ── Summary ── }}
+{{#if summary}}
+{{#if showSummaryHeading}}<div class="tk-section-heading" data-section-type="summary">Summary</div>{{/if}}
+<div class="tk-section-content tk-rich-text" data-section-type="summary">{{{summary}}}</div>
+{{/if}}
+
+{{! ── Sections ── }}
+{{#each sections}}
+
+  <div class="tk-section-heading" data-section-type="{{type}}" data-category="{{category}}">{{name}}</div>
+
+  {{#if historyItems}}
+    {{#each historyItems}}
+      <div class="tk-history-item{{#unless @first}} tk-history-gap{{/unless}}" data-section-type="{{../type}}">
+        <div class="tk-item-header">
+          {{#if heading}}
+            <div class="tk-item-title">{{#if linkDisplayHeader}}<a href="{{link}}" target="_blank" rel="noopener noreferrer">{{join headingParts '<span class="tk-item-sep"></span>'}}</a>{{else}}{{join headingParts '<span class="tk-item-sep"></span>'}}{{#if linkDisplayIcon}}<a href="{{link}}" target="_blank" rel="noopener noreferrer" class="tk-item-link-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9L9 3M9 3H5M9 3v4"/></svg></a>{{/if}}{{/if}}</div>
+          {{/if}}
+          {{#if duration}}
+            <div class="tk-item-date">{{duration}}</div>
+          {{/if}}
+        </div>
+        {{#if subtitleParts}}
+          <div class="tk-item-subtitle">{{join subtitleParts ", "}}</div>
+        {{/if}}
+      </div>
+      {{#if descriptionBlocks}}
+        <div class="tk-item-content-gap"></div>
+        {{/if}}
+      {{#each descriptionBlocks}}
+        <div class="tk-item-body tk-rich-text" data-section-type="{{../../type}}">{{{this}}}</div>
+      {{/each}}
+    {{/each}}
+
+  {{else if tagItems}}
+    <div class="tk-section-content" data-section-type="{{type}}" data-category="{{category}}">
+      <p>
+        {{> tags tagItems=tagItems}}
+      </p>
+    </div>
+
+  {{else if languageItems}}
+    <div class="tk-section-content" data-section-type="{{type}}" data-category="{{category}}">
+      <p>
+        {{join languageItems "display" ", "}}
+      </p>
+    </div>
+
+  {{else if referenceItems}}
+    <div class="tk-section-content" data-section-type="{{type}}" data-category="{{category}}">
+      {{#each referenceItems}}
+        <div class="tk-reference">
+          <div class="tk-reference-name">{{name}}</div>
+          {{#if details}}<div class="tk-reference-detail">{{details}}</div>{{/if}}
+          {{#if contact}}<div class="tk-reference-contact">{{contact}}</div>{{/if}}
+        </div>
+      {{/each}}
+    </div>
+
+  {{/if}}
+{{/each}}

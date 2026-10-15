@@ -1,0 +1,214 @@
+/* Rakaposhi template — two-column sidebar layout */
+/* Structure: .tk-two-col contains .tk-sidebar + .tk-main */
+/* Every rule is scoped under the manifest id (fact-3) */
+
+/* `--layout-col-1` / `--layout-col-2` / `--layout-gap` are emitted from this
+   manifest's grid layout (widths [35, 65], gap 0); `--tpl-sidebar-tint` from
+   its one control. Every reference carries the manifest's own value as the
+   `var()` fallback, so the package renders the same with or without the
+   tokens. */
+
+/* ── Root ────────────────────────────────────────────────────────── */
+
+.resume[data-template="rakaposhi"] {
+  font-size: var(--size-body);
+  line-height: var(--leading, 1.25);
+  color: var(--color-body, #000000);
+  /* The sidebar fill is the template's own, not the app's: the `22%` used to
+     be a literal here *and* in the app's preview wrapper. It is now the
+     `sidebar-tint` control (`--tpl-sidebar-tint`, default 22%), so the package
+     carries its own background and the slider is the only place the mix is
+     written down (fact-6). */
+  --sidebar-bg: color-mix(in srgb, var(--color-accent, #000000) var(--tpl-sidebar-tint, 22%), #1a1a1a);
+  /* Sidebar text follows the per-element colour tokens, but the dark sidebar
+     would swallow any dark value — so we take the element colour and force
+     its lightness up (oklch `max(floor, l)`) and soften chroma. Dark greys /
+     accents become legible light tints; the user's hue still comes through. */
+  --sidebar-link: oklch(from var(--color-link, #cfe0f0) max(0.72, l) calc(c * 0.6) h);
+}
+
+/* ── Two-column layout ───────────────────────────────────────────── */
+
+/* The gutter between the columns is padding *inside* them (the `.tk-sidebar`
+   right padding and the `.tk-main` left padding below), not a flex gap — so
+   the manifest declares `gap: 0` and this reads the token for the user's own
+   `layout.gap` on top of it. At the declared 0 it is the no-gap layout the
+   paddings have always produced. */
+.resume[data-template="rakaposhi"] .tk-two-col {
+  display: flex;
+  min-height: 100%;
+  gap: var(--layout-gap, 0);
+}
+
+.resume[data-template="rakaposhi"] .tk-sidebar {
+  width: var(--layout-col-1, 35%);
+  background: var(--sidebar-bg);
+  color: #c8c8c8;
+  padding: var(--margin-top, 30px) calc(var(--margin-right, 12pt) * 0.6) var(--margin-bottom, 30px)
+    calc(var(--margin-left, 12pt) * 0.6);
+  box-sizing: border-box;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* `flex: 1` rather than `width: var(--layout-col-2, 65%)`: the main column has
+   always taken whatever the sidebar leaves, which is what keeps it correct
+   when the gap is non-zero. */
+.resume[data-template="rakaposhi"] .tk-main {
+  flex: 1;
+  padding: var(--margin-top, 30px) var(--margin-right, 30px) var(--margin-bottom, 30px)
+    calc(var(--margin-left, 30px) * 0.6);
+  box-sizing: border-box;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* ── Sidebar — header ────────────────────────────────────────────── */
+
+/* Header spacing is `spacing.header.after` (24) / `spacing.header.nameGap`
+   (the app default 2) — see this template's `defaults` and the engine's
+   utilities. The `.tk-contact` / `.tk-links` margins below are internal to the
+   sidebar stack and stay here. */
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-resume-name {
+  line-height: 1;
+  color: oklch(from var(--color-page-heading, white) max(0.85, l) calc(c * 0.5) h);
+  word-wrap: break-word;
+}
+
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-subtitle {
+  color: oklch(from var(--color-page-subheading, #b0b0b0) max(0.7, l) calc(c * 0.6) h);
+  margin: 0;
+  margin-bottom: var(--space-section-gap, 12pt);
+}
+
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-contact {
+  font-size: var(--size-body);
+  line-height: 1.4;
+  color: #c0c0c0;
+  margin-bottom: calc(var(--space-section-gap, 12pt) * 2);
+}
+
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-contact .tk-separator {
+  margin: 0;
+}
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-contact .tk-separator::after {
+  content: none;
+}
+
+/* The links row sits *above* `.tk-header`, so it does not inherit the
+   `text-align: var(--header-align, left)` the engine puts on that element —
+   it reads the token itself, so all four header rows follow `header.align`
+   (fact-20). The fallback is `left`, which is both this template's
+   `header.align` default and the alignment the row rendered at before. */
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-links {
+  font-size: var(--size-body);
+  line-height: 1.4;
+  color: #c0c0c0;
+  text-align: var(--header-align, left);
+  margin-bottom: calc(var(--space-section-gap, 12pt) * 2);
+}
+
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-links .tk-separator::after {
+  padding: 0 2pt;
+}
+
+/* Scoped link identity: the dark sidebar leaves its links unmarked.
+   `typography.link.decoration` is a single global leaf, so a per-scope
+   exception like this can only live in template CSS. */
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-links a {
+  color: var(--sidebar-link);
+  text-decoration: none;
+  border-bottom: none;
+}
+
+/* ── Sidebar — section headings ──────────────────────────────────── */
+
+/* The 4pt below a sidebar heading is deliberately tighter than the main
+   column's `--space-section-after-heading`: `spacing.section.afterHeading` is
+   one global leaf, so a per-scope exception can only be a literal here. */
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-section-heading {
+  font-weight: var(--weight-section-heading, 600);
+  color: oklch(from var(--color-section-heading, #c0c0c0) max(0.75, l) calc(c * 0.6) h);
+  border: none;
+  padding-bottom: 0;
+  margin-bottom: 4pt;
+  margin-top: calc(var(--space-section-gap, 12pt) * 1.5);
+}
+
+/* ── Sidebar — content ───────────────────────────────────────────── */
+
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-section-content {
+  color: oklch(from var(--color-body, #a8a8a8) max(0.66, l) calc(c * 0.6) h);
+  margin-bottom: calc(var(--space-section-gap, 12pt) * 2);
+}
+
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-section-content[data-section-type="summary"] {
+  color: #cccccc;
+}
+
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-rich-text a {
+  color: var(--sidebar-link);
+}
+
+.resume[data-template="rakaposhi"] .tk-sidebar .language-item {
+  color: #c0c0c0;
+}
+
+.resume[data-template="rakaposhi"] .tk-sidebar .language-proficiency {
+  color: #888888;
+}
+
+/* References default to `main`, but the user may move one into the aside
+   (fact-15) — these keep it legible there. */
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-reference-name {
+  color: #ffffff;
+}
+
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-reference-detail {
+  color: #999999;
+}
+
+/* ── Main column — section headings ──────────────────────────────── */
+
+.resume[data-template="rakaposhi"] .tk-main .tk-section-heading {
+  padding-bottom: calc(var(--decoration-padding-bottom, 0) + 1pt);
+  margin-bottom: var(--space-section-after-heading, 6pt);
+  margin-top: var(--space-section-gap, 12pt);
+  color: var(--color-section-heading, var(--color-accent-3));
+}
+
+.resume[data-template="rakaposhi"] .tk-main > *:first-child {
+  margin-top: 0;
+}
+
+/* ── Main column — history items ─────────────────────────────────── */
+
+.resume[data-template="rakaposhi"] .tk-main .tk-item-subtitle {
+  color: var(--color-item-subheading, #333333);
+}
+
+/* ── Print ───────────────────────────────────────────────────────── */
+
+@media print {
+  /* Fixed pseudo-element paints the sidebar background on every printed page,
+     regardless of where the actual content ends. Same column width as
+     `.tk-sidebar` above, from the same token. */
+  .resume[data-template="rakaposhi"]::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--layout-col-1, 35%);
+    height: 100%;
+    background: var(--sidebar-bg);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .resume[data-template="rakaposhi"] .tk-two-col {
+    position: relative;
+  }
+  .resume[data-template="rakaposhi"] .tk-sidebar {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

@@ -10,5 +10,10 @@
 #
 # Official templates stay with the core team; a community template names its
 # author. The id is the folder name, which is also the manifest id.
-#
-# (Step 12 adds the six official templates here as @getkrafter/core.)
+
+/templates/deosai/ @getkrafter/core
+/templates/hunza/ @getkrafter/core
+/templates/naltar/ @getkrafter/core
+/templates/passu/ @getkrafter/core
+/templates/rakaposhi/ @getkrafter/core
+/templates/skardu/ @getkrafter/core

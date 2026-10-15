@@ -1,0 +1,51 @@
+{
+  "$schema": "../../schema/template.schema.json",
+  "id": "naltar",
+  "name": "Naltar",
+  "version": "1.0.0",
+  "contract": "1",
+  "description": "Bold accent header band",
+  "author": { "name": "Krafter", "url": "https://getkrafter.dev" },
+  "license": "MIT",
+  "layout": { "mode": "flow" },
+  "settings": {
+    "defaults": {
+      "typography": {
+        "baseFontSize": 9,
+        "pageHeading": {
+          "fontWeight": 600
+        },
+        "sectionHeading": {
+          "fontSize": 10,
+          "letterSpacing": 0.1,
+          "textTransform": "uppercase",
+          "fontVariant": "normal",
+          "decoration": {
+            "enabled": false
+          }
+        },
+        "link": {
+          "color": "accent-7"
+        },
+        "itemSubheading": {
+          "fontStyle": "italic"
+        }
+      },
+      "spacing": {
+        "header": {
+          "nameGap": 3
+        }
+      },
+      "color": {
+        "accent": "#374151"
+      },
+      "header": {
+        "align": "left",
+        "separator": "slash",
+        "icons": true
+      }
+    },
+    "locked": ["typography.pageHeading.color", "typography.pageSubheading.color"],
+    "controls": []
+  }
+}

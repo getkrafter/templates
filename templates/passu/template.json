@@ -1,0 +1,58 @@
+{
+  "$schema": "../../schema/template.schema.json",
+  "id": "passu",
+  "name": "Passu",
+  "version": "1.0.0",
+  "contract": "1",
+  "description": "Full-height accent spine",
+  "author": { "name": "Krafter", "url": "https://getkrafter.dev" },
+  "license": "MIT",
+  "layout": { "mode": "flow" },
+  "settings": {
+    "defaults": {
+      "typography": {
+        "baseFontSize": 9,
+        "pageHeading": {
+          "fontFamily": "Montserrat",
+          "fontWeight": 600,
+          "letterSpacing": 0.1,
+          "textTransform": "uppercase"
+        },
+        "sectionHeading": {
+          "fontFamily": "Montserrat",
+          "fontSize": 10,
+          "fontWeight": 500,
+          "letterSpacing": 0.2,
+          "textTransform": "uppercase",
+          "fontVariant": "normal",
+          "decoration": {
+            "enabled": false
+          }
+        },
+        "link": {
+          "color": "text-1"
+        }
+      },
+      "spacing": {
+        "section": {
+          "gap": 16
+        },
+        "header": {
+          "after": 24
+        }
+      },
+      "color": {
+        "accent": "#374151"
+      },
+      "header": {
+        "align": "left",
+        "separator": "dot"
+      },
+      "renderDefaults": {
+        "showSummaryHeading": false
+      }
+    },
+    "locked": [],
+    "controls": []
+  }
+}

@@ -1,0 +1,206 @@
+/* Skardu template — minimalist modern */
+/* All typographic sizes and content spacing use pt (1pt = 1/72in) */
+/* Every rule is scoped under the manifest id (fact-3) */
+
+/* ── Root ─────────────────────────────────────────────────────────── */
+
+.resume[data-template="skardu"] {
+  font-size: var(--size-body);
+  line-height: var(--leading, 1.35);
+  color: var(--color-body, #222222);
+  padding: var(--margin-top, 30px) var(--margin-right, 30px) var(--margin-bottom, 30px)
+    var(--margin-left, 30px);
+}
+
+/* ── Header ───────────────────────────────────────────────────────── */
+
+/* `.tk-header` margin-bottom is `spacing.header.after` (15.6 in this
+   template's defaults) — see the engine's utils.css. */
+.resume[data-template="skardu"] .tk-resume-name {
+  text-align: var(--header-align, left);
+  letter-spacing: var(--tracking-page-heading, 2pt);
+  color: var(--color-page-heading, #111111);
+  /* The accent rule below carries the name gap, so the name itself adds none. */
+  margin-bottom: 0;
+}
+
+/* Accent rule below name. The name gap is split across the rule: half above
+   it, the full value below — the geometry Skardu has always had, now
+   expressed in `spacing.header.nameGap` instead of a `section.gap` multiple. */
+.resume[data-template="skardu"] .tk-resume-name::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: calc(var(--decoration-border-width, 4pt) + 1pt);
+  background: var(--color-accent, #111111);
+  margin-top: calc(var(--space-header-name-gap, 9.6pt) * 0.5);
+  margin-bottom: var(--space-header-name-gap, 9.6pt);
+}
+
+.resume[data-template="skardu"] .tk-subtitle {
+  font-weight: 400;
+  text-align: var(--header-align, left);
+  color: var(--color-page-subheading, #666666);
+  margin-top: calc(var(--space-header-name-gap, 9.6pt) * 0.5);
+  margin-bottom: 2pt;
+}
+
+/* fact-20: every header row — name, tagline, contact, links — follows
+   `header.align`. Name, tagline and links are block boxes with inline
+   children, so `text-align` moves them. `.tk-contact` is the one row utils.css
+   lays out as a flex container (`display: flex; flex-wrap: wrap`), where
+   `text-align` has no effect on item placement — `justify-content` is what
+   actually aligns it, so the row no longer stays left when the header is
+   centred or right-aligned.
+   `left` / `right` are `justify-content` keywords (CSS Box Alignment 3) and map
+   to flex-start / flex-end on a row. A renderer that does not know them treats
+   the substituted declaration as invalid at computed-value time and falls back
+   to the initial `normal`, which is flex-start in a flex row — so `left` lands
+   on flex-start either way, which is exactly where this row sat before. */
+.resume[data-template="skardu"] .tk-contact {
+  font-size: calc(var(--size-body) * 0.9);
+  line-height: 1.4;
+  text-align: var(--header-align, left);
+  justify-content: var(--header-align, left);
+  color: #555555;
+}
+
+.resume[data-template="skardu"] .tk-links {
+  font-size: calc(var(--size-body) * 0.9);
+  line-height: 1.4;
+  text-align: var(--header-align, left);
+  color: #555555;
+}
+
+.resume[data-template="skardu"] .tk-links a {
+  color: var(--color-link, #333333);
+}
+
+.resume[data-template="skardu"] .tk-links .tk-separator {
+  color: rgba(34, 34, 34, 0.35);
+}
+
+/* ── Sections ─────────────────────────────────────────────────────── */
+
+/* Left-border bar is the Skardu identity — now driven by the decoration
+   box model (default sides.left), so the user's border width/colour apply.
+   The padding-left keeps the text clear of the bar. */
+.resume[data-template="skardu"] .tk-section-heading {
+  font-size: var(--size-section-heading);
+  font-weight: var(--weight-section-heading, 600);
+  letter-spacing: var(--tracking-section-heading, 1pt);
+  color: var(--color-section-heading, #111111);
+  padding-left: calc(var(--decoration-padding-left, 0) + calc(var(--space-item-gap, 10pt) * 0.2) + 6pt);
+  padding-top: calc(var(--decoration-padding-top, 0) + 1pt);
+  padding-bottom: calc(var(--decoration-padding-bottom, 0) + 1pt);
+}
+
+.resume[data-template="skardu"] .tk-section-heading:first-child {
+  margin-top: 0;
+}
+
+.resume[data-template="skardu"] .tk-section-content p {
+  font-size: var(--size-body);
+  padding-left: calc(calc(var(--space-item-gap, 10pt) * 0.2) + 10pt);
+}
+
+/* ── History items — left-border timeline ─────────────────────────── */
+
+.resume[data-template="skardu"] .tk-history-item {
+  padding-left: calc(calc(var(--space-item-gap, 10pt) * 0.2) + 10pt);
+}
+
+.resume[data-template="skardu"] .tk-item-content-gap {
+  height: calc(var(--space-item-gap, 10pt) * 0.3);
+}
+
+.resume[data-template="skardu"] .tk-item-body {
+  display: flex;
+  flex-direction: column;
+  padding-left: calc(calc(var(--space-item-gap, 10pt) * 0.2) + 10pt);
+}
+
+.resume[data-template="skardu"] .tk-item-header {
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.resume[data-template="skardu"] .tk-item-title {
+  font-weight: 600;
+  color: var(--color-item-heading, #111111);
+}
+
+/* Scoped link identity: Skardu marks *body* links with a hairline border
+   instead of an underline. `typography.link.decoration` is a single global
+   leaf, so a per-scope exception like this can only live in template CSS. */
+.resume[data-template="skardu"] .tk-item-title a {
+  color: var(--color-link, inherit);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-link, #cccccc);
+}
+
+.resume[data-template="skardu"] .tk-item-link-icon {
+  color: #999999;
+}
+
+.resume[data-template="skardu"] .tk-item-subtitle {
+  font-weight: 400;
+  font-style: var(--style-item-subheading, normal);
+  color: var(--color-item-subheading, #666666);
+  margin-bottom: var(--space-item-after-heading, 0);
+}
+
+.resume[data-template="skardu"] .tk-item-date {
+  font-weight: 300;
+  font-style: normal;
+  color: #666666;
+}
+
+/* ── Rich text content (from Tiptap HTML) ─────────────────────────── */
+
+.resume[data-template="skardu"] .tk-rich-text p + ul,
+.resume[data-template="skardu"] .tk-rich-text p + ol {
+  margin-top: 3pt;
+}
+
+.resume[data-template="skardu"] .tk-rich-text ul {
+  list-style: none;
+  padding-left: var(--bullet-indent, calc(calc(var(--space-item-gap, 10pt) * 0.2) + 9pt));
+}
+
+.resume[data-template="skardu"] .tk-rich-text ol {
+  list-style-type: decimal;
+  padding-left: calc(calc(var(--space-item-gap, 10pt) * 0.2) + 9pt);
+}
+
+/* List-item rhythm is `spacing.listItem` now (see utils.css); the rule that
+   used to live here computed the same 1pt from `item.gap`. */
+
+/* Muted bullets are part of Skardu's identity — the literal is the fallback; a user-chosen bullet colour wins. */
+.resume[data-template="skardu"] .tk-rich-text ul > li::before {
+  color: var(--bullet-color, rgba(34, 34, 34, 0.35));
+}
+
+/* Same scoped link identity as `.tk-item-title a` above — a per-scope
+   exception the global `typography.link.decoration` leaf cannot express. */
+.resume[data-template="skardu"] .tk-rich-text a {
+  color: var(--color-link, #333333);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-link, #cccccc);
+}
+
+/* ── References ───────────────────────────────────────────────────── */
+
+.resume[data-template="skardu"] .tk-reference-name {
+  font-weight: 600;
+  color: #111111;
+}
+
+.resume[data-template="skardu"] .tk-reference-detail {
+  color: #666666;
+  font-style: normal;
+}
+
+.resume[data-template="skardu"] .tk-reference-contact {
+  color: #999999;
+}

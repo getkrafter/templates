@@ -1,0 +1,93 @@
+/* Passu template — full-height accent spine */
+/* Every rule is scoped under the manifest id (fact-3) */
+
+/* ── Root ── */
+.resume[data-template="passu"] {
+  font-size: var(--size-body);
+  line-height: var(--leading, 1.25);
+  color: var(--color-body, #000000);
+  position: relative;
+  min-height: inherit;
+  padding: var(--margin-top, 30px) var(--margin-right, 30px) var(--margin-bottom, 30px)
+    calc(var(--margin-left, 30px) + 16pt);
+}
+
+/* Accent spine — full height of the page container */
+.resume[data-template="passu"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: calc(var(--decoration-border-width, 4pt) + 12pt);
+  background: var(--color-accent-5, #000000);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ── Print: spine repeats on every page ── */
+@media print {
+  .resume[data-template="passu"]::before {
+    position: fixed;
+    width: 10pt;
+    height: 100%;
+  }
+}
+
+/* ── Header ── */
+
+/* Header spacing is `spacing.header.after` (24) / `spacing.header.nameGap`
+   (the app default 2) — see this template's `defaults` and the engine's
+   utilities. Every header row reads `--header-align` (fact-20); the fallback
+   is `left`, which is also what this template's `header.align` default sets,
+   so the declared and rendered alignment agree. */
+.resume[data-template="passu"] .tk-resume-name {
+  text-align: var(--header-align, left);
+  font-family: var(--font-page-heading, system-ui);
+}
+
+.resume[data-template="passu"] .tk-subtitle {
+  font-weight: 600;
+  /* The tagline weight is fixed; it no longer borrows the name's weight token. */
+  color: var(--color-page-subheading, var(--color-section-heading, #000000));
+  text-align: var(--header-align, left);
+  margin-bottom: 8pt;
+}
+
+.resume[data-template="passu"] .tk-contact,
+.resume[data-template="passu"] .tk-links {
+  font-size: calc(var(--size-body) * 0.9);
+  line-height: 1.6;
+  color: #555555;
+  text-align: var(--header-align, left);
+}
+
+.resume[data-template="passu"] .tk-links a {
+  color: var(--color-link, #555555);
+}
+
+/* ── Section headings ── */
+
+.resume[data-template="passu"] .tk-section-heading {
+  /* Intentionally small — spine provides the visual weight; headings are labels */
+  font-size: var(--size-section-heading);
+  font-family: var(--font-section-heading, inherit);
+  letter-spacing: var(--tracking-section-heading, 1.5pt);
+  color: var(--color-section-heading, var(--color-accent));
+}
+
+/* The summary heading used to be hidden here with `display: none`. That is a
+   render decision, not a style one, so it is now
+   `renderDefaults.showSummaryHeading: false` in the manifest (fact-7): the
+   heading is never emitted instead of being emitted and painted over, and a
+   user who wants it can turn it back on. */
+
+.resume[data-template="passu"] .tk-section-content[data-section-type="summary"] {
+  margin-bottom: 8pt;
+}
+
+/* ── History items ── */
+
+.resume[data-template="passu"] .tk-item-subtitle {
+  color: var(--color-item-subheading, #555555);
+}

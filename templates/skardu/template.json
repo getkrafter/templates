@@ -1,0 +1,60 @@
+{
+  "$schema": "../../schema/template.schema.json",
+  "id": "skardu",
+  "name": "Skardu",
+  "version": "1.0.0",
+  "contract": "1",
+  "description": "Minimalist, left-border timeline",
+  "author": { "name": "Krafter", "url": "https://getkrafter.dev" },
+  "license": "MIT",
+  "layout": { "mode": "flow" },
+  "settings": {
+    "defaults": {
+      "typography": {
+        "lineHeight": 1.35,
+        "body": {
+          "color": "text-2"
+        },
+        "pageHeading": {
+          "fontFamily": "Poppins",
+          "fontWeight": 700,
+          "letterSpacing": 0.2,
+          "textTransform": "uppercase"
+        },
+        "sectionHeading": {
+          "fontWeight": 700,
+          "letterSpacing": 0.2,
+          "decoration": {
+            "enabled": true,
+            "borderWidth": 2,
+            "borderColor": "accent-3",
+            "sides": {
+              "left": true
+            }
+          }
+        },
+        "link": {
+          "color": "text-1"
+        }
+      },
+      "spacing": {
+        "item": {
+          "afterHeading": 0
+        },
+        "header": {
+          "after": 15.6,
+          "nameGap": 9.6
+        }
+      },
+      "color": {
+        "accent": "#374151"
+      },
+      "header": {
+        "align": "left",
+        "separator": "dash"
+      }
+    },
+    "locked": [],
+    "controls": []
+  }
+}

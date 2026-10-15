@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/template.schema.json",
+  "id": "rakaposhi",
+  "name": "Rakaposhi",
+  "version": "1.0.0",
+  "contract": "1",
+  "description": "Two-column with dark sidebar",
+  "author": { "name": "Krafter", "url": "https://getkrafter.dev" },
+  "license": "MIT",
+  "layout": {
+    "mode": "grid",
+    "regions": ["aside", "main"],
+    "widths": [35, 65],
+    "gap": 0,
+    "defaultPlacement": {
+      "tags": "aside",
+      "languages": "aside"
+    }
+  },
+  "settings": {
+    "defaults": {
+      "typography": {
+        "pageHeading": {
+          "fontSize": 16,
+          "fontWeight": 700,
+          "color": "accent-5"
+        },
+        "sectionHeading": {
+          "fontSize": 10.2,
+          "letterSpacing": 0,
+          "textTransform": "none",
+          "fontVariant": "normal",
+          "color": "accent-3",
+          "decoration": {
+            "enabled": true,
+            "borderWidth": 1,
+            "borderColor": "accent-4",
+            "sides": {
+              "bottom": true
+            }
+          }
+        },
+        "link": {
+          "color": "accent-7"
+        }
+      },
+      "spacing": {
+        "header": {
+          "after": 24
+        }
+      },
+      "color": {
+        "accent": "#374151"
+      },
+      "header": {
+        "align": "left",
+        "separator": "slash",
+        "icons": true
+      }
+    },
+    "locked": [],
+    "controls": [
+      {
+        "type": "slider",
+        "key": "sidebar-tint",
+        "label": "Sidebar tint",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "default": 22
+      }
+    ]
+  }
+}

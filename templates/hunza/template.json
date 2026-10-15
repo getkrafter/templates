@@ -1,0 +1,50 @@
+{
+  "$schema": "../../schema/template.schema.json",
+  "id": "hunza",
+  "name": "Hunza",
+  "version": "1.0.0",
+  "contract": "1",
+  "description": "Classic single-column, ATS-optimised",
+  "author": { "name": "Krafter", "url": "https://getkrafter.dev" },
+  "license": "MIT",
+  "layout": { "mode": "flow" },
+  "settings": {
+    "defaults": {
+      "typography": {
+        "pageHeading": {
+          "fontSize": 14,
+          "color": "text-1"
+        },
+        "sectionHeading": {
+          "letterSpacing": 0,
+          "textTransform": "none",
+          "fontVariant": "normal",
+          "color": "text-1",
+          "decoration": {
+            "enabled": true,
+            "borderWidth": 1,
+            "borderColor": "accent-7",
+            "sides": {
+              "bottom": true
+            }
+          }
+        },
+        "link": {
+          "color": "text-1"
+        },
+        "itemSubheading": {
+          "fontStyle": "italic"
+        }
+      },
+      "color": {
+        "accent": "#374151"
+      },
+      "header": {
+        "align": "left",
+        "separator": "comma"
+      }
+    },
+    "locked": [],
+    "controls": []
+  }
+}

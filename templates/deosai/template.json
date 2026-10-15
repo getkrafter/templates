@@ -1,0 +1,53 @@
+{
+  "$schema": "../../schema/template.schema.json",
+  "id": "deosai",
+  "name": "Deosai",
+  "version": "1.0.0",
+  "contract": "1",
+  "description": "Timeline dots, accent headings",
+  "author": { "name": "Krafter", "url": "https://getkrafter.dev" },
+  "license": "MIT",
+  "layout": { "mode": "flow" },
+  "settings": {
+    "defaults": {
+      "typography": {
+        "baseFontSize": 9,
+        "pageHeading": {
+          "fontWeight": 700
+        },
+        "sectionHeading": {
+          "fontSize": 10,
+          "letterSpacing": 0.1,
+          "color": "accent-3",
+          "decoration": {
+            "enabled": false,
+            "borderColor": "text-7"
+          }
+        },
+        "link": {
+          "color": "accent-7"
+        },
+        "itemSubheading": {
+          "fontStyle": "italic"
+        }
+      },
+      "spacing": {
+        "header": {
+          "after": 16
+        }
+      },
+      "color": {
+        "accent": "#374151"
+      },
+      "header": {
+        "align": "left",
+        "separator": "dot"
+      },
+      "renderDefaults": {
+        "showSummaryHeading": false
+      }
+    },
+    "locked": [],
+    "controls": []
+  }
+}

@@ -1,0 +1,86 @@
+/* Naltar template — bold accent-colour header band */
+/* All typographic sizes and content spacing use pt (1pt = 1/72in) */
+/* Every rule is scoped under the manifest id (fact-3) */
+
+/* ── Root ─────────────────────────────────────────────────────────── */
+
+.resume[data-template="naltar"] {
+  font-size: var(--size-body);
+  line-height: var(--leading, 1.25);
+  color: var(--color-body, #000000);
+  /* No top padding — header band covers the top margin area */
+  padding: 0 var(--margin-right, 30px) var(--margin-bottom, 30px) var(--margin-left, 30px);
+  --header-bg: color-mix(in srgb, var(--color-accent, #000000) 50%, #1a1a1a);
+  --header-link-color: color-mix(in srgb, var(--color-accent, #3b82f6) 44%, #ffffff);
+}
+
+/* Page 2+: restore top padding (no header band on continuation pages) */
+.resume[data-template="naltar"][data-page]:not([data-page="1"]) {
+  padding-top: var(--margin-top, 30px);
+}
+
+/* ── Header — full-width accent band ─────────────────────────────── */
+
+.resume[data-template="naltar"] .tk-header {
+  background: var(--header-bg);
+  margin-left: calc(-1 * var(--margin-left, 30px));
+  margin-right: calc(-1 * var(--margin-right, 30px));
+  padding: 20pt var(--margin-right, 30px) 16pt var(--margin-left, 30px);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+/* The name gap is `spacing.header.nameGap` (3 in this template's defaults);
+   the band's own padding is template identity and stays here.
+
+   The white is a literal, not `--color-page-heading`: the band is a fixed dark
+   surface, so the name's colour is a contrast decision the template owns, not
+   a palette slot. `settings.locked` names
+   `typography.pageHeading.color` / `typography.pageSubheading.color` so the
+   user is not offered a control this rule would silently win (fact-5 — this is
+   what `capabilities.pageHeading.color: false` used to say in the app). */
+.resume[data-template="naltar"] .tk-resume-name {
+  text-align: var(--header-align, center);
+  color: #ffffff;
+}
+
+.resume[data-template="naltar"] .tk-subtitle {
+  text-align: var(--header-align, center);
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 3pt;
+}
+
+.resume[data-template="naltar"] .tk-contact {
+  text-align: var(--header-align, center);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.resume[data-template="naltar"] .tk-links {
+  text-align: var(--header-align, center);
+  color: var(--header-link-color);
+}
+
+/* Force header-band links to a high-contrast tint regardless of the
+   user's `link.color`. The dark accent band makes any dark accent-N or
+   text-N value invisible — `--color-link` is intentionally NOT
+   referenced here. Body content link styling is unaffected. */
+.resume[data-template="naltar"] .tk-links a {
+  color: var(--header-link-color);
+}
+
+.resume[data-template="naltar"] .tk-contact .tk-separator,
+.resume[data-template="naltar"] .tk-links .tk-separator {
+  opacity: 1;
+}
+
+/* ── Sections ─────────────────────────────────────────────────────── */
+
+.resume[data-template="naltar"] .tk-section-heading {
+  color: var(--color-section-heading, var(--color-accent));
+}
+
+/* ── History items ─────────────────────────────────────────────────── */
+
+.resume[data-template="naltar"] .tk-item-subtitle {
+  color: var(--color-item-subheading, #333333);
+}

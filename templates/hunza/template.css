@@ -1,0 +1,70 @@
+/* Hunza template — Harvard ATS-compatible style */
+/* All typographic sizes and content spacing use pt (1pt = 1/72in) */
+/* Every rule is scoped under the manifest id (fact-3) */
+
+/* ── Root ─────────────────────────────────────────────────────────── */
+
+.resume[data-template="hunza"] {
+  font-size: var(--size-body);
+  line-height: var(--leading, 1.25);
+  color: var(--color-body, #000000);
+  padding: var(--margin-top, 30px) var(--margin-right, 30px) var(--margin-bottom, 30px)
+    var(--margin-left, 30px);
+}
+
+/* ── Header ───────────────────────────────────────────────────────── */
+
+/* The name gap is `spacing.header.nameGap`, whose app default is the 2pt
+   this rule used to hardcode — see the engine's utils.css. */
+.resume[data-template="hunza"] .tk-resume-name {
+  text-align: var(--header-align, center);
+}
+
+.resume[data-template="hunza"] .tk-subtitle {
+  text-align: var(--header-align, center);
+  color: var(--color-page-subheading, #000000);
+  margin-bottom: 2pt;
+}
+
+/* fact-20: every header row — name, tagline, contact, links — follows
+   `header.align`. Name, tagline and links are block boxes with inline
+   children, so `text-align` moves them. `.tk-contact` is the one row utils.css
+   lays out as a flex container (`display: flex; flex-wrap: wrap`), where
+   `text-align` has no effect on item placement — `justify-content` is what
+   actually aligns it, so the row no longer stays left when the header is
+   centred or right-aligned.
+   `left` / `right` are `justify-content` keywords (CSS Box Alignment 3) and map
+   to flex-start / flex-end on a row. A renderer that does not know them treats
+   the substituted declaration as invalid at computed-value time and falls back
+   to the initial `normal`, which is flex-start in a flex row — so `left` lands
+   on flex-start either way. The fallback literal is therefore `left`, not this
+   template's `center`: both the resolved token (`left`, from
+   `settings.defaults.header.align`) and the no-token case must come out at
+   flex-start, which is exactly where this row sat before. */
+.resume[data-template="hunza"] .tk-contact {
+  text-align: var(--header-align, center);
+  justify-content: var(--header-align, left);
+  color: #000000;
+}
+
+.resume[data-template="hunza"] .tk-links {
+  text-align: var(--header-align, center);
+  color: #000000;
+}
+
+.resume[data-template="hunza"] .tk-links a {
+  color: var(--color-link, #000000);
+}
+
+/* ── Sections ─────────────────────────────────────────────────────── */
+
+.resume[data-template="hunza"] .tk-section-heading {
+  letter-spacing: var(--tracking-section-heading, 0.5pt);
+  color: var(--color-section-heading, #000000);
+}
+
+/* ── History items — Harvard layout ───────────────────────────────── */
+
+.resume[data-template="hunza"] .tk-item-subtitle {
+  color: var(--color-item-subheading, #333333);
+}

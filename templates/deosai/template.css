@@ -1,0 +1,121 @@
+/* Deosai template — single-column with vertical timeline and accent headings */
+/* All typographic sizes and content spacing use pt (1pt = 1/72in) */
+/* Every rule is scoped under the manifest id (fact-3) */
+
+/* ── Root ─────────────────────────────────────────────────────────── */
+
+.resume[data-template="deosai"] {
+  font-size: var(--size-body);
+  line-height: var(--leading, 1.25);
+  color: var(--color-body, #000000);
+  padding: var(--margin-top, 30px) var(--margin-right, 30px) var(--margin-bottom, 30px)
+    var(--margin-left, 30px);
+}
+
+/* ── Header ───────────────────────────────────────────────────────── */
+
+/* Header spacing is `spacing.header.after` (16) / `spacing.header.nameGap`
+   (the app default 2) — see this template's `settings.defaults` and the
+   engine's utils.css. */
+.resume[data-template="deosai"] .tk-resume-name {
+  text-align: var(--header-align, left);
+}
+
+.resume[data-template="deosai"] .tk-subtitle {
+  text-align: var(--header-align, left);
+  color: var(--color-page-subheading, var(--color-accent, #000000));
+  margin-bottom: 8pt;
+}
+
+/* fact-20: every header row — name, tagline, contact, links — follows
+   `header.align`. Name, tagline and links are block boxes with inline
+   children, so `text-align` moves them. `.tk-contact` is the one row utils.css
+   lays out as a flex container (`display: flex; flex-wrap: wrap`), where
+   `text-align` has no effect on item placement — `justify-content` is what
+   actually aligns it, so the row no longer stays left when the header is
+   centred or right-aligned.
+   `left` / `right` are `justify-content` keywords (CSS Box Alignment 3) and map
+   to flex-start / flex-end on a row. A renderer that does not know them treats
+   the substituted declaration as invalid at computed-value time and falls back
+   to the initial `normal`, which is flex-start in a flex row — so `left` lands
+   on flex-start either way, which is exactly where this row sat before. */
+.resume[data-template="deosai"] .tk-contact {
+  text-align: var(--header-align, left);
+  justify-content: var(--header-align, left);
+  color: #555555;
+}
+
+.resume[data-template="deosai"] .tk-links {
+  text-align: var(--header-align, left);
+  color: #555555;
+}
+
+.resume[data-template="deosai"] .tk-links a {
+  color: var(--color-link, var(--color-accent));
+}
+
+.resume[data-template="deosai"] .tk-contact .tk-separator::after,
+.resume[data-template="deosai"] .tk-links .tk-separator::after {
+  filter: saturate(0);
+  color: var(--color-link, var(--color-accent));
+}
+
+/* ── Sections ─────────────────────────────────────────────────────── */
+
+.resume[data-template="deosai"] .tk-section-heading {
+  color: var(--color-section-heading, var(--color-accent));
+}
+
+/* The summary heading used to be hidden here with `display: none`. The
+   template tier now exists (fact-7), so the same identity is declared as data:
+   `settings.defaults.renderDefaults.showSummaryHeading: false`, which stops
+   the heading being emitted at all. A `display: none` box generates no layout
+   and cannot increment the `tk-section` counter either, so not emitting it is
+   pixel- and numbering-identical — and a user who turns the heading back on
+   now actually sees it. */
+
+.resume[data-template="deosai"] .tk-section-content[data-section-type="summary"] {
+  margin-bottom: 8pt;
+}
+
+/* ── Timeline — left border + dot markers for history sections ─────── */
+
+/* Container: relative for the ::before line, padded for the timeline gutter */
+.resume[data-template="deosai"] .tk-section-content[data-category="history"] {
+  position: relative;
+  padding-left: 16pt;
+}
+
+/* Continuous vertical line — starts at the first dot center, ends at the last */
+.resume[data-template="deosai"] .tk-section-content[data-category="history"]::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: calc(var(--size-item-heading, 10pt) * var(--leading, 1.25) / 2);
+  bottom: 0;
+  width: 2px;
+  background: var(--decoration-border-color, #e2e8f0);
+}
+
+/* Dot marker — centered on the item header */
+.resume[data-template="deosai"] .tk-section-content[data-category="history"] .tk-item-header {
+  position: relative;
+}
+
+.resume[data-template="deosai"] .tk-section-content[data-category="history"] .tk-timeline-dot {
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  transform: translate(-16pt, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--decoration-border-color, #e2e8f0);
+  z-index: 1;
+}
+
+/* ── History items ────────────────────────────────────────────────── */
+
+.resume[data-template="deosai"] .tk-item-subtitle {
+  color: var(--color-item-subheading, #555555);
+}
