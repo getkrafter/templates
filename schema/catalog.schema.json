@@ -75,7 +75,7 @@
             "pattern": "^\\d+\\.\\d+\\.\\d+(?:-[0-9A-Za-z.-]+)?$"
           },
           "previewUrl": {
-            "description": "Immutable CDN URL of preview.png at `commit`. Absent when the package has no preview.png.",
+            "description": "Immutable URL of preview.png at `commit` (raw.githubusercontent.com). Absent when the package has no preview.png.",
             "type": "string",
             "pattern": "^https?://"
           }

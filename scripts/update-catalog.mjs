@@ -20,7 +20,7 @@
  * | source       | `gh:getkrafter/templates/templates/<id>`                     |
  * | commit       | `git log -1 --format=%H -- templates/<id>`                    |
  * | version      | the manifest                                                 |
- * | previewUrl   | jsDelivr URL for `preview.png` at `commit`, if it exists     |
+ * | previewUrl   | GitHub raw URL for `preview.png` at `commit`, if it exists   |
  *
  * `commit` falls back to `git rev-parse HEAD` when the folder has no commit of
  * its own yet (a template added in the working tree), so a fresh clone still
@@ -191,7 +191,9 @@ function buildEntries({ withCommits }) {
       }
       entry.commit = commit;
       if (fs.existsSync(path.join(TEMPLATES_DIR, id, "preview.png"))) {
-        entry.previewUrl = `https://cdn.jsdelivr.net/gh/${REPO}@${commit}/templates/${id}/preview.png`;
+        // raw.githubusercontent.com, not a third-party CDN: immutable at a
+        // commit, sub-second, and the same host the app fetches packages from.
+        entry.previewUrl = `https://raw.githubusercontent.com/${REPO}/${commit}/templates/${id}/preview.png`;
       }
     }
 

@@ -1,6 +1,6 @@
 {
   "$schema": "./schema/catalog.schema.json",
-  "generatedAt": "2026-10-15T09:56:38Z",
+  "generatedAt": "2026-10-15T12:14:02Z",
   "templates": [
     {
       "id": "deosai",
@@ -16,7 +16,7 @@
       "source": "gh:getkrafter/templates/templates/deosai",
       "commit": "ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775",
       "version": "1.0.0",
-      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775/templates/deosai/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775/templates/deosai/preview.png"
     },
     {
       "id": "hunza",
@@ -32,7 +32,7 @@
       "source": "gh:getkrafter/templates/templates/hunza",
       "commit": "ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775",
       "version": "1.0.0",
-      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775/templates/hunza/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775/templates/hunza/preview.png"
     },
     {
       "id": "naltar",
@@ -48,7 +48,7 @@
       "source": "gh:getkrafter/templates/templates/naltar",
       "commit": "ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775",
       "version": "1.0.0",
-      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775/templates/naltar/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775/templates/naltar/preview.png"
     },
     {
       "id": "passu",
@@ -64,7 +64,7 @@
       "source": "gh:getkrafter/templates/templates/passu",
       "commit": "ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775",
       "version": "1.0.0",
-      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775/templates/passu/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775/templates/passu/preview.png"
     },
     {
       "id": "rakaposhi",
@@ -80,7 +80,7 @@
       "source": "gh:getkrafter/templates/templates/rakaposhi",
       "commit": "ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775",
       "version": "1.0.0",
-      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775/templates/rakaposhi/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775/templates/rakaposhi/preview.png"
     },
     {
       "id": "skardu",
@@ -96,7 +96,7 @@
       "source": "gh:getkrafter/templates/templates/skardu",
       "commit": "ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775",
       "version": "1.0.0",
-      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775/templates/skardu/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/ec5ae695a8e7bd4fc4813fd7a0c9eaea6648a775/templates/skardu/preview.png"
     }
   ]
 }

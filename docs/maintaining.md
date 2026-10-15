@@ -7,8 +7,11 @@ repository behind it works.
 ## `catalog.json`
 
 The app fetches `catalog.json` from
-`https://cdn.jsdelivr.net/gh/getkrafter/templates@main/catalog.json`
-(the `NEXT_PUBLIC_CATALOG_URL` default). One entry per package:
+`https://raw.githubusercontent.com/getkrafter/templates/main/catalog.json`
+(the `NEXT_PUBLIC_CATALOG_URL` default). GitHub raw serves branch URLs with
+`max-age=300`, so a merged change is visible to the app within five minutes;
+package files are fetched from the same host at the pinned commit, with
+jsDelivr as a fallback only. One entry per package:
 
 ```json
 {
@@ -26,7 +29,7 @@ The app fetches `catalog.json` from
       "source": "gh:getkrafter/templates/templates/hunza",
       "commit": "0f1c2d3e4f5a60718293a4b5c6d7e8f90a1b2c3d",
       "version": "1.0.0",
-      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@0f1c2d3e4f5a60718293a4b5c6d7e8f90a1b2c3d/templates/hunza/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/0f1c2d3e4f5a60718293a4b5c6d7e8f90a1b2c3d/templates/hunza/preview.png"
     }
   ]
 }
@@ -41,7 +44,7 @@ The app fetches `catalog.json` from
 | `layout` | the manifest's `layout.mode` — `"flow"` or `"grid"` |
 | `source` | `gh:getkrafter/templates/templates/<id>` |
 | `commit` | `git log -1 --format=%H -- templates/<id>` — written by CI on merge |
-| `previewUrl` | the jsDelivr URL of `preview.png` **at that commit**; absent if there is none |
+| `previewUrl` | the GitHub raw URL of `preview.png` **at that commit**; absent if there is none |
 
 `source` is derivable from the id, and the app does derive it — it is stored
 anyway so that the app's catalog parser reads one shape whether the catalog
