@@ -1,6 +1,6 @@
 {
   "$schema": "./schema/catalog.schema.json",
-  "generatedAt": "2026-10-15T01:48:09Z",
+  "generatedAt": "2026-10-15T08:43:42Z",
   "templates": [
     {
       "id": "deosai",
@@ -46,9 +46,9 @@
       "official": true,
       "layout": "flow",
       "source": "gh:getkrafter/templates/templates/naltar",
-      "commit": "e2bbb2032303883ac99f0025bb23497a236c7557",
+      "commit": "b596058ea3c092e22fa93abe540965ce8c429c6d",
       "version": "1.0.0",
-      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@e2bbb2032303883ac99f0025bb23497a236c7557/templates/naltar/preview.png"
+      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@b596058ea3c092e22fa93abe540965ce8c429c6d/templates/naltar/preview.png"
     },
     {
       "id": "passu",
@@ -62,9 +62,9 @@
       "official": true,
       "layout": "flow",
       "source": "gh:getkrafter/templates/templates/passu",
-      "commit": "e2bbb2032303883ac99f0025bb23497a236c7557",
+      "commit": "b596058ea3c092e22fa93abe540965ce8c429c6d",
       "version": "1.0.0",
-      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@e2bbb2032303883ac99f0025bb23497a236c7557/templates/passu/preview.png"
+      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@b596058ea3c092e22fa93abe540965ce8c429c6d/templates/passu/preview.png"
     },
     {
       "id": "rakaposhi",
@@ -78,9 +78,9 @@
       "official": true,
       "layout": "grid",
       "source": "gh:getkrafter/templates/templates/rakaposhi",
-      "commit": "e2bbb2032303883ac99f0025bb23497a236c7557",
+      "commit": "b596058ea3c092e22fa93abe540965ce8c429c6d",
       "version": "1.0.0",
-      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@e2bbb2032303883ac99f0025bb23497a236c7557/templates/rakaposhi/preview.png"
+      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@b596058ea3c092e22fa93abe540965ce8c429c6d/templates/rakaposhi/preview.png"
     },
     {
       "id": "skardu",
