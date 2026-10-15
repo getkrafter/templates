@@ -718,12 +718,13 @@ meaningful to say without a manifest.
 | `contract` | error | error | `template.json` | `contract` is a version this engine renders |
 | `manifest` | error | error | `template.json` | the manifest matches the schema (one issue per Zod failure, each with its line) |
 | `css-scope` | error | error | `template.css` | every style rule — including inside `@media` — starts with `.resume[data-template="<id>"]` |
-| `css-external-url` | error | error | `template.css` | no `@import`, no external `url()`; only `data:` URIs resolve |
+| `css-external-url` | error | error | `template.css` | no `@import`, no external `url()` and no external string in `image-set()` / `image()` / `src()` / `cross-fade()` / `element()` / `paint()`; only `data:` URIs resolve |
 | `css-font-face` | error | error | `template.css` | no `@font-face` — fonts come from the engine's pipeline |
+| `css-escape` | error | error | `template.css` | no backslash escape outside a string literal — a browser decodes `@\69mport` to `@import` before it reads the rule; inside a string (`content: "\2022"`) escapes are fine |
 | `css-position` | error | error | `template.css` | no `position: fixed` / `sticky` (they resolve against the viewport and can paint over the app) and no `position` whose value cannot be resolved (`var()`); allowed inside `@media print`, which never applies to the preview |
 | `hbs-script` | error | error | `*.hbs` | no `<script>` |
 | `hbs-event-handler` | error | error | `*.hbs` | no `on*=` attributes |
-| `hbs-javascript-url` | error | error | `*.hbs` | no `javascript:` in `href` / `src` |
+| `hbs-javascript-url` | error | error | `*.hbs` | an `<a href>` scheme is `https:`, `http:`, `mailto:`, `tel:`, `sms:` or a fragment — checked after decoding HTML entities and stripping whitespace, so `javascript&colon;` and `java&#9;script:` are errors too |
 | `hbs-element` | error | error | `*.hbs` | none of `iframe`, `frame`, `frameset`, `object`, `embed`, `applet`, `portal`, `form`, `input`, `button`, `select`, `textarea`, `meta`, `base`, `link`, `style`, `video`, `audio`, `source`, `track`, `template`, `slot`, `noscript` — anything that embeds a document, submits data, redirects the page, loads media or declares styles outside `template.css` |
 | `hbs-url-attr` | error | error | `*.hbs` | `src`, `srcset`, `poster`, `background`, `action`, `formaction`, `ping`, `data`, `xlink:href` — and `href` on anything but `<a>` — is a `data:` URL, a `#` fragment, or a single plain field (`{{basics.image}}`); no literal URLs, no helpers (a helper can build a URL out of résumé fields) |
 | `hbs-link-href` | error | error | `*.hbs` | an `<a href>` is a single plain field, `mailto:`/`tel:`/`sms:` over one field, or fully static — never a literal mixed with a mustache (`https://x/?e={{basics.email}}`) |
