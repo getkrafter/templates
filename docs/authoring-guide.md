@@ -325,7 +325,7 @@ The shape, in brief:
 | `regions` | the same sections grouped by region |
 | `options` | your controls' resolved values |
 | `resume` | the whole document as JSON Resume v1.0.0 |
-| `showIcons`, `showSummaryHeading`, `tagStyle` | resolved render flags |
+| `showIcons`, `iconSet`, `iconStyle`, `showSummaryHeading`, `tagStyle` | resolved render flags |
 
 ### `sections` versus `regions.<name>.sections`
 
@@ -390,7 +390,7 @@ standard library (full signatures in
 {{truncate summary 140 "…"}}                 {{! code-point safe }}
 {{initials fullName}}                        {{! up to three letters }}
 {{default jobTitle "—"}}                     {{! null / undefined / "" }}
-{{icon "mail"}}  {{contactIcon type}}        {{! inline SVG }}
+{{icon "mail"}}  {{contactIcon type}}        {{! inline SVG, in the user's icon set }}
 {{#if (and showLink (eq linkDisplay "icon"))}}…{{/if}}
 ```
 
@@ -450,6 +450,15 @@ Two partials come from the engine and are always available:
 `<span class="tk-contact-text">` and prefixing `{{contactIcon type}}` when
 `showIcons` is on. Separators between items are drawn by `utils.css`, not by
 markup, so the user's `header.separator` applies.
+
+The glyphs come from the user's `header.iconSet` — `default` (the engine's
+long-standing outline glyphs), `lucide`, `tabler`, `phosphor`, `remix` or
+`hugeicons` — in `header.iconStyle` (`outline` or `filled`; a set without
+filled glyphs draws outline). A template designed around one look can set
+both in `settings.defaults.header` and, if it must, `lock` them. Style icons
+through `--icon-size` / `--icon-color` / `--icon-stroke-width` and
+`.tk-contact-item svg.resume-icon` rather than by set: the sets are vendored
+path data and change only with the engine.
 
 `tags` renders a skills or interests section in the style `tagStyle`
 selects. Each group reads "**Languages (Expert):** Go, C++" — a bold label
@@ -517,7 +526,10 @@ in a comma-separated list, with the line and column.
 
 Also errors: `@import` and any external `url()` — a template must render
 offline — and `@font-face`, because fonts come from the engine's font pipeline
-and a package declaring its own would fetch from the network. `data:` URIs are
+and a package declaring its own would fetch from the network. That pipeline
+loads every weight a family ships, and only those: a weight token is
+normalised to the nearest one the family has, so a literal `font-weight` in
+your CSS should also be one the family ships, or the browser fakes it. `data:` URIs are
 allowed; nothing else resolves, since a contract 1 package ships no assets.
 
 ### Consume tokens, not literals

@@ -1660,6 +1660,38 @@
                         "boolean",
                         "null"
                       ]
+                    },
+                    "iconSet": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "default",
+                            "lucide",
+                            "tabler",
+                            "phosphor",
+                            "remix",
+                            "hugeicons"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "iconStyle": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "outline",
+                            "filled"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
                     }
                   },
                   "additionalProperties": false
@@ -1837,6 +1869,8 @@
               "color.accent",
               "color.paper",
               "header.align",
+              "header.iconSet",
+              "header.iconStyle",
               "header.icons",
               "header.separator",
               "layout.gap",

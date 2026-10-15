@@ -29,7 +29,9 @@ The root context of `template.hbs`. Every field is always present.
 | `regions` | `TemplateRegions` | the same sections grouped by region |
 | `options` | `Record<string, string \| number \| boolean>` | this template's controls |
 | `resume` | `JsonResume` | the whole document, JSON Resume v1.0.0 |
-| `showIcons` | `boolean` | `meta.settings.header.icons === true` |
+| `showIcons` | `boolean` | the resolved `header.icons` |
+| `iconSet` | `"default" \| "lucide" \| "tabler" \| "phosphor" \| "remix" \| "hugeicons"` | the resolved `header.iconSet` — which vendored set `{{> contact-row}}`, `{{contactIcon}}` and `{{icon}}` draw from |
+| `iconStyle` | `"outline" \| "filled"` | the resolved `header.iconStyle`, already normalised: `filled` only for a set that ships it (Tabler, Phosphor, Remix); `default`, Lucide and HugeIcons always read `outline` |
 | `showSummaryHeading` | `boolean` | render a "Summary" heading above the summary block |
 | `tagStyle` | `"inline" \| "list" \| "chips"` | which layout `{{> tags}}` renders |
 
@@ -306,7 +308,7 @@ Eight elements share one family of seven tokens. `<el>` is one of
 |---|---|---|
 | `--font-<el>` | `fontFamily` | a full font stack |
 | `--size-<el>` | `fontSize` | `pt` |
-| `--weight-<el>` | `fontWeight` | `400`–`900` |
+| `--weight-<el>` | `fontWeight` | `400`–`900`, normalised to the nearest weight the element's family ships (ties heavier) — Archivo Black's `700` emits `400` |
 | `--tracking-<el>` | `letterSpacing` | `em` |
 | `--transform-<el>` | `textTransform` | `uppercase` / `lowercase` / `capitalize` / `none` |
 | `--color-<el>` | `color` | hex, resolved from the accent or text scale |
@@ -442,6 +444,14 @@ may override them:
 --icon-size  --icon-color  --icon-stroke-width  --icon-spacing
 ```
 
+`--icon-stroke-width` (default `1.5`) reaches only outline sets drawn with
+strokes — `default`, Lucide, Tabler outline, HugeIcons. It is the *reference*
+width: Lucide and Tabler, drawn natively at 2, take it scaled by 4/3, so at the
+default each set draws at its own weight and lowering the token thins every
+set alike. Phosphor, Remix and every filled style are filled shapes and ignore
+it. Phosphor's glyphs sit on a 256-unit `viewBox`; `--icon-size` sizes them
+the same as the 24-unit sets.
+
 These are read with a fallback and never emitted — set them yourself if you
 use the element they drive:
 
@@ -575,8 +585,8 @@ package ships no JavaScript, so this is the whole of what it can compute.
 | `eq` / `ne` | `(a, b)` | **strict** `===` / `!==` |
 | `gt` / `lt` | `(a, b)` | numeric when both read as finite numbers, lexicographic otherwise |
 | `and` / `or` | `(…args)` | variadic; a real boolean, so they compose in `{{#if}}` |
-| `icon` | `(name)` | an inline `<svg class="resume-icon">`; `""` for an unknown name |
-| `contactIcon` | `(type)` | the same, for a contact type (`email`, `phone`, `location`, `url`, `github`, `linkedin`, `twitter`; anything else falls back to a link glyph) |
+| `icon` | `(name)` | an inline `<svg class="resume-icon">` from the resolved `iconSet` / `iconStyle` (read off `@root`); names `mail`, `phone`, `map-pin`, `globe`, `github`, `linkedin`, `twitter`, `link-2`; `""` for an unknown name |
+| `contactIcon` | `(type)` | the same, for a contact type (`email`, `phone`, `location`, `url`, `github`, `linkedin`, `twitter`; anything else falls back to the set's link glyph) |
 
 `lookup` is Handlebars' own built-in and is deliberately **not** redefined —
 shadowing a built-in is how a template that works in one engine version breaks
@@ -598,7 +608,7 @@ that evaluates template-supplied code.
 
 | partial | renders |
 |---|---|
-| `{{> contact-row}}` | one `<span class="tk-contact-item" data-type="…">` per `contactItems` entry, value wrapped in `<span class="tk-contact-text">`, prefixed with `{{contactIcon type}}` when `showIcons` is true. Separators are drawn by `utils.css`, not by markup |
+| `{{> contact-row}}` | one `<span class="tk-contact-item" data-type="…">` per `contactItems` entry, value wrapped in `<span class="tk-contact-text">`, prefixed with `{{contactIcon type}}` when `showIcons` is true — in the user's `iconSet` / `iconStyle`. Separators are drawn by `utils.css`, not by markup |
 | `{{> tags}}` | a tag section in the current `tagStyle` |
 
 Both read from the **current** context, so call them where `contactItems` /
@@ -703,7 +713,7 @@ spacing.{page.{top,right,bottom,left}, section.{gap,afterHeading},
          item.{gap,afterHeading}, header.{after,nameGap},
          paragraph, listItem, density}
 color.{accent, paper}
-header.{align, separator, icons}
+header.{align, separator, icons, iconSet, iconStyle}
 layout.{placement, widths, gap}        (declare geometry in `layout` instead)
 renderDefaults.{showDates, showDescription, linkDisplay, dateFormat,
                 itemHeadingFormat, datePosition, dateRangeSeparator,
