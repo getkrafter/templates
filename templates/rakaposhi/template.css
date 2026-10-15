@@ -71,12 +71,12 @@
    sidebar stack and stay here. */
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-resume-name {
   line-height: 1;
-  color: oklch(from var(--color-page-heading, white) max(0.85, l) calc(c * 0.5) h);
+  color: oklch(from var(--color-page-heading, white) max(0.97, l) calc(c * 0.5) h);
   word-wrap: break-word;
 }
 
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-subtitle {
-  color: oklch(from var(--color-page-subheading, #b0b0b0) max(0.7, l) calc(c * 0.6) h);
+  color: oklch(from var(--color-page-subheading, #b0b0b0) max(0.8, l) calc(c * 0.6) h);
   margin: 0;
   margin-bottom: var(--space-section-gap, 12pt);
 }
@@ -87,7 +87,7 @@
   justify-content: var(--header-align, left);
   font-size: var(--size-body);
   line-height: 1.4;
-  color: #c0c0c0;
+  color: #ececec;
   margin-bottom: calc(var(--space-section-gap, 12pt) * 2);
 }
 
@@ -114,7 +114,7 @@
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-links {
   font-size: var(--size-body);
   line-height: 1.4;
-  color: #c0c0c0;
+  color: #ececec;
   text-align: var(--header-align, left);
   margin-bottom: calc(var(--space-section-gap, 12pt) * 2);
 }
@@ -139,7 +139,7 @@
    one global leaf, so a per-scope exception can only be a literal here. */
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-section-heading {
   font-weight: var(--weight-section-heading, 600);
-  color: oklch(from var(--color-section-heading, #c0c0c0) max(0.75, l) calc(c * 0.6) h);
+  color: oklch(from var(--color-section-heading, #c0c0c0) max(0.8, l) calc(c * 0.6) h);
   border: none;
   padding-bottom: 0;
   margin-bottom: 4pt;
@@ -149,24 +149,32 @@
 /* ── Sidebar — content ───────────────────────────────────────────── */
 
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-section-content {
-  color: oklch(from var(--color-body, #a8a8a8) max(0.66, l) calc(c * 0.6) h);
+  color: oklch(from var(--color-body, #a8a8a8) max(0.92, l) calc(c * 0.6) h);
   margin-bottom: calc(var(--space-section-gap, 12pt) * 2);
 }
 
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-section-content[data-section-type="summary"] {
-  color: #cccccc;
+  color: #ececec;
 }
 
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-rich-text a {
   color: var(--sidebar-link);
 }
 
+/* Readability on the dark sheet: body copy, keywords and group labels sit at
+   near-white; section headings and the subtitle one tier softer; proficiency
+   and reference detail softest. Labels are the one thing brighter than the
+   copy they introduce. */
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-tag-group-name {
+  color: #ffffff;
+}
+
 .resume[data-template="rakaposhi"] .tk-sidebar .language-item {
-  color: #c0c0c0;
+  color: #ececec;
 }
 
 .resume[data-template="rakaposhi"] .tk-sidebar .language-proficiency {
-  color: #888888;
+  color: #a8a8a8;
 }
 
 /* References default to `main`, but the user may move one into the aside
@@ -176,7 +184,7 @@
 }
 
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-reference-detail {
-  color: #999999;
+  color: #a8a8a8;
 }
 
 /* ── Main column — section headings ──────────────────────────────── */
