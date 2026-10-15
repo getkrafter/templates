@@ -1,6 +1,6 @@
 {
   "$schema": "./schema/catalog.schema.json",
-  "generatedAt": "2026-10-15T16:39:29Z",
+  "generatedAt": "2026-10-15T16:51:34Z",
   "templates": [
     {
       "id": "deosai",
@@ -78,9 +78,9 @@
       "official": true,
       "layout": "grid",
       "source": "gh:getkrafter/templates/templates/rakaposhi",
-      "commit": "ec88aa1146179c5af372aff68f234e4c737c9531",
+      "commit": "216cdce931de410d4e49280141c1218f4665e5ba",
       "version": "1.0.0",
-      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/ec88aa1146179c5af372aff68f234e4c737c9531/templates/rakaposhi/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/216cdce931de410d4e49280141c1218f4665e5ba/templates/rakaposhi/preview.png"
     },
     {
       "id": "skardu",
