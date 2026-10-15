@@ -1,5 +1,102 @@
 {
   "$schema": "./schema/catalog.schema.json",
-  "generatedAt": "2026-10-15T01:15:50Z",
-  "templates": []
+  "generatedAt": "2026-10-15T01:48:09Z",
+  "templates": [
+    {
+      "id": "deosai",
+      "name": "Deosai",
+      "description": "Timeline dots, accent headings",
+      "author": {
+        "name": "Krafter",
+        "url": "https://getkrafter.dev"
+      },
+      "license": "MIT",
+      "official": true,
+      "layout": "flow",
+      "source": "gh:getkrafter/templates/templates/deosai",
+      "commit": "e2bbb2032303883ac99f0025bb23497a236c7557",
+      "version": "1.0.0",
+      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@e2bbb2032303883ac99f0025bb23497a236c7557/templates/deosai/preview.png"
+    },
+    {
+      "id": "hunza",
+      "name": "Hunza",
+      "description": "Classic single-column, ATS-optimised",
+      "author": {
+        "name": "Krafter",
+        "url": "https://getkrafter.dev"
+      },
+      "license": "MIT",
+      "official": true,
+      "layout": "flow",
+      "source": "gh:getkrafter/templates/templates/hunza",
+      "commit": "e2bbb2032303883ac99f0025bb23497a236c7557",
+      "version": "1.0.0",
+      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@e2bbb2032303883ac99f0025bb23497a236c7557/templates/hunza/preview.png"
+    },
+    {
+      "id": "naltar",
+      "name": "Naltar",
+      "description": "Bold accent header band",
+      "author": {
+        "name": "Krafter",
+        "url": "https://getkrafter.dev"
+      },
+      "license": "MIT",
+      "official": true,
+      "layout": "flow",
+      "source": "gh:getkrafter/templates/templates/naltar",
+      "commit": "e2bbb2032303883ac99f0025bb23497a236c7557",
+      "version": "1.0.0",
+      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@e2bbb2032303883ac99f0025bb23497a236c7557/templates/naltar/preview.png"
+    },
+    {
+      "id": "passu",
+      "name": "Passu",
+      "description": "Full-height accent spine",
+      "author": {
+        "name": "Krafter",
+        "url": "https://getkrafter.dev"
+      },
+      "license": "MIT",
+      "official": true,
+      "layout": "flow",
+      "source": "gh:getkrafter/templates/templates/passu",
+      "commit": "e2bbb2032303883ac99f0025bb23497a236c7557",
+      "version": "1.0.0",
+      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@e2bbb2032303883ac99f0025bb23497a236c7557/templates/passu/preview.png"
+    },
+    {
+      "id": "rakaposhi",
+      "name": "Rakaposhi",
+      "description": "Two-column with dark sidebar",
+      "author": {
+        "name": "Krafter",
+        "url": "https://getkrafter.dev"
+      },
+      "license": "MIT",
+      "official": true,
+      "layout": "grid",
+      "source": "gh:getkrafter/templates/templates/rakaposhi",
+      "commit": "e2bbb2032303883ac99f0025bb23497a236c7557",
+      "version": "1.0.0",
+      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@e2bbb2032303883ac99f0025bb23497a236c7557/templates/rakaposhi/preview.png"
+    },
+    {
+      "id": "skardu",
+      "name": "Skardu",
+      "description": "Minimalist, left-border timeline",
+      "author": {
+        "name": "Krafter",
+        "url": "https://getkrafter.dev"
+      },
+      "license": "MIT",
+      "official": true,
+      "layout": "flow",
+      "source": "gh:getkrafter/templates/templates/skardu",
+      "commit": "e2bbb2032303883ac99f0025bb23497a236c7557",
+      "version": "1.0.0",
+      "previewUrl": "https://cdn.jsdelivr.net/gh/getkrafter/templates@e2bbb2032303883ac99f0025bb23497a236c7557/templates/skardu/preview.png"
+    }
+  ]
 }
