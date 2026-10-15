@@ -94,9 +94,13 @@
 /* In the sidebar the contact items stack, one per line, so the inline
    separator utils.css draws before every item after the first is noise:
    it would start each line with a pipe. Stack them deliberately and drop it. */
-.resume[data-template="rakaposhi"] .tk-sidebar .tk-contact {
-  flex-direction: column;
-  align-items: flex-start;
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-contact-item {
+  /* One item per line: a full-width flex line that justifies its own
+     content from the same token the row reads, so `header.align` still
+     moves it (a column container would pin `align-items` instead). */
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: var(--header-align, left);
 }
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-contact-item:not(:first-child)::before {
   content: none;
