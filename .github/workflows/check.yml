@@ -19,6 +19,10 @@ concurrency:
 
 jobs:
   templates:
+    # The CLI is not on npm yet. The gate runs only when the KRAFTER_CLI_SPEC
+    # repository variable names an installable build (a tarball URL); until
+    # then `check` is run locally by the team before each merge.
+    if: ${{ vars.KRAFTER_CLI_SPEC != '' }}
     runs-on: ubuntu-latest
     env:
       # `check` only *reads* preview.png — it never launches a browser — so the

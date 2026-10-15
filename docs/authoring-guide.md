@@ -17,11 +17,16 @@ workflow and the parts you have to get right.
 
 ## Getting started
 
+> **Status.** `krafter-template` is not on npm yet; the Krafter team authors
+> every template in this catalog for now, and community submissions open once
+> the CLI is published. The commands below describe that workflow as it will
+> run — and as the team runs it today.
+
 ```sh
-npx @getkrafter/template-cli init templates/<id>   # a package that already validates
-npx @getkrafter/template-cli dev templates/<id>    # live preview while you edit
-npx @getkrafter/template-cli preview templates/<id>  # writes preview.png
-npx @getkrafter/template-cli check templates/<id>  # exactly what CI runs
+krafter-template init templates/<id>     # a package that already validates
+krafter-template dev templates/<id>      # live preview while you edit
+krafter-template preview templates/<id>  # writes preview.png
+krafter-template check templates/<id>    # exactly what CI runs
 ```
 
 Then open a pull request against `main`.

@@ -91,10 +91,12 @@ Only the merge job can write. The PR gate deliberately cannot: a pull request
 never has to update `commit` or `previewUrl`, and CI computes both after the
 merge commit exists.
 
-The gate resolves the CLI as `@getkrafter/template-cli@^0.1` from npm. The
-`KRAFTER_CLI_SPEC` repository variable, when set, overrides that spec — useful
-to trial an unreleased build from a tarball URL — and should otherwise stay
-unset.
+The gate installs the CLI from the `KRAFTER_CLI_SPEC` repository variable (a
+tarball URL or, once published, an npm spec) and **is skipped while that
+variable is unset** — which is the current state: the CLI is internal, the
+team runs `krafter-template check` locally before each merge, and the merge
+job (`catalog.yml`, plain Node) still recomputes `catalog.json`. Setting the
+variable turns the gate on without a workflow change.
 
 The gate sets `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1`: `check` only *reads*
 `preview.png`, so the CLI's bundled Chromium is never launched there.

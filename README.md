@@ -3,8 +3,7 @@
 The template catalog for [Krafter](https://krafter.vercel.app), a resume
 builder. Every template is a small package — a manifest, a Handlebars file, a
 stylesheet, optional partials and a preview image — and this repository holds
-all of them, official and community alike, plus the `catalog.json` the app
-reads to list them.
+all of them, plus the `catalog.json` the app reads to list them.
 
 ```
 templates/<id>/        one template: template.json, template.hbs, template.css,
@@ -37,17 +36,11 @@ you choose when to take an update. Improvements to the rendering engine itself
 
 ## Writing a template
 
-```sh
-npx @getkrafter/template-cli init templates/<id>     # a package that already validates
-npx @getkrafter/template-cli dev templates/<id>      # live preview while you edit
-npx @getkrafter/template-cli preview templates/<id>  # writes preview.png
-npx @getkrafter/template-cli check templates/<id>    # exactly what CI runs
-```
-
-Then open a pull request. `check` is the gate: it runs every validation rule,
-renders all eight profile fixtures, and fails on a missing or stale
-`preview.png`, a missing licence, or an unused partial. Run it before you push
-— a red PR is the same failure, ten minutes later.
+Templates are authored with `krafter-template`, a CLI that scaffolds a package,
+serves a live preview while you edit, renders the preview image and runs the
+same validation the app runs. **The CLI is not published yet** — while the
+catalog takes shape the Krafter team authors every template here, and
+community submissions open once the tooling is on npm. Until then:
 
 - [`docs/authoring-guide.md`](docs/authoring-guide.md) — the workflow and the
   parts you have to get right: the manifest, writing against the data,
@@ -56,9 +49,9 @@ renders all eight profile fixtures, and fails on a missing or stale
   the token vocabulary, the `tk-*` classes, helpers and partials, manifest
   fields, validation rules.
 
-Official and community templates sit side by side under `templates/`; nothing
-about the folder differs. A template is *official* only because its id is
-listed in `official.json`, which the core team maintains.
+Reading them now is the best preparation for the day submissions open; the
+contract is what a template is written against, and it is versioned
+(`contract: "1"`) so what you learn stays true.
 
 ## Contract version
 
