@@ -82,6 +82,9 @@
 }
 
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-contact {
+  /* The contact row is a flex container: `justify-content`, not `text-align`,
+     is what moves its items with `header.align`. */
+  justify-content: var(--header-align, left);
   font-size: var(--size-body);
   line-height: 1.4;
   color: #c0c0c0;

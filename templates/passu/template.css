@@ -62,6 +62,12 @@
   text-align: var(--header-align, left);
 }
 
+/* The contact row is a flex container: `justify-content`, not `text-align`,
+   is what moves its items with `header.align`. */
+.resume[data-template="passu"] .tk-contact {
+  justify-content: var(--header-align, left);
+}
+
 .resume[data-template="passu"] .tk-links a {
   color: var(--color-link, #555555);
 }

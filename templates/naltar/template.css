@@ -52,6 +52,9 @@
 
 .resume[data-template="naltar"] .tk-contact {
   text-align: var(--header-align, center);
+  /* The contact row is a flex container: `justify-content`, not `text-align`,
+     is what moves its items with `header.align`. */
+  justify-content: var(--header-align, left);
   color: rgba(255, 255, 255, 0.7);
 }
 
