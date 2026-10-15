@@ -18,7 +18,7 @@
    template's defaults) — see the engine's utils.css. */
 .resume[data-template="skardu"] .tk-resume-name {
   text-align: var(--header-align, left);
-  letter-spacing: var(--tracking-page-heading, 2pt);
+  letter-spacing: var(--tracking-page-heading, 0pt);
   color: var(--color-page-heading, #111111);
   /* The accent rule below carries the name gap, so the name itself adds none. */
   margin-bottom: 0;

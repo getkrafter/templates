@@ -91,10 +91,14 @@
   margin-bottom: calc(var(--space-section-gap, 12pt) * 2);
 }
 
-.resume[data-template="rakaposhi"] .tk-sidebar .tk-contact .tk-separator {
-  margin: 0;
+/* In the sidebar the contact items stack, one per line, so the inline
+   separator utils.css draws before every item after the first is noise:
+   it would start each line with a pipe. Stack them deliberately and drop it. */
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-contact {
+  flex-direction: column;
+  align-items: flex-start;
 }
-.resume[data-template="rakaposhi"] .tk-sidebar .tk-contact .tk-separator::after {
+.resume[data-template="rakaposhi"] .tk-sidebar .tk-contact-item:not(:first-child)::before {
   content: none;
 }
 
