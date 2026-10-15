@@ -44,12 +44,12 @@
 .resume[data-template="hunza"] .tk-contact {
   text-align: var(--header-align, center);
   justify-content: var(--header-align, left);
-  color: #000000;
+  color: var(--color-contact, #000000);
 }
 
 .resume[data-template="hunza"] .tk-links {
   text-align: var(--header-align, center);
-  color: #000000;
+  color: var(--color-contact, #000000);
 }
 
 .resume[data-template="hunza"] .tk-links a {

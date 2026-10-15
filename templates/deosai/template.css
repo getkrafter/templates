@@ -42,12 +42,12 @@
 .resume[data-template="deosai"] .tk-contact {
   text-align: var(--header-align, left);
   justify-content: var(--header-align, left);
-  color: #555555;
+  color: var(--color-contact, #555555);
 }
 
 .resume[data-template="deosai"] .tk-links {
   text-align: var(--header-align, left);
-  color: #555555;
+  color: var(--color-contact, #555555);
 }
 
 .resume[data-template="deosai"] .tk-links a {

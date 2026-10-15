@@ -58,18 +58,18 @@
    to the initial `normal`, which is flex-start in a flex row — so `left` lands
    on flex-start either way, which is exactly where this row sat before. */
 .resume[data-template="skardu"] .tk-contact {
-  font-size: calc(var(--size-body) * 0.9);
+  font-size: var(--size-contact, calc(var(--size-body) * 0.9));
   line-height: 1.4;
   text-align: var(--header-align, left);
   justify-content: var(--header-align, left);
-  color: #555555;
+  color: var(--color-contact, #555555);
 }
 
 .resume[data-template="skardu"] .tk-links {
-  font-size: calc(var(--size-body) * 0.9);
+  font-size: var(--size-contact, calc(var(--size-body) * 0.9));
   line-height: 1.4;
   text-align: var(--header-align, left);
-  color: #555555;
+  color: var(--color-contact, #555555);
 }
 
 .resume[data-template="skardu"] .tk-links a {

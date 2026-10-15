@@ -85,9 +85,9 @@
   /* The contact row is a flex container: `justify-content`, not `text-align`,
      is what moves its items with `header.align`. */
   justify-content: var(--header-align, left);
-  font-size: var(--size-body);
+  font-size: var(--size-contact, var(--size-body));
   line-height: 1.4;
-  color: #ececec;
+  color: var(--color-contact, #ececec);
   margin-bottom: calc(var(--space-section-gap, 12pt) * 2);
 }
 
@@ -112,9 +112,9 @@
    . The fallback is `left`, which is both this template's
    `header.align` default and the alignment the row rendered at before. */
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-links {
-  font-size: var(--size-body);
+  font-size: var(--size-contact, var(--size-body));
   line-height: 1.4;
-  color: #ececec;
+  color: var(--color-contact, #ececec);
   text-align: var(--header-align, left);
   margin-bottom: calc(var(--space-section-gap, 12pt) * 2);
 }

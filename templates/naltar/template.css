@@ -55,12 +55,12 @@
   /* The contact row is a flex container: `justify-content`, not `text-align`,
      is what moves its items with `header.align`. */
   justify-content: var(--header-align, left);
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-contact, rgba(255, 255, 255, 0.7));
 }
 
 .resume[data-template="naltar"] .tk-links {
   text-align: var(--header-align, center);
-  color: var(--header-link-color);
+  color: var(--color-contact, var(--header-link-color));
 }
 
 /* Force header-band links to a high-contrast tint regardless of the

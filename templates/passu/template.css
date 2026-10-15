@@ -56,9 +56,9 @@
 
 .resume[data-template="passu"] .tk-contact,
 .resume[data-template="passu"] .tk-links {
-  font-size: calc(var(--size-body) * 0.9);
+  font-size: var(--size-contact, calc(var(--size-body) * 0.9));
   line-height: 1.6;
-  color: #555555;
+  color: var(--color-contact, #555555);
   text-align: var(--header-align, left);
 }
 
