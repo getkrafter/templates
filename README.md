@@ -15,10 +15,11 @@ docs/                  authoring-guide.md, contract.md, maintaining.md
 
 ## Built on JSON Resume
 
-A Krafter resume is a [JSON Resume](https://jsonresume.org/schema/) v1.0.0
-document. That is the open standard the whole ecosystem of resume tools reads
-and writes, so your data is portable: import it from anywhere that speaks JSON
-Resume, export it anywhere, and never lose it to a proprietary format. A
+A Krafter resume is a [JSON Resume](https://jsonresume.org/) v1.0.0 document
+([schema](https://jsonresume.org/schema/)). That is the open standard a whole
+ecosystem of resume tools reads and writes, so your data is portable: import it
+from anywhere that speaks JSON Resume, export it anywhere, and never lose it to
+a proprietary format. A
 template receives the full document as `resume` alongside Krafter's processed
 `sections` and header fields — which is also why an existing
 `jsonresume-theme` is a short port rather than a rewrite.

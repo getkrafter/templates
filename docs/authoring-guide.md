@@ -2,8 +2,8 @@
 
 How to build a template package, from `init` to a merged pull request.
 
-A Krafter resume is a [JSON Resume](https://jsonresume.org/schema/) v1.0.0
-document, and a template gets the whole of it as `resume` — the same shape every
+A Krafter resume is a [JSON Resume](https://jsonresume.org/) v1.0.0 document
+([schema](https://jsonresume.org/schema/)), and a template gets the whole of it as `resume` — the same shape every
 `jsonresume-theme` reads — next to the processed `sections`, `regions` and
 header fields Krafter adds. You can render from either; the data stays the
 user's, in an open format, whichever you choose.

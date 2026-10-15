@@ -133,15 +133,17 @@ Neither schema carries JSON Schema `format` keywords — every constrained strin
 has an explicit `pattern` instead — so `npx ajv-cli validate` needs no
 `ajv-formats` plugin.
 
-## Working from the monorepo
+## Trialling an unreleased CLI
 
-To run an unreleased CLI against this checkout:
+`npm pack` the CLI build you want to try, host the tarball somewhere CI can
+fetch it, and set the `KRAFTER_CLI_SPEC` repository variable to its URL; the
+gate installs that instead of the npm release. Unset it afterwards.
 
-```sh
-bun ../krafter-app/packages/template-cli/src/bin.ts check templates/<id>
-```
+## Pixel regression
 
-The pixel-regression pair the core team uses when changing the engine or a
-template's CSS is `render-set` + `diff` against the committed reference PNGs
-in the monorepo (`apps/web/tests/fixtures/rendered-baseline`): 24 images,
-expected identical.
+When a change to the engine or to a template's CSS is meant to be invisible,
+prove it: `krafter-template render-set templates/<id>… --out <dir>` renders
+every package against the reference profiles at the catalog's preview
+geometry, and `krafter-template diff <before> <after>` reports changed pixels
+per image, failing on any. Render the set before the change, keep it, render
+again after, and expect every image identical.
