@@ -164,8 +164,8 @@
   color: var(--color-item-heading, #111111);
 }
 
-/* Skardu's hairline under links is its manifest's `typography.link.decoration`
-   default (`border`), so the drawer's link decoration reaches every link. */
+/* Skardu's low underline is its manifest's link defaults (an underline at a
+   2pt offset), so the drawer's link decoration reaches every link. */
 .resume[data-template="skardu"] .tk-item-title a {
   color: var(--color-link, inherit);
 }

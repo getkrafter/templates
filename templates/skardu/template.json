@@ -2,7 +2,7 @@
   "$schema": "../../schema/template.schema.json",
   "id": "skardu",
   "name": "Skardu",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "contract": "1",
   "description": "Minimalist, left-border timeline",
   "author": { "name": "Krafter", "url": "https://krafter.vercel.app" },
@@ -35,7 +35,8 @@
         },
         "link": {
           "color": "text-1",
-          "decoration": "border"
+          "decoration": "underline",
+          "underlineOffset": 2
         }
       },
       "spacing": {
