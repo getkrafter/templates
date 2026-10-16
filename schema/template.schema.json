@@ -1517,9 +1517,20 @@
                                   "type": "string",
                                   "enum": [
                                     "underline",
-                                    "none",
-                                    "border"
+                                    "none"
                                   ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "underlineOffset": {
+                              "anyOf": [
+                                {
+                                  "type": "number",
+                                  "minimum": 0,
+                                  "maximum": 8
                                 },
                                 {
                                   "type": "null"
@@ -2047,6 +2058,7 @@
               "typography.link.color",
               "typography.link.decoration",
               "typography.link.fontStyle",
+              "typography.link.underlineOffset",
               "typography.pageHeading.color",
               "typography.pageHeading.fontFamily",
               "typography.pageHeading.fontSize",

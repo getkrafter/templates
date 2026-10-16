@@ -385,12 +385,8 @@ on and off without a cascade of rules.
 --color-link            hex
 --style-link            normal | italic
 --link-decoration       underline | none
---link-border           a `border-bottom` shorthand, or `none`
+--link-underline-offset pt (text-underline-offset; unset unless the user or template sets one)
 ```
-
-`--link-decoration` and `--link-border` are one setting
-(`typography.link.decoration`) expressed as two tokens, so `underline` and
-`border` are both reachable from the same rule.
 
 ### Separators
 
@@ -507,7 +503,7 @@ specificity, because they carry `[data-template]` and these do not.
 | `.tk-contact-item svg.resume-icon` | the item's icon, sized by `--icon-*` |
 | `.tk-contact-text` | the value, emitted by `{{> contact-row}}` (no rules of its own) |
 | `.tk-links` | the links row: contact typography |
-| `.tk-links a`, `.tk-link` | a link: `--color-link`, `--link-decoration`, `--link-border` |
+| `.tk-links a`, `.tk-link` | a link: `--color-link`, `--link-decoration`, `--link-underline-offset` |
 | `.tk-links .tk-separator::after` | the inline separator between links |
 
 ### Sections
