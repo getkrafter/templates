@@ -1,6 +1,6 @@
 {
   "$schema": "./schema/catalog.schema.json",
-  "generatedAt": "2026-10-16T14:15:56Z",
+  "generatedAt": "2026-10-16T17:03:23Z",
   "templates": [
     {
       "id": "deosai",
@@ -94,9 +94,9 @@
       "official": true,
       "layout": "flow",
       "source": "gh:getkrafter/templates/templates/skardu",
-      "commit": "a785b2c7bc0ff5dc55b50ad0963a3c3916b18bb1",
-      "version": "1.0.3",
-      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/a785b2c7bc0ff5dc55b50ad0963a3c3916b18bb1/templates/skardu/preview.png"
+      "commit": "10b4fa69c52bb000548bd5949718f18ad84c3f3b",
+      "version": "1.0.4",
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/10b4fa69c52bb000548bd5949718f18ad84c3f3b/templates/skardu/preview.png"
     }
   ]
 }
