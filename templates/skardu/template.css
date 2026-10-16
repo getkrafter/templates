@@ -10,6 +10,18 @@
   color: var(--color-body, #222222);
   padding: var(--margin-top, 30px) var(--margin-right, 30px) var(--margin-bottom, 30px)
     var(--margin-left, 30px);
+
+  /* Where a section heading's text starts: past the left bar (drawn only
+     while the decoration is on and its left side is set) and the heading's
+     own padding. Every block of section content starts here too, so the
+     body lines up with its heading. */
+  --skardu-heading-pad: calc(
+    var(--decoration-padding-left, 0pt) + calc(var(--space-item-gap, 10pt) * 0.2) + 6pt
+  );
+  --skardu-indent: calc(
+    var(--decoration-enabled, 0) * var(--decoration-side-left, 0) * var(--decoration-border-width, 0pt)
+      + var(--skardu-heading-pad)
+  );
 }
 
 /* ── Header ───────────────────────────────────────────────────────── */
@@ -90,7 +102,7 @@
   font-weight: var(--weight-section-heading, 600);
   letter-spacing: var(--tracking-section-heading, 1pt);
   color: var(--color-section-heading, #111111);
-  padding-left: calc(var(--decoration-padding-left, 0) + calc(var(--space-item-gap, 10pt) * 0.2) + 6pt);
+  padding-left: var(--skardu-heading-pad);
   padding-top: calc(var(--decoration-padding-top, 0) + 1pt);
   padding-bottom: calc(var(--decoration-padding-bottom, 0) + 1pt);
 }
@@ -99,15 +111,27 @@
   margin-top: 0;
 }
 
+/* The padding sits on the content block rather than on its paragraphs: the
+   tags partial lays skill groups out as blocks, which a paragraph cannot hold,
+   so a paragraph-level indent never reached them. */
+.resume[data-template="skardu"] .tk-section-content {
+  padding-left: var(--skardu-indent);
+}
+
 .resume[data-template="skardu"] .tk-section-content p {
   font-size: var(--size-body);
-  padding-left: calc(calc(var(--space-item-gap, 10pt) * 0.2) + 10pt);
+}
+
+/* With its heading hidden the summary has no bar to line up with, so it
+   starts at the page margin like the header above it. */
+.resume[data-template="skardu"] .tk-header + .tk-section-content[data-section-type="summary"] {
+  padding-left: 0;
 }
 
 /* ── History items — left-border timeline ─────────────────────────── */
 
 .resume[data-template="skardu"] .tk-history-item {
-  padding-left: calc(calc(var(--space-item-gap, 10pt) * 0.2) + 10pt);
+  padding-left: var(--skardu-indent);
 }
 
 .resume[data-template="skardu"] .tk-item-content-gap {
@@ -117,7 +141,7 @@
 .resume[data-template="skardu"] .tk-item-body {
   display: flex;
   flex-direction: column;
-  padding-left: calc(calc(var(--space-item-gap, 10pt) * 0.2) + 10pt);
+  padding-left: var(--skardu-indent);
 }
 
 .resume[data-template="skardu"] .tk-item-header {
