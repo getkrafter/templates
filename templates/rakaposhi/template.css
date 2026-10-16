@@ -3,8 +3,8 @@
 /* Every rule is scoped under the manifest id. */
 
 /* `--layout-col-1` / `--layout-col-2` / `--layout-gap` are emitted from this
-   manifest's grid layout (widths [35, 65], gap 0); `--tpl-sidebar-tint` from
-   its one control. Every reference carries the manifest's own value as the
+   manifest's grid layout (widths [35, 65], gap 0); the `--tpl-*` tokens from
+   its controls. Every reference carries the manifest's own value as the
    `var()` fallback, so the package renders the same with or without the
    tokens. */
 
@@ -24,7 +24,23 @@
      would swallow any dark value — so we take the element colour and force
      its lightness up (oklch `max(floor, l)`) and soften chroma. Dark greys /
      accents become legible light tints; the user's hue still comes through. */
-  --sidebar-link: oklch(from var(--color-link, #cfe0f0) max(0.72, l) calc(c * 0.6) h);
+  --sidebar-link-auto: oklch(from var(--color-link, #cfe0f0) max(0.72, l) calc(c * 0.6) h);
+  --sidebar-heading-auto: oklch(from var(--color-section-heading, #c0c0c0) max(0.8, l) calc(c * 0.6) h);
+  /* "Custom sidebar colours" (`--tpl-sidebar-custom-colors`, 1 / 0) switches
+     the sidebar's link and heading colours from those lightened tints to the
+     two picked colours. The toggle is the mix weight, so off is exactly the
+     automatic tint and on is exactly the picked colour. */
+  --sidebar-custom: calc(var(--tpl-sidebar-custom-colors, 0) * 100%);
+  --sidebar-link: color-mix(
+    in srgb,
+    var(--tpl-sidebar-link-color, #cfe0f0) var(--sidebar-custom),
+    var(--sidebar-link-auto)
+  );
+  --sidebar-heading: color-mix(
+    in srgb,
+    var(--tpl-sidebar-heading-color, #c0c0c0) var(--sidebar-custom),
+    var(--sidebar-heading-auto)
+  );
 }
 
 /* ── Two-column layout ───────────────────────────────────────────── */
@@ -123,13 +139,10 @@
   padding: 0 2pt;
 }
 
-/* Scoped link identity: the dark sidebar leaves its links unmarked.
-   `typography.link.decoration` is a single global leaf, so a per-scope
-   exception like this can only live in template CSS. */
+/* Sidebar links take the drawer's link decoration like every other link;
+   only their colour is the sidebar's own. */
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-links a {
   color: var(--sidebar-link);
-  text-decoration: none;
-  border-bottom: none;
 }
 
 /* ── Sidebar — section headings ──────────────────────────────────── */
@@ -139,7 +152,7 @@
    one global leaf, so a per-scope exception can only be a literal here. */
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-section-heading {
   font-weight: var(--weight-section-heading, 600);
-  color: oklch(from var(--color-section-heading, #c0c0c0) max(0.8, l) calc(c * 0.6) h);
+  color: var(--sidebar-heading);
   border: none;
   padding-bottom: 0;
   margin-bottom: 4pt;
