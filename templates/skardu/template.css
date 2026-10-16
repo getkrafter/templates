@@ -174,10 +174,11 @@
   margin-bottom: var(--space-item-after-heading, 0);
 }
 
+/* Grey is Skardu's own date ink; a date colour picked in the drawer wins. */
 .resume[data-template="skardu"] .tk-item-date {
   font-weight: 300;
   font-style: normal;
-  color: #666666;
+  color: var(--color-date, #666666);
 }
 
 /* ── Rich text content (from Tiptap HTML) ─────────────────────────── */

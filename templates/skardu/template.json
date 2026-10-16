@@ -2,7 +2,7 @@
   "$schema": "../../schema/template.schema.json",
   "id": "skardu",
   "name": "Skardu",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "contract": "1",
   "description": "Minimalist, left-border timeline",
   "author": { "name": "Krafter", "url": "https://krafter.vercel.app" },
