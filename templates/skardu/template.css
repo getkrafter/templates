@@ -154,13 +154,10 @@
   color: var(--color-item-heading, #111111);
 }
 
-/* Scoped link identity: Skardu marks *body* links with a hairline border
-   instead of an underline. `typography.link.decoration` is a single global
-   leaf, so a per-scope exception like this can only live in template CSS. */
+/* Skardu's hairline under links is its manifest's `typography.link.decoration`
+   default (`border`), so the drawer's link decoration reaches every link. */
 .resume[data-template="skardu"] .tk-item-title a {
   color: var(--color-link, inherit);
-  text-decoration: none;
-  border-bottom: 1px solid var(--color-link, #cccccc);
 }
 
 .resume[data-template="skardu"] .tk-item-link-icon {
@@ -206,12 +203,8 @@
   color: var(--bullet-color, rgba(34, 34, 34, 0.35));
 }
 
-/* Same scoped link identity as `.tk-item-title a` above — a per-scope
-   exception the global `typography.link.decoration` leaf cannot express. */
 .resume[data-template="skardu"] .tk-rich-text a {
   color: var(--color-link, #333333);
-  text-decoration: none;
-  border-bottom: 1px solid var(--color-link, #cccccc);
 }
 
 /* ── References ───────────────────────────────────────────────────── */
