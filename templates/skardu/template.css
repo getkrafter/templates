@@ -14,9 +14,19 @@
   /* Where a section heading's text starts: past the left bar (drawn only
      while the decoration is on and its left side is set) and the heading's
      own padding. Every block of section content starts here too, so the
-     body lines up with its heading. */
-  --skardu-heading-pad: calc(
-    var(--decoration-padding-left, 0pt) + calc(var(--space-item-gap, 10pt) * 0.2) + 6pt
+     body lines up with its heading.
+
+     Skardu's own gap beside the bar applies only while a left bar is the
+     heading's one border (1 / 0 from the side tokens), and never stacks on a
+     left padding the heading style brings: a prefix bar keeps its own
+     padding, an underline or rule has no bar to clear, a box keeps its inset. */
+  --skardu-bar-only: calc(
+    var(--decoration-enabled, 0) * var(--decoration-side-left, 0) * (1 - var(--decoration-side-top, 0))
+      * (1 - var(--decoration-side-right, 0)) * (1 - var(--decoration-side-bottom, 0))
+  );
+  --skardu-heading-pad: max(
+    var(--decoration-padding-left, 0pt),
+    calc(var(--skardu-bar-only) * (var(--space-item-gap, 10pt) * 0.2 + 6pt))
   );
   --skardu-indent: calc(
     var(--decoration-enabled, 0) * var(--decoration-side-left, 0) * var(--decoration-border-width, 0pt)
