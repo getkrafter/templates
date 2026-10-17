@@ -1,6 +1,6 @@
 {
   "$schema": "./schema/catalog.schema.json",
-  "generatedAt": "2026-10-16T19:29:00Z",
+  "generatedAt": "2026-10-17T17:28:16Z",
   "templates": [
     {
       "id": "deosai",
@@ -14,9 +14,9 @@
       "official": true,
       "layout": "flow",
       "source": "gh:getkrafter/templates/templates/deosai",
-      "commit": "89edec37cfc37d3033b9c86ed3f0b8313d0f2de6",
+      "commit": "138fa5dfe01e08d243bfd306b6a516ec38d45f87",
       "version": "1.0.0",
-      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/89edec37cfc37d3033b9c86ed3f0b8313d0f2de6/templates/deosai/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/138fa5dfe01e08d243bfd306b6a516ec38d45f87/templates/deosai/preview.png"
     },
     {
       "id": "hunza",
@@ -46,9 +46,9 @@
       "official": true,
       "layout": "flow",
       "source": "gh:getkrafter/templates/templates/naltar",
-      "commit": "89edec37cfc37d3033b9c86ed3f0b8313d0f2de6",
+      "commit": "138fa5dfe01e08d243bfd306b6a516ec38d45f87",
       "version": "1.0.0",
-      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/89edec37cfc37d3033b9c86ed3f0b8313d0f2de6/templates/naltar/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/138fa5dfe01e08d243bfd306b6a516ec38d45f87/templates/naltar/preview.png"
     },
     {
       "id": "passu",
@@ -62,9 +62,9 @@
       "official": true,
       "layout": "flow",
       "source": "gh:getkrafter/templates/templates/passu",
-      "commit": "89edec37cfc37d3033b9c86ed3f0b8313d0f2de6",
+      "commit": "138fa5dfe01e08d243bfd306b6a516ec38d45f87",
       "version": "1.0.0",
-      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/89edec37cfc37d3033b9c86ed3f0b8313d0f2de6/templates/passu/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/138fa5dfe01e08d243bfd306b6a516ec38d45f87/templates/passu/preview.png"
     },
     {
       "id": "rakaposhi",
@@ -78,9 +78,9 @@
       "official": true,
       "layout": "grid",
       "source": "gh:getkrafter/templates/templates/rakaposhi",
-      "commit": "e7b0d0a8489716ec1be749b12c9dbba616e5dd95",
+      "commit": "138fa5dfe01e08d243bfd306b6a516ec38d45f87",
       "version": "1.0.1",
-      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/e7b0d0a8489716ec1be749b12c9dbba616e5dd95/templates/rakaposhi/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/138fa5dfe01e08d243bfd306b6a516ec38d45f87/templates/rakaposhi/preview.png"
     },
     {
       "id": "skardu",
@@ -94,9 +94,9 @@
       "official": true,
       "layout": "flow",
       "source": "gh:getkrafter/templates/templates/skardu",
-      "commit": "c649471bbe9d18b55a54c05fd28ef1c5ab776757",
+      "commit": "138fa5dfe01e08d243bfd306b6a516ec38d45f87",
       "version": "1.0.5",
-      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/c649471bbe9d18b55a54c05fd28ef1c5ab776757/templates/skardu/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/138fa5dfe01e08d243bfd306b6a516ec38d45f87/templates/skardu/preview.png"
     }
   ]
 }
