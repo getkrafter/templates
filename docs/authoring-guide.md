@@ -560,6 +560,30 @@ per element, `--space-*`, `--margin-*`, `--leading`, `--decoration-*`,
 `--color-paper`, `--header-align`, `--layout-*` and your own `--tpl-*`. The
 complete list is in [`contract.md`](contract.md#token-vocabulary).
 
+This is no longer only advice: `check` enforces it as an error. A literal that
+overrules a token `utils.css` already reads on a `tk-*` element is
+`css-literal-shadows-token` —
+
+```css
+.resume[data-template="ridge-serif"] .tk-contact { font-size: 9pt; }          /* flagged */
+.resume[data-template="ridge-serif"] .tk-contact { font-size: var(--size-contact, 9pt); }  /* fixed */
+```
+
+— and the mirror case, a stylesheet that never reads the four token groups only
+the package can apply, is `css-root-token-unused`: `--leading`, the four
+`--margin-*`, `--color-body` and `--size-body`. `utils.css` does not apply
+those at the resume root, because your template owns that box, so the root rule
+in the example above is exactly what satisfies the check — write it and you are
+done.
+
+Neither rule has a pragma or a suppression. Where a literal is a deliberate
+override — your design really does fix the contact size — declare it as data by
+naming the leaf in `settings.locked`, never as a literal: the drawer then shows
+the control as "Set by this template" rather than offering a value your
+stylesheet would win.
+See [Defaults model](contract.md#defaults-model) for how the three tiers and
+the `var()` fallback fit together.
+
 ### Use the `tk-*` classes
 
 `utils.css` ships ahead of your stylesheet and already wires every `tk-*` class

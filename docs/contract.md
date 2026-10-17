@@ -335,22 +335,47 @@ Eight elements share one family of seven tokens. `<el>` is one of
 | `--style-<el>` | `fontStyle` | `normal` / `italic` |
 
 Plus, section-heading only: `--variant-section-heading` (`normal` /
-`small-caps`).
+`small-caps`), consumed by `.tk-section-heading`.
+
+There is no `.tk-<el>` class: each element's family lands on the `tk-*` element
+that *is* that element, which is what `css-literal-shadows-token` checks a
+literal against:
+
+| `<el>` | consumed by |
+|---|---|
+| `page-heading` | `.tk-resume-name` |
+| `page-subheading` | `.tk-subtitle` |
+| `section-heading` | `.tk-section-heading` |
+| `item-heading` | `.tk-item-title` |
+| `item-subheading` | `.tk-item-subtitle` |
+| `date` | `.tk-item-date`, and `[data-date-position="inline"] .tk-item-date` |
+| `contact` | `.tk-contact` **and** `.tk-links` — one family drives both header rows |
+| `body` | `--size-body`: `.tk-section-content`, `.tk-tags`, `.tk-reference-contact`, `.tag-item`, `.tk-tag-groups .tk-tag-group-name`, and the last fallback of the date size. `--style/weight/tracking/transform-body`: `.tk-rich-text` only, so body typography never bleeds into a heading whose own fallback is `inherit`. `--color-body`: nothing in `utils.css` — your template applies it at its own root rule, which is one of the four `css-root-token-unused` checks. `--font-body`: nothing reads it, because the body-font setting also writes a plain `font-family` onto the rendered root, so the family applies whether or not you read the token |
+
+The six derived sizes — page-heading, page-subheading, section-heading,
+item-heading, item-subheading, body — always resolve, from
+`typography.baseFontSize × scale^step`, so `utils.css` reads them with no
+fallback. `--size-date`, `--size-contact` and `--bullet-font-size` are the
+exceptions: each stays `null` unless a tier sets it, so the token is **absent**
+by default and the `var()` fallback carries the value —
+`var(--size-date, var(--size-body))` on the date,
+`var(--size-contact, var(--size-page-subheading))` on the two header rows.
+That absence is deliberate: it is what lets a template own its own date and
+contact size. See [Defaults model](#defaults-model).
 
 ### Section-heading prefix
 
-| token | value |
-|---|---|
-| `--section-heading-prefix-style` | a `<counter-style>` keyword (`decimal`, `upper-roman`, …) |
-| `--section-heading-prefix-display` | `inline`, or `none` when the prefix is off |
+| token | value | consumed by |
+|---|---|---|
+| `--section-heading-prefix-style` | a `<counter-style>` keyword (`decimal`, `upper-roman`, …) | `.tk-section-heading::before` |
+| `--section-heading-prefix-display` | `inline`, or `none` when the prefix is off | `.tk-section-heading::before` |
 
 Numbering itself is a CSS counter (`tk-section`) incremented by
 `.tk-section-heading`, so it stays continuous across pages.
 
 ### Section-heading decoration
 
-Emitted from `typography.sectionHeading.decoration`, and consumed by
-`utils.css` on the heading element itself:
+Emitted from `typography.sectionHeading.decoration` and consumed by `.tk-section-heading`:
 
 ```
 --decoration-enabled                 1 / 0  (a calc() multiplier)
@@ -376,19 +401,30 @@ on and off without a cascade of rules.
 ### Bullets and links
 
 ```
---bullet-character      a quoted string ("\2022")
---bullet-font-size      pt
---bullet-indent         pt      (the list's left padding)
---bullet-gap            pt      (the hanging indent of the glyph)
---bullet-color          hex
---style-bullet          normal | italic
---color-link            hex
---style-link            normal | italic
---link-decoration       underline | none
---link-underline-offset pt (text-underline-offset; unset unless the user or template sets one)
+--bullet-character      a quoted string ("\2022")                 (.tk-rich-text ul > li::before)
+--bullet-font-size      pt                                        (.tk-rich-text ul > li::before)
+--bullet-indent         pt   (the list's left padding)            (.tk-rich-text ul)
+--bullet-gap            pt   (the hanging indent of the glyph)    (.tk-rich-text ul > li::before)
+--bullet-color          hex                                       (.tk-rich-text ul > li::before)
+--style-bullet          normal | italic                           (.tk-rich-text ul > li::before)
+--color-link            hex                                       (all four link sites)
+--style-link            normal | italic                           (all four link sites)
+--link-decoration       underline | none                          (all four link sites)
+--link-underline-offset pt   (text-underline-offset; unset unless  (all four link sites)
+                              the user or template sets one)
 ```
 
+The four link sites are `.tk-item-title a`, `.tk-links a`, `.tk-rich-text a`
+and `.tk-link`, and each of the four link tokens reaches all four of them.
+`.tk-links a` — the header links row — is the one that used to declare no
+colour at all and so drew in the contact row's ink; it now reads
+`--color-link` (fallback `inherit`, exactly what the anchor did before), so
+the link colour is live there too. Its `--link-underline-offset` fallback is
+`2pt` rather than `auto`, which is the offset that row hardcoded.
+
 ### Separators
+
+Item-heading separator is consumed by `.tk-item-title .tk-item-sep::after`; header/links separator by `.tk-contact-item:not(:first-child)::before` and `.tk-links .tk-separator::after`:
 
 ```
 --item-heading-separator          the glyph, quoted (content of .tk-item-sep::after)
@@ -399,27 +435,36 @@ on and off without a cascade of rules.
 
 ### Page and rhythm
 
+Line height and page margins are set by your template (root), not by `utils.css`; the spacing and alignment tokens are distributed across their respective `tk-*` elements:
+
 ```
---leading                      unitless line-height
---margin-top/right/bottom/left px   (the page margins)
---space-section-gap            pt
---space-section-after-heading  pt
---space-item-gap               pt
---space-item-after-heading     pt
---space-header-after           pt
---space-header-name-gap        pt
---space-paragraph              pt   (below a paragraph)
---space-list-item              pt   (vertical margin on a list item)
---header-align                 left | center | right
+--leading                      unitless line-height                         (your template (root))
+--margin-top/right/bottom/left px   (the page margins)                      (your template (root))
+--space-section-gap            pt                                           (.tk-section-heading)
+--space-section-after-heading  pt                                           (.tk-section-heading)
+--space-item-gap               pt                                           (.tk-history-gap, .tk-tags-list, .tk-tag-groups, .tk-reference)
+--space-item-after-heading     pt                                           (.tk-item-subtitle)
+--space-header-after           pt                                           (.tk-header)
+--space-header-name-gap        pt                                           (.tk-resume-name)
+--space-paragraph              pt   (below a paragraph)                      (.tk-rich-text p)
+--space-list-item              pt   (vertical margin on a list item)        (.tk-rich-text li)
+--header-align                 left | center | right                        (.tk-header)
 ```
+
+`--space-section-gap` is also the last fallback of the two tokens next to it:
+`.tk-header`'s margin reads `var(--space-header-after, var(--space-section-gap, 12pt))`
+and the gap below a heading defaults to half the section gap. Both tokens
+govern those declarations, so reading either one is reading the cascade.
 
 ### Colour
 
+Accent and accent scale tokens are read by your template; paper is read by `.resume`, and text scales by your template:
+
 ```
---color-accent          the accent, mid-scale (step 5)
---color-accent-1 … -10  the full accent scale, light → dark
---color-paper           the page background
---color-text-1 … -10    the ink scale derived from the paper
+--color-accent          the accent, mid-scale (step 5)                     (your template)
+--color-accent-1 … -10  the full accent scale, light → dark                (your template)
+--color-paper           the page background                                (.resume)
+--color-text-1 … -10    the ink scale derived from the paper               (your template)
 ```
 
 `--color-text-*` is built *from* `--color-paper`, so ink picked from it stays
@@ -431,13 +476,20 @@ so the template's own ink applies.
 
 ### Layout (grid templates)
 
+Neither is read by `utils.css` — the geometry is yours to apply, on your own
+`.tk-two-col` / `.tk-sidebar` rules (`utils.css` only gives `.tk-sidebar` a
+`--sidebar-width` default of `35%`, which `width: var(--layout-col-1, 35%)`
+replaces):
+
 ```
---layout-col-1 … -n     one per column, in `widths` order, as a percentage
---layout-gap            px
+--layout-col-1 … -n     one per column, in `widths` order, as a percentage   (your template)
+--layout-gap            px                                                   (your template)
 ```
 
 Emitted from the manifest's `layout` block, not from `settings.defaults`. A
-flow template has no columns, so neither is emitted.
+flow template has no columns, so neither is emitted. `--layout-*` is outside
+the vocabulary `css-literal-shadows-token` polices — a template writing its own
+column widths is not shadowing anything.
 
 ### Template controls
 
@@ -451,13 +503,23 @@ colour → the hex. A stored value that does not satisfy the declaration falls
 back to the declared `default`. Template-local by construction: nothing emits a
 `--tpl-*` for a control this template does not declare.
 
+**Consumed only by your template.** `utils.css` knows nothing about these and
+cannot: the names come from your manifest. Nothing applies a `--tpl-*` unless
+your `template.css` reads it or your `template.hbs` reads `options.<key>` —
+which is exactly what `control-unused` warns about. They are outside the
+vocabulary `css-literal-shadows-token` polices too: a control is yours, and
+you cannot shadow your own setting.
+
 ### Not emitted from settings
 
 `utils.css` declares these on `.resume` for the contact icons, and a template
 may override them:
 
 ```
---icon-size  --icon-color  --icon-stroke-width  --icon-spacing
+--icon-size          1em            (.tk-contact-item svg.resume-icon — width and height)
+--icon-color         currentColor   (.tk-contact-item svg.resume-icon — color)
+--icon-stroke-width  1.5            (.tk-contact-item svg.resume-icon — stroke-width)
+--icon-spacing       0.3em          (.tk-contact-item — the flex gap before the value)
 ```
 
 `--icon-stroke-width` (default `1.5`) reaches only outline sets drawn with
@@ -472,7 +534,9 @@ These are read with a fallback and never emitted — set them yourself if you
 use the element they drive:
 
 ```
---sidebar-width  --size-link-icon
+--sidebar-width   (.tk-two-col > .tk-sidebar — width, fallback 35%; --layout-col-1 is the
+                   settings-driven way to set the same width)
+--size-link-icon  (.tk-item-link-icon and its svg — width and height, fallback 0.75em)
 ```
 
 ---
@@ -503,7 +567,7 @@ specificity, because they carry `[data-template]` and these do not.
 | `.tk-contact-item svg.resume-icon` | the item's icon, sized by `--icon-*` |
 | `.tk-contact-text` | the value, emitted by `{{> contact-row}}` (no rules of its own) |
 | `.tk-links` | the links row: contact typography |
-| `.tk-links a`, `.tk-link` | a link: `--color-link`, `--link-decoration`, `--link-underline-offset` |
+| `.tk-links a`, `.tk-link` | a link: `--color-link`, `--style-link`, `--link-decoration`, `--link-underline-offset` |
 | `.tk-links .tk-separator::after` | the inline separator between links |
 
 ### Sections
@@ -679,6 +743,53 @@ yours nor the engine's is always an error. A *dynamic* partial
 
 ---
 
+## Defaults model
+
+Every setting resolves through **three tiers**, most specific first: the user's
+own value, then the template's `settings.defaults`, then the app default. That
+is the whole cascade. Presets, font pairings and colour schemes are *not*
+tiers — each is a shortcut that writes a bundle of values into the **user**
+tier, which is why picking one overrules a template default and why the user
+can then edit any single leaf of it.
+
+A template states its defaults in `settings.defaults`, and they are **absolute
+values**: hunza's `"pageHeading": { "fontSize": 14 }` is 14pt, not a nudge and
+not a multiplier of another tier. The drawer shows them as the control's
+current value, so a user sees what your template chose and can move it.
+
+In CSS, always consume the token — `font-size: var(--size-section-heading)` —
+because the token is the cascade's answer. The `var()` fallback is load bearing
+only where the app default is `null` and no token is emitted at all. For most
+such leaves the fallback is `inherit` or `normal`, which means "render as this
+rule did before the setting existed". Three carry a real value instead, and all
+three are cases where the natural default is *relative to another element*
+rather than a number of its own:
+
+| setting | token | the fallback that carries the default |
+|---|---|---|
+| `typography.contact.fontSize` | `--size-contact` | `var(--size-page-subheading)` |
+| `typography.date.fontSize` | `--size-date` | `var(--size-body)` |
+| `typography.bullet.fontSize` | `--bullet-font-size` | `1.15em` of the text beside it |
+
+Keeping those three absent by default is what lets a template own its own
+contact, date and bullet size while a user value still wins.
+
+A template that needs to **override** a setting rather than default it declares
+that as data, by naming the leaf in [`settings.locked`](#settingslocked). The
+drawer then shows the control as "Set by this template" instead of offering a
+value your stylesheet would win. A literal in `template.css` is not an
+override — it is a dead control, and it is what `css-literal-shadows-token`
+reports.
+
+The same three tiers apply to `renderDefaults` — `showDates`,
+`showDescription`, `linkDisplay`, `dateFormat`, `itemHeadingFormat`,
+`datePosition`, `dateRangeSeparator`, `presentLabel`, `showSummaryHeading`,
+`tagStyle` — so a template may default the date position, the date-range
+separator glyph and the "Present" label alongside its typography, and the user
+still has the last word on each.
+
+---
+
 ## Manifest fields
 
 Normative source:
@@ -797,6 +908,8 @@ meaningful to say without a manifest.
 | `render-leftover` | error | error | `template.hbs` | no unresolved `{{` survives into the output |
 | `partial-unused` | warning | **error** | `*.hbs` | every partial you ship is referenced |
 | `control-unused` | warning | warning | `template.css`, `*.hbs` | each control is read via `--tpl-<key>` or `options.<key>` |
+| `css-literal-shadows-token` | warning | **error** | `template.css`, `template.json` | a declaration on a `tk-*` element sets a property that `utils.css` drives from a settings token, without reading that token — the setting does nothing in this template. Fix: `var(--token, <your value>)`, which keeps your value *and* the setting; or, if the override is deliberate, name the setting in `settings.locked` — every leaf behind the override, since `border: none` kills the decoration's style, colour, width and all four sides. There is no pragma and no suppression. Exempt: every leaf behind the declaration already locked; and then, because the setting still reaches the page, a token reached transitively through the template's own custom properties; anything inside `@media print`; a literal `0` `margin-top` on `:first-child`/`:first-of-type` or `0` `margin-bottom` on `:last-child`/`:last-of-type`; and the value relocated onto the same selector's own `::before`/`::after` — matched on the whole selector text, and never by the declaration's own rule. Coverage gap: a rule whose subject carries no `tk-*` class is not checked |
+| `css-root-token-unused` | warning | **error** | `template.css` | the stylesheet never reads `--leading`, any of `--margin-top/right/bottom/left`, `--color-body` or `--size-body`. `utils.css` applies none of these four at the resume root — the package owns that box — so nothing applies them and the settings behind them do nothing at all. Fix: read them in your own scope's root rule (`line-height: var(--leading, 1.3)`, `padding: var(--margin-top, 30px) …`) — a lock does not exempt this one, because nothing would apply the token either way. One issue naming every missing group, on the file with no line; any one of the four `--margin-*` satisfies that group |
 | `resume-without-sections` | warning | warning | `*.hbs` | a template reading `resume.*` also renders `sections` or `regions` |
 | `files-unexpected` | warning | warning | the files map | only `template.json`, `template.hbs`, `template.css`, `partials/*.hbs`, `preview.png`, `README.md`, `LICENSE` |
 | `preview-missing` | warning | **error** | the files map | `preview.png` exists |
