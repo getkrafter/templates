@@ -103,7 +103,7 @@
   justify-content: var(--header-align, left);
   font-size: var(--size-contact, var(--size-body));
   line-height: 1.4;
-  color: var(--color-contact, #ececec);
+  color: oklch(from var(--color-contact, #ececec) max(0.85, l) calc(c * 0.6) h);
   margin-bottom: calc(var(--space-section-gap, 12pt) * 2);
 }
 
@@ -130,13 +130,13 @@
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-links {
   font-size: var(--size-contact, var(--size-body));
   line-height: 1.4;
-  color: var(--color-contact, #ececec);
+  color: oklch(from var(--color-contact, #ececec) max(0.85, l) calc(c * 0.6) h);
   text-align: var(--header-align, left);
   margin-bottom: calc(var(--space-section-gap, 12pt) * 2);
 }
 
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-links .tk-separator::after {
-  padding: 0 2pt;
+  padding: 0 calc(var(--separator-margin, 3pt) * 2 / 3);
 }
 
 /* Sidebar links take the drawer's link decoration like every other link;
@@ -148,14 +148,15 @@
 /* ── Sidebar — section headings ──────────────────────────────────── */
 
 /* The 4pt below a sidebar heading is deliberately tighter than the main
-   column's `--space-section-after-heading`: `spacing.section.afterHeading` is
-   one global leaf, so a per-scope exception can only be a literal here. */
+   column's half-gap default. It is carried as the `var()` fallback rather than
+   as a literal, so an unset `spacing.section.afterHeading` keeps the sidebar's
+   own 4pt while a value the user does set still reaches this heading. */
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-section-heading {
   font-weight: var(--weight-section-heading, 600);
   color: var(--sidebar-heading);
   border: none;
-  padding-bottom: 0;
-  margin-bottom: 4pt;
+  padding-bottom: var(--decoration-padding-bottom, 0);
+  margin-bottom: var(--space-section-after-heading, 4pt);
   margin-top: calc(var(--space-section-gap, 12pt) * 1.5);
 }
 
@@ -167,7 +168,7 @@
 }
 
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-section-content[data-section-type="summary"] {
-  color: #ececec;
+  color: oklch(from var(--color-body, #ececec) max(0.92, l) calc(c * 0.6) h);
 }
 
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-rich-text a {
@@ -175,19 +176,11 @@
 }
 
 /* Readability on the dark sheet: body copy, keywords and group labels sit at
-   near-white; section headings and the subtitle one tier softer; proficiency
-   and reference detail softest. Labels are the one thing brighter than the
-   copy they introduce. */
+   near-white; section headings and the subtitle one tier softer; reference
+   detail softest. Labels are the one thing brighter than the copy they
+   introduce. */
 .resume[data-template="rakaposhi"] .tk-sidebar .tk-tag-group-name {
   color: #ffffff;
-}
-
-.resume[data-template="rakaposhi"] .tk-sidebar .language-item {
-  color: #ececec;
-}
-
-.resume[data-template="rakaposhi"] .tk-sidebar .language-proficiency {
-  color: #a8a8a8;
 }
 
 /* References default to `main`, but the user may move one into the aside
@@ -204,7 +197,7 @@
 
 .resume[data-template="rakaposhi"] .tk-main .tk-section-heading {
   padding-bottom: calc(var(--decoration-padding-bottom, 0) + 1pt);
-  margin-bottom: var(--space-section-after-heading, 6pt);
+  margin-bottom: var(--space-section-after-heading, calc(var(--space-section-gap, 12pt) * 0.5));
   margin-top: var(--space-section-gap, 12pt);
   color: var(--color-section-heading, var(--color-accent-3));
 }

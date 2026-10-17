@@ -25,7 +25,7 @@
   background: var(--header-bg);
   margin-left: calc(-1 * var(--margin-left, 30px));
   margin-right: calc(-1 * var(--margin-right, 30px));
-  padding: 20pt var(--margin-right, 30px) 16pt var(--margin-left, 30px);
+  padding: calc(var(--margin-top, 30px) * 8 / 9) var(--margin-right, 30px) 16pt var(--margin-left, 30px);
   print-color-adjust: exact;
   -webkit-print-color-adjust: exact;
 }
@@ -68,10 +68,9 @@
    text-N value invisible — `--color-link` is intentionally NOT
    referenced here. Body content link styling is unaffected. */
 .resume[data-template="naltar"] .tk-links a {
-  color: var(--header-link-color);
+  color: var(--color-contact, var(--header-link-color));
 }
 
-.resume[data-template="naltar"] .tk-contact .tk-separator,
 .resume[data-template="naltar"] .tk-links .tk-separator {
   opacity: 1;
 }

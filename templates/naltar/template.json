@@ -45,7 +45,7 @@
         "icons": true
       }
     },
-    "locked": ["typography.pageHeading.color", "typography.pageSubheading.color"],
+    "locked": ["typography.pageHeading.color", "typography.pageSubheading.color", "typography.link.color"],
     "controls": []
   }
 }

@@ -54,7 +54,6 @@
   color: var(--color-link, var(--color-accent));
 }
 
-.resume[data-template="deosai"] .tk-contact .tk-separator::after,
 .resume[data-template="deosai"] .tk-links .tk-separator::after {
   filter: saturate(0);
   color: var(--color-link, var(--color-accent));

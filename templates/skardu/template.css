@@ -60,7 +60,7 @@
 }
 
 .resume[data-template="skardu"] .tk-subtitle {
-  font-weight: 400;
+  font-weight: var(--weight-page-subheading, 400);
   text-align: var(--header-align, left);
   color: var(--color-page-subheading, #666666);
   margin-top: calc(var(--space-header-name-gap, 9.6pt) * 0.5);
@@ -99,7 +99,7 @@
 }
 
 .resume[data-template="skardu"] .tk-links .tk-separator {
-  color: rgba(34, 34, 34, 0.35);
+  color: var(--color-contact, rgba(34, 34, 34, 0.35));
 }
 
 /* ── Sections ─────────────────────────────────────────────────────── */
@@ -134,7 +134,7 @@
 
 /* With its heading hidden the summary has no bar to line up with, so it
    starts at the page margin like the header above it. */
-.resume[data-template="skardu"] .tk-header + .tk-section-content[data-section-type="summary"] {
+.resume[data-template="skardu"] .tk-section-content[data-section-type="summary"][data-summary-heading="off"] {
   padding-left: 0;
 }
 
@@ -160,7 +160,7 @@
 }
 
 .resume[data-template="skardu"] .tk-item-title {
-  font-weight: 600;
+  font-weight: var(--weight-item-heading, 600);
   color: var(--color-item-heading, #111111);
 }
 
@@ -170,12 +170,8 @@
   color: var(--color-link, inherit);
 }
 
-.resume[data-template="skardu"] .tk-item-link-icon {
-  color: #999999;
-}
-
 .resume[data-template="skardu"] .tk-item-subtitle {
-  font-weight: 400;
+  font-weight: var(--weight-item-subheading, 400);
   font-style: var(--style-item-subheading, normal);
   color: var(--color-item-subheading, #666666);
   margin-bottom: var(--space-item-after-heading, 0);
@@ -183,8 +179,8 @@
 
 /* Grey is Skardu's own date ink; a date colour picked in the drawer wins. */
 .resume[data-template="skardu"] .tk-item-date {
-  font-weight: 300;
-  font-style: normal;
+  font-weight: var(--weight-date, 300);
+  font-style: var(--style-date, normal);
   color: var(--color-date, #666666);
 }
 

@@ -19,7 +19,8 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: calc(var(--decoration-border-width, 4pt) + 12pt);
+  width: 13pt;
+  /* Spine is independent of the section-heading decoration. */
   background: var(--color-accent-5, #000000);
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
@@ -29,7 +30,7 @@
 @media print {
   .resume[data-template="passu"]::before {
     position: fixed;
-    width: 10pt;
+    width: 13pt;
     height: 100%;
   }
 }
@@ -47,8 +48,8 @@
 }
 
 .resume[data-template="passu"] .tk-subtitle {
-  font-weight: 600;
-  /* The tagline weight is fixed; it no longer borrows the name's weight token. */
+  font-weight: var(--weight-page-subheading, 600);
+  /* The tagline weight defaults to 600 and follows the setting. */
   color: var(--color-page-subheading, var(--color-section-heading, #000000));
   text-align: var(--header-align, left);
   margin-bottom: 8pt;

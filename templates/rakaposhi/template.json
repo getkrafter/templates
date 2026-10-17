@@ -58,10 +58,21 @@
         "icons": true
       },
       "renderDefaults": {
-        "tagStyle": "list"
+        "tagStyle": "list",
+        "showSummaryHeading": false
       }
     },
-    "locked": [],
+    "locked": [
+      "typography.sectionHeading.decoration.enabled",
+      "typography.sectionHeading.decoration.sides.top",
+      "typography.sectionHeading.decoration.sides.right",
+      "typography.sectionHeading.decoration.sides.bottom",
+      "typography.sectionHeading.decoration.sides.left",
+      "typography.sectionHeading.decoration.borderStyle",
+      "typography.sectionHeading.decoration.borderWidth",
+      "typography.sectionHeading.decoration.borderColor",
+      "header.separator"
+    ],
     "controls": [
       {
         "type": "slider",

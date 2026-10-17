@@ -21,7 +21,7 @@
 {{! ── Summary ── }}
 {{#if summary}}
 {{#if showSummaryHeading}}<div class="tk-section-heading" data-section-type="summary">Summary</div>{{/if}}
-<div class="tk-section-content tk-rich-text" data-section-type="summary">{{{summary}}}</div>
+<div class="tk-section-content tk-rich-text" data-section-type="summary"{{#unless showSummaryHeading}} data-summary-heading="off"{{/unless}}>{{{summary}}}</div>
 {{/if}}
 
 {{! ── Sections ── }}
