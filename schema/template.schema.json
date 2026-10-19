@@ -874,7 +874,8 @@
                                     "dash",
                                     "dot",
                                     "slash",
-                                    "comma"
+                                    "comma",
+                                    "at"
                                   ]
                                 },
                                 {
@@ -1787,7 +1788,6 @@
                         {
                           "type": "string",
                           "enum": [
-                            "default",
                             "lucide",
                             "tabler",
                             "phosphor",

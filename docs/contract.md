@@ -23,15 +23,15 @@ The root context of `template.hbs`. Every field is always present.
 | `lastName` | `string \| null` | the remainder; `null` for a single-token name |
 | `jobTitle` | `string \| null` | `basics.label`; `null` when empty **or hidden** |
 | `contactItems` | `ContactItem[]` | phone, email, location — see below |
-| `links` | `Link[]` | `{ href, title }` from `basics.profiles` |
+| `links` | `Link[]` | `{ href, title, network }` from `basics.profiles` |
 | `summary` | `string \| null` | rich-text HTML, or `null` |
 | `sections` | `ProcessedSection[]` | every **visible** section, document order |
 | `regions` | `TemplateRegions` | the same sections grouped by region |
 | `options` | `Record<string, string \| number \| boolean>` | this template's controls |
 | `resume` | `JsonResume` | the whole document, JSON Resume v1.0.0 |
 | `showIcons` | `boolean` | the resolved `header.icons` |
-| `iconSet` | `"default" \| "lucide" \| "tabler" \| "phosphor" \| "remix" \| "hugeicons"` | the resolved `header.iconSet` — which vendored set `{{> contact-row}}`, `{{contactIcon}}` and `{{icon}}` draw from |
-| `iconStyle` | `"outline" \| "filled"` | the resolved `header.iconStyle`, already normalised: `filled` only for a set that ships it (Tabler, Phosphor, Remix); `default`, Lucide and HugeIcons always read `outline` |
+| `iconSet` | `"lucide" \| "tabler" \| "phosphor" \| "remix" \| "hugeicons"` | the resolved `header.iconSet` (default `lucide`) — which vendored set `{{> contact-row}}`, `{{> links-row}}`, `{{contactIcon}}`, `{{linkIcon}}` and `{{icon}}` draw from. A stored `"default"`, the Lucide glyphs' earlier name, reads as `lucide` |
+| `iconStyle` | `"outline" \| "filled"` | the resolved `header.iconStyle`, already normalised: `filled` only for a set that ships it (Tabler, Phosphor, Remix); Lucide and HugeIcons always read `outline` |
 | `showSummaryHeading` | `boolean` | render a "Summary" heading above the summary block |
 | `tagStyle` | `"inline" \| "list" \| "chips"` | which layout `{{> tags}}` renders |
 
@@ -57,12 +57,21 @@ the user hid it. An item is absent, never empty.
 ### `Link`
 
 ```ts
-{ href: string; title: string }
+{ href: string; title: string; network: string }
 ```
 
 One per visible profile with a URL. `title` is the profile's `network`, or the
 URL with the scheme, `www.` and trailing slashes stripped. Hiding the Profiles
 section empties the whole array.
+
+`network` is the site the link points at, as a stable id: `linkedin`,
+`github`, `dribbble`, `behance`, `artstation`, `x`, `medium`,
+`stackoverflow`, … (about seventy; the engine's `NETWORKS` list), or
+`website` for anything else. The URL's host decides first — a profile named
+"Portfolio" on behance.net is `behance` — and the profile's `network` name
+second, for hosts that vary like a Mastodon instance. It is what
+`{{linkIcon}}` and `{{> links-row}}` draw a logo for, and a handle for CSS
+(`[data-network="dribbble"]` on `.tk-link-item`).
 
 ### `ProcessedSection`
 
@@ -522,11 +531,13 @@ may override them:
 --icon-spacing       0.3em          (.tk-contact-item — the flex gap before the value)
 ```
 
+The same four apply to the links row's icons (`.tk-link-item svg.resume-icon`).
+
 `--icon-stroke-width` (default `1.5`) reaches only outline sets drawn with
-strokes — `default`, Lucide, Tabler outline, HugeIcons. It is the *reference*
-width: Lucide and Tabler, drawn natively at 2, take it scaled by 4/3, so at the
-default each set draws at its own weight and lowering the token thins every
-set alike. Phosphor, Remix and every filled style are filled shapes and ignore
+strokes — Lucide, Tabler outline, HugeIcons. Lucide and HugeIcons take it
+as-is (Lucide at the 1.5 every resume has always drawn); Tabler, drawn
+natively at 2, takes it scaled by 4/3, so at the default it draws at its own
+weight and lowering the token thins every set alike. Phosphor, Remix and every filled style are filled shapes and ignore
 it. Phosphor's glyphs sit on a 256-unit `viewBox`; `--icon-size` sizes them
 the same as the 24-unit sets.
 
@@ -569,6 +580,9 @@ specificity, because they carry `[data-template]` and these do not.
 | `.tk-links` | the links row: contact typography |
 | `.tk-links a`, `.tk-link` | a link: `--color-link`, `--style-link`, `--link-decoration`, `--link-underline-offset` |
 | `.tk-links .tk-separator::after` | the inline separator between links |
+| `.tk-link-item` | one link, emitted by `{{> links-row}}`, with `data-network` |
+| `.tk-link-iconed` | the icon and its anchor, kept on one line (`white-space: nowrap`) when icons are on |
+| `.tk-link-item svg.resume-icon` | the link's network icon, sized by `--icon-*`, centred on the x-height |
 
 ### Sections
 
@@ -665,8 +679,9 @@ package ships no JavaScript, so this is the whole of what it can compute.
 | `eq` / `ne` | `(a, b)` | **strict** `===` / `!==` |
 | `gt` / `lt` | `(a, b)` | numeric when both read as finite numbers, lexicographic otherwise |
 | `and` / `or` | `(…args)` | variadic; a real boolean, so they compose in `{{#if}}` |
-| `icon` | `(name)` | an inline `<svg class="resume-icon">` from the resolved `iconSet` / `iconStyle` (read off `@root`); names `mail`, `phone`, `map-pin`, `globe`, `github`, `linkedin`, `twitter`, `link-2`; `""` for an unknown name |
-| `contactIcon` | `(type)` | the same, for a contact type (`email`, `phone`, `location`, `url`, `github`, `linkedin`, `twitter`; anything else falls back to the set's link glyph) |
+| `icon` | `(name)` | an inline `<svg class="resume-icon">` from the resolved `iconSet` / `iconStyle` (read off `@root`); names are `mail`, `phone`, `map-pin`, `globe`, `link-2` and every network some set draws a logo for (`linkedin`, `dribbble`, …); a logo the current set lacks draws `link-2`; `""` for an unknown name |
+| `contactIcon` | `(type)` | the same, for a contact type (`email`, `phone`, `location`, `url`) or a network id or name (`"Stack Overflow"`); anything else falls back to the set's link glyph |
+| `linkIcon` | `(network)` | the same, for a `links[].network`: the network's logo, or the globe for `website`, for a network no set draws (ArtStation, Kaggle, Substack, …), and for a logo the current set lacks |
 
 `lookup` is Handlebars' own built-in and is deliberately **not** redefined —
 shadowing a built-in is how a template that works in one engine version breaks
@@ -689,10 +704,11 @@ that evaluates template-supplied code.
 | partial | renders |
 |---|---|
 | `{{> contact-row}}` | one `<span class="tk-contact-item" data-type="…">` per `contactItems` entry, value wrapped in `<span class="tk-contact-text">`, prefixed with `{{contactIcon type}}` when `showIcons` is true — in the user's `iconSet` / `iconStyle`. Separators are drawn by `utils.css`, not by markup |
+| `{{> links-row}}` | one `<span class="tk-link-item" data-network="…">` per `links` entry: a `<span class="tk-separator">` before every item but the first, then `<a class="tk-link" href="…">title</a>`. When `showIcons` is true, `{{linkIcon network}}` and the anchor are wrapped together in `<span class="tk-link-iconed">`; without icons the markup is the hand-written links row templates used before, so adopting the partial changes nothing until icons are on |
 | `{{> tags}}` | a tag section in the current `tagStyle` |
 
-Both read from the **current** context, so call them where `contactItems` /
-`tagItems` are in scope. `{{> tags}}` takes an optional `tagStyle=` hash;
+All three read from the **current** context, so call them where `contactItems` /
+`links` / `tagItems` are in scope. `{{> tags}}` takes an optional `tagStyle=` hash;
 without it the style comes from `@root.tagStyle`, and failing that `inline`.
 
 The partial renders **runs**: each entry with keywords is its own run, and
@@ -733,7 +749,7 @@ registered and is a `partial-name` error. Partials are not nested: the path is
 always `partials/<name>.hbs`, one level.
 
 At render time the bare namespace belongs to the engine, so **do not name a
-partial `tags` or `contact-row`**: you would shadow an engine partial and
+partial `tags`, `contact-row` or `links-row`**: you would shadow an engine partial and
 `{{> tags}}` would stop meaning what every other template means by it.
 
 An unreferenced partial is a warning in `validate` and an error in `check` — a
@@ -899,7 +915,7 @@ meaningful to say without a manifest.
 | `hbs-link-href` | error | error | `*.hbs` | an `<a href>` is a single plain field, `mailto:`/`tel:`/`sms:` over one field, or fully static — never a literal mixed with a mustache (`https://x/?e={{basics.email}}`) |
 | `hbs-style-attr` | error | error | `*.hbs` | an inline `style` attribute contains none of `url(`, `@import`, `expression(`, `behavior`, `position`, `-moz-binding`; `style="--tpl-x: {{options.x}}"` is fine |
 | `hbs-raw-output` | error | error | `*.hbs` | `{{{ }}}` / `{{& }}` only on `summary`, `descriptionBlocks`, and `this` inside `{{#each descriptionBlocks}}` |
-| `hbs-partials` | error | error | `*.hbs` | every `{{> … }}` is an engine partial (`contact-row`, `tags`) or one of yours **namespaced** as `{{> <id>/<name>}}` — the bare form of your own partial is an error (it would resolve to the engine at render time) |
+| `hbs-partials` | error | error | `*.hbs` | every `{{> … }}` is an engine partial (`contact-row`, `links-row`, `tags`) or one of yours **namespaced** as `{{> <id>/<name>}}` — the bare form of your own partial is an error (it would resolve to the engine at render time) |
 | `locked-paths` | error | error | `template.json` | every `settings.locked` entry is a real settings leaf |
 | `defaults-paths` | error | error | `template.json` | every `settings.defaults` key is a real settings leaf (read from the raw JSON, so a typo Zod would strip is still caught) |
 | `controls` | error | error | `template.json` | per-control shape and cross-field rules; duplicate keys |

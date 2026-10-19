@@ -324,7 +324,7 @@ The shape, in brief:
 |---|---|
 | `fullName`, `firstName`, `lastName`, `jobTitle` | header strings (`null` when absent or hidden) |
 | `contactItems[]` | `{ value, type }` — phone, email, location |
-| `links[]` | `{ href, title }` from the profiles |
+| `links[]` | `{ href, title, network }` from the profiles — `network` is `linkedin`, `dribbble`, … or `website` |
 | `summary` | rich-text HTML, or `null` |
 | `sections[]` | every **visible** section, in document order |
 | `regions` | the same sections grouped by region |
@@ -443,10 +443,11 @@ that could carry that data off the page or embed a document in it:
 
 ### Partials
 
-Two partials come from the engine and are always available:
+Three partials come from the engine and are always available:
 
 ```hbs
 <div class="tk-contact">{{> contact-row}}</div>
+<div class="tk-links">{{> links-row}}</div>
 {{> tags}}
 ```
 
@@ -456,13 +457,19 @@ Two partials come from the engine and are always available:
 `showIcons` is on. Separators between items are drawn by `utils.css`, not by
 markup, so the user's `header.separator` applies.
 
-The glyphs come from the user's `header.iconSet` — `default` (the engine's
-long-standing outline glyphs), `lucide`, `tabler`, `phosphor`, `remix` or
-`hugeicons` — in `header.iconStyle` (`outline` or `filled`; a set without
+`links-row` does the same for the profile links: a `.tk-link-item` per link,
+a `.tk-separator` between them, and — when `showIcons` is on — the network's
+logo before each anchor (LinkedIn's for a LinkedIn URL, Dribbble's for a
+Dribbble one; a globe for a plain website or a network the icon set has no
+logo for). Write the links row with it rather than by hand: a hand-written
+`{{#each links}}` gets no icons.
+
+The glyphs come from the user's `header.iconSet` — `lucide` (the default),
+`tabler`, `phosphor`, `remix` or `hugeicons` — in `header.iconStyle` (`outline` or `filled`; a set without
 filled glyphs draws outline). A template designed around one look can set
 both in `settings.defaults.header` and, if it must, `lock` them. Style icons
 through `--icon-size` / `--icon-color` / `--icon-stroke-width` and
-`.tk-contact-item svg.resume-icon` rather than by set: the sets are vendored
+`.tk-contact-item svg.resume-icon` / `.tk-link-item svg.resume-icon` rather than by set: the sets are vendored
 path data and change only with the engine.
 
 `tags` renders a skills or interests section in the style `tagStyle`
@@ -504,7 +511,7 @@ Your own partials live in `partials/<name>.hbs` and are referenced
 
 At render time the bare namespace belongs to the engine, and two packages in
 one process both claiming `tags` would be a race — so the namespaced form is
-the one that resolves. **Never name a partial `tags` or `contact-row`**: you
+the one that resolves. **Never name a partial `tags`, `contact-row` or `links-row`**: you
 would be shadowing an engine partial, and `{{> tags}}` would stop meaning what
 every other template means by it.
 
