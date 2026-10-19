@@ -2,7 +2,7 @@
   "$schema": "../../schema/template.schema.json",
   "id": "rakaposhi",
   "name": "Rakaposhi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "contract": "1",
   "description": "Two-column with dark sidebar",
   "author": { "name": "Krafter", "url": "https://krafter.vercel.app" },

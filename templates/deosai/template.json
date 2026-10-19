@@ -2,7 +2,7 @@
   "$schema": "../../schema/template.schema.json",
   "id": "deosai",
   "name": "Deosai",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "contract": "1",
   "description": "Timeline dots, accent headings",
   "author": { "name": "Krafter", "url": "https://krafter.vercel.app" },

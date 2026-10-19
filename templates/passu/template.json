@@ -2,7 +2,7 @@
   "$schema": "../../schema/template.schema.json",
   "id": "passu",
   "name": "Passu",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "contract": "1",
   "description": "Full-height accent spine",
   "author": { "name": "Krafter", "url": "https://krafter.vercel.app" },

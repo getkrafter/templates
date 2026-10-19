@@ -2,7 +2,7 @@
   "$schema": "../../schema/template.schema.json",
   "id": "naltar",
   "name": "Naltar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "contract": "1",
   "description": "Bold accent header band",
   "author": { "name": "Krafter", "url": "https://krafter.vercel.app" },

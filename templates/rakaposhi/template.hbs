@@ -8,7 +8,7 @@
   <div class="tk-sidebar">
     {{! Header in sidebar }}
     {{#if links}}
-      <div class="tk-links">{{#each links}}<span>{{#unless @first}}<span class="tk-separator"></span>{{/unless}}<a class="tk-link" href="{{href}}">{{title}}</a></span>{{/each}}</div>
+      <div class="tk-links">{{> links-row}}</div>
     {{/if}}
     <div class="tk-header">
       {{#if fullName}}
