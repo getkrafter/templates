@@ -148,9 +148,13 @@
   height: calc(var(--space-item-gap, 10pt) * 0.3);
 }
 
+/* `flow-root`, not a flex column: an item summary is inline HTML (text, a
+   link, more text) with no wrapping paragraph, and a flex container turns
+   each of those runs into its own stacked item, so a link broke the sentence
+   onto three lines. `flow-root` keeps inline content flowing and, like the
+   flex container it replaces, stops a child's margins collapsing through. */
 .resume[data-template="skardu"] .tk-item-body {
-  display: flex;
-  flex-direction: column;
+  display: flow-root;
   padding-left: var(--skardu-indent);
 }
 
