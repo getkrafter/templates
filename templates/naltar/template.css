@@ -35,25 +35,32 @@
      falls back to the template's own default, unclamped. A preset or setting
      that picks a dark grey for light paper can no longer vanish here. */
   --naltar-band-ink: oklch(from var(--color-contact) max(0.85, l) calc(c * 0.6) h);
+  /* The same rule for the name and the tagline, so their colours stay the
+     user's to choose (nothing is locked) and the band still decides contrast;
+     the name clamps harder (0.95) so a dark ink reads as near-white, as the
+     band's name always has.
+     The template's own name default is #ffffff, which passes through
+     unchanged; the tagline has no default, so its light fallback applies. */
+  --naltar-name-ink: oklch(from var(--color-page-heading) max(0.95, l) calc(c * 0.6) h);
+  --naltar-tagline-ink: oklch(from var(--color-page-subheading) max(0.85, l) calc(c * 0.6) h);
+  --naltar-link-ink: oklch(from var(--color-link) max(0.85, l) calc(c * 0.6) h);
 }
 
 /* The name gap is `spacing.header.nameGap` (3 in this template's defaults);
    the band's own padding is template identity and stays here.
 
-   The white is a literal, not `--color-page-heading`: the band is a fixed dark
-   surface, so the name's colour is a contrast decision the template owns, not
-   a palette slot. `settings.locked` names
-   `typography.pageHeading.color` / `typography.pageSubheading.color` so the
-   user is not offered a control this rule would silently win (this is
-   what `capabilities.pageHeading.color: false` used to say in the app). */
+   The band is a fixed dark surface, so the name's and tagline's colours are
+   the user's choice with contrast decided here: `--naltar-name-ink` and
+   `--naltar-tagline-ink` (set on `.tk-header`) keep a chosen colour's hue and
+   lift its lightness to at least 0.85. Nothing is locked. */
 .resume[data-template="naltar"] .tk-resume-name {
   text-align: var(--header-align, center);
-  color: #ffffff;
+  color: var(--naltar-name-ink, #ffffff);
 }
 
 .resume[data-template="naltar"] .tk-subtitle {
   text-align: var(--header-align, center);
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--naltar-tagline-ink, rgba(255, 255, 255, 0.8));
   margin-bottom: 3pt;
 }
 
@@ -70,12 +77,12 @@
   color: var(--naltar-band-ink, var(--header-link-color));
 }
 
-/* Force header-band links to a high-contrast tint regardless of the
-   user's `link.color`. The dark accent band makes any dark accent-N or
-   text-N value invisible — `--color-link` is intentionally NOT
-   referenced here. Body content link styling is unaffected. */
+/* Header-band links follow `link.color`, clamped like the rest of the band
+   (`--naltar-link-ink`), so the link colour the user picks shows here too and
+   still reads on the dark band; without one they fall back to the contact
+   colour, then to the accent tint. Body links use `link.color` as is. */
 .resume[data-template="naltar"] .tk-links a {
-  color: var(--naltar-band-ink, var(--header-link-color));
+  color: var(--naltar-link-ink, var(--naltar-band-ink, var(--header-link-color)));
 }
 
 .resume[data-template="naltar"] .tk-links .tk-separator {

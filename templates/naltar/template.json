@@ -13,7 +13,8 @@
       "typography": {
         "baseFontSize": 9,
         "pageHeading": {
-          "fontWeight": 600
+          "fontWeight": 600,
+          "color": "#ffffff"
         },
         "sectionHeading": {
           "fontSize": 10,
@@ -45,7 +46,7 @@
         "icons": true
       }
     },
-    "locked": ["typography.pageHeading.color", "typography.pageSubheading.color", "typography.link.color"],
+    "locked": [],
     "controls": []
   }
 }
