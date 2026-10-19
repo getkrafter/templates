@@ -1,6 +1,6 @@
 {
   "$schema": "./schema/catalog.schema.json",
-  "generatedAt": "2026-10-19T19:17:39Z",
+  "generatedAt": "2026-10-19T19:34:10Z",
   "templates": [
     {
       "id": "deosai",
@@ -46,9 +46,9 @@
       "official": true,
       "layout": "flow",
       "source": "gh:getkrafter/templates/templates/naltar",
-      "commit": "38a31959cce17db0c6c8a94acddfb9a22aa604fc",
+      "commit": "a92be8933c5ece8efbd9a28d2d0b390c198cfaac",
       "version": "1.0.1",
-      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/38a31959cce17db0c6c8a94acddfb9a22aa604fc/templates/naltar/preview.png"
+      "previewUrl": "https://raw.githubusercontent.com/getkrafter/templates/a92be8933c5ece8efbd9a28d2d0b390c198cfaac/templates/naltar/preview.png"
     },
     {
       "id": "passu",
